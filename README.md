@@ -1,4 +1,7 @@
 # Cryptocurrency Uncertainty Index
+
+![](https://img.shields.io/github/commit-activity/m/ChristopherLiew/Crypto-Uncertainty-Index?color=green) ![](https://img.shields.io/github/issues/ChristopherLiew/Crypto-Uncertainty-Index?color=red&style=plastic)
+
 ## Overview
 Constructing a cryptocurrency index based on news-media texts using NLP to measure cryptocurrency uncertainty for downstream time series analysis 
 and forecasting of cryptocurrency volatility.
