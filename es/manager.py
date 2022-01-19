@@ -3,7 +3,6 @@ Helper class to insert and query documents from Elasticsearch
 """
 
 
-from pprint import pprint
 import pandas as pd
 from typing import (
     Any,
@@ -19,6 +18,10 @@ from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
 from elasticsearch.exceptions import RequestError
 from utils.logger import log
+from config.es_cfg import (
+    DEFAULT_HOST,
+    DEFAULT_PORT
+)
 # from elasticsearch_dsl import Search Use for easy search
 
 
@@ -26,8 +29,8 @@ DEFAULT_INDEX_SETTINGS = {"number_of_shards": 5, "number_of_replicas": 1}
 
 class ESManager:
     def __init__(self,
-                 host: str = "localhost",
-                 port: int = 9200,
+                 host: str = DEFAULT_HOST,
+                 port: int = DEFAULT_PORT,
                  timeout: int = 180
                  ) -> None:
 
