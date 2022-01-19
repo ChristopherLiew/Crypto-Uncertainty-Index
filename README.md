@@ -10,3 +10,11 @@ and forecasting of cryptocurrency volatility.
 1. Naive Keyword Counts with Expanded Crypto Lexicon
 2. Google Trends Attention with Crypto Lexicon
 3. Measuring Uncertainty using Linguistic Hedges & Language Models
+
+## Appendix:
+### Using in project poetry venv
+```zsh
+poetry config virtualenvs.in-project true
+poetry env remove python
+poetry install
+```
