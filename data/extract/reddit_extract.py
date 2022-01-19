@@ -25,20 +25,20 @@ from snscrape.modules.reddit import (
     Submission,
     Comment
 )
-from ..schema.es_mappings import (
+from data.schema.es_mappings import (
     reddit_crypto_mapping,
     REDDIT_CRYPTO_INDEX_NAME
 )
-from ...es import ESManager
-from ...utils.logger import log
+from es.manager import ESManager
+from utils.logger import log
 
 # Set Up
 # push_api = PushshiftAPI()
 es_static_client = ESManager()
 
 # To see schema of Subreddit dataclasses:
-pprint(Submission.__annotations__)
-pprint(Comment.__annotations__)
+# pprint(Submission.__annotations__)
+# pprint(Comment.__annotations__)
 sns_reddit_op_type = Dict[str, List[Union[Submission, Comment]]]
 
 # Config
@@ -76,7 +76,7 @@ def insert_reddit_to_es(
 
     for sr_name, data in data.items():
         log.info(f"Inserting data from {sr_name} to ES")
-        if not es_conn.get_index(REDDIT_CRYPTO_INDEX_NAME):
+        if not es_conn.index_is_exist(REDDIT_CRYPTO_INDEX_NAME):
             log.info(f"{REDDIT_CRYPTO_INDEX_NAME} not yet created")
             es_conn.create_index(index=REDDIT_CRYPTO_INDEX_NAME,
                                  mapping=reddit_crypto_mapping)
@@ -85,8 +85,7 @@ def insert_reddit_to_es(
             ESManager()
             .es_doc_generator(data=data,
                               index=REDDIT_CRYPTO_INDEX_NAME,
-                              auto_id=False,
-                              id_field='id',
+                              auto_id=True,
                               doc_processing_func=process_reddit_comments_and_submissions)
             )
         log.info("Documents generated. Inserting documents into ES.")

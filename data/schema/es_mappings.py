@@ -1,5 +1,5 @@
 """
-ES Mappings for various data.
+ES Mappings for various data to be stored.
 """
 
 ############################
@@ -17,6 +17,24 @@ reddit_crypto_mapping = {
             "id": {"type": "keyword"},  # Not analyzed at point of indexing
             "subreddit": {"type": "keyword"},
             "create_datetime": {"type": "date"},
+            "author": {"type": "keyword"},
+            "full_text": {"type": "text"},
+            "type": {"type": "keyword"},
+            "parent_id": {"type": "keyword"}
+        }
+    }
+}
+
+
+# Test Mapping for Reddit
+test_reddit_crypto_mapping = {
+    "mappings": {
+        "properties": {
+            # If we use index = False then no inverted index will be built
+            # -> Slower searches but Faster Indexing and Less Disk Space
+            "id": {"type": "keyword"},  # Not analyzed at point of indexing
+            "subreddit": {"type": "keyword"},
+            "create_datetime": {"type": "text"},
             "author": {"type": "keyword"},
             "full_text": {"type": "text"},
             "type": {"type": "keyword"},

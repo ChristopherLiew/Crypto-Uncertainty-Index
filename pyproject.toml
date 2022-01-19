@@ -26,15 +26,16 @@ psaw = "^0.1.0"
 praw = "^7.5.0"
 selenium = "^4.1.0"
 bs4 = "^0.0.1"
-news-extract = "^1.0.2"
 DateTime = "^4.3"
 snscrape = "^0.4.3"
 rich = "^11.0.0"
 ipykernel = "^6.7.0"
 jupyter = "^1.0.0"
+sqlmodel = "^0.0.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+flake8 = "^4.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
