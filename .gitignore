@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 # Raw Data Files
-data/raw-data/*
+data/raw_data_dump/reddit/*
 
 # Vscode config
 .vscode
