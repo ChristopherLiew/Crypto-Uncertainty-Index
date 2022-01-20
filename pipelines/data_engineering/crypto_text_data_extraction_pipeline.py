@@ -2,6 +2,7 @@
 Extract all relevant reddit crypto data and insert to ES.
 """
 
+import os  # Change to PathLib
 from typing import (
     List,
     Optional,
@@ -14,20 +15,20 @@ from rich.table import Table
 from rich.console import Console
 from config.reddit_data_cfg import (
     CRYPTO_REDDIT_DATE_RANGE,
-    CRYPTO_SUBREDDITS
+    CRYPTO_SUBREDDITS,
+    REDDIT_DATA_SAVE_DIR
 )
 from utils import (
     timer,
     gen_date_chunks
 )
 from utils.logger import log
+from utils.serializer import (
+    write_to_pkl
+)
 from data.extract.reddit_extract import (
     get_all_crypto_subreddit_data,
     insert_reddit_to_es
-)
-from data.schema.pmaw_reddit_objects import (
-    SubmissionPMAW,
-    CommentPMAW
 )
 
 
@@ -65,13 +66,19 @@ def elt_crypto_reddit_data(subreddits: List[str],
             sub_batch_data = get_all_crypto_subreddit_data(
                 sub,
                 batch_start_date,
-                batch_end_date,
-                max_results_per_subreddit=None
+                batch_end_date
             )
             sub_all_data.extend(sub_batch_data)
+            # Add stats to summary table
             sub_table_data.append(
                 0 if not sub_batch_data else len(sub_batch_data)
             )
+            # Serialize data for safety into
+            file_path = os.path.join(
+                REDDIT_DATA_SAVE_DIR,
+                f"{sub}_{batch_start_date.date()}_{batch_end_date.date()}.pkl"
+            )
+            write_to_pkl(file_path=file_path, obj=sub_batch_data)
         log.info(f"Extraction for subreddit: {sub} complete!")
         crypto_all_data[sub] = sub_all_data
         summary_table.add_row(*sub_table_data)  # Append subreddit res to table

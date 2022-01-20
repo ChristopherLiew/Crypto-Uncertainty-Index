@@ -60,7 +60,6 @@ DATE_FMT = "%Y-%m-%d"
 
 
 # Use these functions to tidy up and generate the docs
-@timer
 def process_reddit_comments_and_submissions(
     reddit_document: Union[Submission, Comment]
 ) -> Dict[str, Any]:
