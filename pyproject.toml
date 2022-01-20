@@ -32,10 +32,16 @@ rich = "^11.0.0"
 ipykernel = "^6.7.0"
 jupyter = "^1.0.0"
 sqlmodel = "^0.0.6"
+arrow = "^1.2.1"
+pmaw = "^2.1.2"
+dacite = "^1.6.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 flake8 = "^4.0.1"
+
+[tool.poetry.scripts]
+crypto-idx = "cli.main:app"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -2,7 +2,6 @@
 Reddit Crypto Data Extraction Configs
 """
 
-
 from datetime import datetime
 
 

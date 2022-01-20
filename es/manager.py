@@ -1,5 +1,5 @@
 """
-Helper class to insert and query documents from Elasticsearch 
+Helper class to insert and query documents from Elasticsearch.
 """
 
 
@@ -20,12 +20,11 @@ from elasticsearch.exceptions import RequestError
 from utils.logger import log
 from config.es_cfg import (
     DEFAULT_HOST,
-    DEFAULT_PORT
+    DEFAULT_PORT,
+    DEFAULT_INDEX_SETTINGS
 )
 # from elasticsearch_dsl import Search Use for easy search
 
-
-DEFAULT_INDEX_SETTINGS = {"number_of_shards": 5, "number_of_replicas": 1} 
 
 class ESManager:
     def __init__(self,
@@ -70,7 +69,7 @@ class ESManager:
                 doc['_id'] = rec[id_field]
                 yield doc  # Provide your own id for each doc
             elif not auto_id and not id_field:
-                log.exception("Please provide the id field to uniquely identify a doc")
+                log.exception("Please provide the unique id field")
                 break
 
     def create_index(
@@ -94,9 +93,12 @@ class ESManager:
               mapping: {mapping} |
               data of size: {data_size}"""
         )
-        log.info(f"Index Settings: {settings if settings else DEFAULT_INDEX_SETTINGS}")
+        log.info(f"""
+                 Index Settings:
+                 {settings if settings else DEFAULT_INDEX_SETTINGS}
+                 """)
 
-        try: 
+        try:
             resp = (
                 self.es_client
                 .indices
