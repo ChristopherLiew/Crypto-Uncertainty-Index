@@ -1,10 +1,12 @@
+"""
+Helper functions to serialize data and other pythonic objects.
+"""
+
+
 import pickle
-from typing import (
-    Any,
-    List,
-    Dict
-)
+from typing import Any
 from utils.logger import log
+
 
 def write_to_pkl(file_path: str, obj: Any) -> None:
     file_object = open(file_path, 'wb')

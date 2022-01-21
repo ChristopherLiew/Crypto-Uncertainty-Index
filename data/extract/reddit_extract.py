@@ -3,11 +3,6 @@ Extraction functions to pull historical submissions and comments data
 from Reddit.
 """
 
-# TO DO:
-# 1) Test functionality with small sample of 7 days of data from
-# 1 subreddit capped at 10,000 docs per day + ES manager functionality
-# 2) Start pulling data and update Data Dictionary
-
 from tqdm import tqdm
 from typing import (
     List,
@@ -18,6 +13,7 @@ from typing import (
 )
 from datetime import datetime
 from pmaw import PushshiftAPI
+from requests.exceptions import ChunkedEncodingError
 from snscrape.modules.reddit import (
     RedditSubredditScraper,
     Submission,
@@ -144,18 +140,30 @@ def get_all_crypto_subreddit_data(
     elif scraper.lower() == "pmaw":
         start_ts = int(start_date.timestamp())
         end_ts = int(end_date.timestamp())
-        comment_res = api.search_comments(
-            subreddit=subreddit,
-            before=end_ts,
-            after=start_ts,
-            limit=limit
-        )
-        submissions_res = api.search_submissions(
-            subreddit=subreddit,
-            before=end_ts,
-            after=start_ts,
-            limit=limit
-        )
+        try:
+            comment_res = api.search_comments(
+                subreddit=subreddit,
+                before=end_ts,
+                after=start_ts,
+                limit=limit,
+                mem_safe=True,
+                safe_exit=True
+            )
+        except ChunkedEncodingError:
+            log.exception("PushshiftAPI (Comments) dropped due to ChunkedEncodingError")
+
+        try:
+            submissions_res = api.search_submissions(
+                subreddit=subreddit,
+                before=end_ts,
+                after=start_ts,
+                limit=limit,
+                mem_safe=True,
+                safe_exit=True
+            )
+        except ChunkedEncodingError:
+            log.exception("PushshiftAPI (Submissions) dropped due to ChunkedEncodingError")
+
         comment_res_standardised = [
             from_dict(data_class=CommentPMAW, data=comment)
             .to_reddit_standard()

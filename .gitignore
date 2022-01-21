@@ -128,8 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Raw Data Files
+# Cache & Raw Data Files
 data/raw_data_dump/reddit/*
+cache/*
 
 # Vscode config
 .vscode

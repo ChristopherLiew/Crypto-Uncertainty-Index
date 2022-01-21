@@ -18,6 +18,7 @@ from config.reddit_data_cfg import (
     CRYPTO_SUBREDDITS,
     REDDIT_DATA_SAVE_DIR
 )
+from es.manager import ESManager
 from utils import (
     timer,
     gen_date_chunks
@@ -30,6 +31,7 @@ from data.extract.reddit_extract import (
     get_all_crypto_subreddit_data,
     insert_reddit_to_es
 )
+from data.schema.es_mappings import REDDIT_CRYPTO_INDEX_NAME
 
 
 @timer
@@ -71,7 +73,7 @@ def elt_crypto_reddit_data(subreddits: List[str],
             sub_all_data.extend(sub_batch_data)
             # Add stats to summary table
             sub_table_data.append(
-                0 if not sub_batch_data else len(sub_batch_data)
+                '0' if not sub_batch_data else str(len(sub_batch_data))
             )
             # Serialize data for safety into
             file_path = os.path.join(
@@ -83,24 +85,39 @@ def elt_crypto_reddit_data(subreddits: List[str],
         crypto_all_data[sub] = sub_all_data
         summary_table.add_row(*sub_table_data)  # Append subreddit res to table
     console.print(summary_table)
+    log.info("Inserting data into Elasticsearch")
+    insert_reddit_to_es(crypto_all_data)
+    log.info("Insertion to Elasticsearch complete")
+    # Print out summary table
+    console.print(summary_table)
     return crypto_all_data
-    # log.info("Inserting data into Elasticsearch")
-    # insert_reddit_to_es(crypto_all_data)
-    # log.info("Insertion to Elasticsearch complete")
-    # # Print out summary table
-    # console.print(summary_table)
 
 
 # Test
 test_subreddit = [CRYPTO_SUBREDDITS[0]]  # ethereum
-# 1 year of data
+# 1 month of data
 start_date, end_date = (
-    datetime(2021, 12, 30),
-    datetime(2021, 12, 31)
+    datetime(2021, 11, 1),
+    datetime(2021, 11, 30)
 )
 # Run pipeline
 eth_sr_one_year_data = elt_crypto_reddit_data(
     subreddits=test_subreddit,
     start_date=start_date,
     end_date=end_date
+)
+# Elastic search test
+es_conn = ESManager()
+test_query = {
+    "query": {
+        "bool": {
+            "filter": [
+                {"term": {"subreddit": f"{CRYPTO_SUBREDDITS[0]}"}}
+            ]
+        }
+    }
+}
+res = (
+    es_conn
+    .run_match_query(index=REDDIT_CRYPTO_INDEX_NAME, query=test_query)
 )
