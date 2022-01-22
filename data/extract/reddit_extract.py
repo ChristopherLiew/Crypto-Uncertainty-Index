@@ -111,7 +111,7 @@ def insert_reddit_to_es(
 
 
 @timer
-def get_all_crypto_subreddit_data(
+def extract_subreddit_data(
     subreddit: str,
     start_date: Union[str, datetime],
     end_date: Union[str, datetime],

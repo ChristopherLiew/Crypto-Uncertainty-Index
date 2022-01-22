@@ -3,14 +3,12 @@ Extract all relevant reddit crypto data and insert to ES.
 """
 
 import os  # Change to PathLib
-from pprint import pprint
 from typing import (
     List,
     Optional,
     Any,
     Dict
 )
-from typer import Typer
 from datetime import datetime
 from tqdm import tqdm
 from rich.table import Table
@@ -30,20 +28,17 @@ from utils.serializer import (
     write_to_pkl
 )
 from data.extract.reddit_extract import (
-    get_all_crypto_subreddit_data,
+    extract_subreddit_data,
     insert_reddit_to_es
 )
 # from data.schema.es_mappings import REDDIT_CRYPTO_INDEX_NAME
 
 
-# Instantiate nested Typer App
-app = Typer()
-
-
 @timer
-def elt_crypto_reddit_data(subreddits: List[str],
-                           start_date: datetime,
-                           end_date: datetime) -> Optional[Dict[str, Any]]:
+def elt_crypto_subreddit_data(subreddits: List[str],
+                              start_date: datetime,
+                              end_date: datetime
+                              ) -> Optional[Dict[str, Any]]:
     # Accumulators
     log.info("Generating date chunks for batch extraction")
     date_month_batches = gen_date_chunks(start_date=start_date,
@@ -71,7 +66,7 @@ def elt_crypto_reddit_data(subreddits: List[str],
                 f"""Extracting data for date range:
                 {batch_start_date} ~ {batch_end_date}"""
                 )
-            sub_batch_data = get_all_crypto_subreddit_data(
+            sub_batch_data = extract_subreddit_data(
                 sub,
                 batch_start_date,
                 batch_end_date
@@ -98,17 +93,7 @@ def elt_crypto_reddit_data(subreddits: List[str],
     return crypto_all_data
 
 
-# Run Extraction
-@app.command()
-def run_crypto_extract_pipeline(*subreddits,
-                                start_date: datetime,
-                                end_date: datetime) -> None:
-    subreddits_list = list(subreddits)
-    return (
-        elt_crypto_reddit_data(subreddits=subreddits_list,
-                               start_date=start_date,
-                               end_date=end_date)
-    )
+
 
 
 # # Test

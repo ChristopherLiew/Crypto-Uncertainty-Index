@@ -42,7 +42,7 @@ pytest = "^5.2"
 flake8 = "^4.0.1"
 
 [tool.poetry.scripts]
-ucry-index = "cli.main:app"
+ucry-cli = "cli:app"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
