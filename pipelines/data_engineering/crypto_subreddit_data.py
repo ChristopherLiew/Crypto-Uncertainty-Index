@@ -21,7 +21,8 @@ from config.reddit_data_cfg import (
 # from es.manager import ESManager
 from utils import (
     timer,
-    gen_date_chunks
+    gen_date_chunks,
+    check_and_create_dir
 )
 from utils.logger import log
 from utils.serializer import (
@@ -77,9 +78,10 @@ def elt_crypto_subreddit_data(subreddits: List[str],
                 '0' if not sub_batch_data else str(len(sub_batch_data))
             )
             # Serialize data to pkl for safety into
+            subreddit_dump_dir = os.path.join(REDDIT_DATA_SAVE_DIR, sub)
+            check_and_create_dir(subreddit_dump_dir)
             file_path = os.path.join(
-                REDDIT_DATA_SAVE_DIR,
-                sub,
+                subreddit_dump_dir,
                 f"{sub}_{batch_start_date.date()}_{batch_end_date.date()}.pkl"
             )
             write_to_pkl(file_path=file_path, obj=sub_batch_data)
@@ -91,50 +93,3 @@ def elt_crypto_subreddit_data(subreddits: List[str],
     # Print out summary table
     console.print(summary_table)
     return crypto_all_data
-
-
-
-
-
-# # Test
-# test_subreddit = [CRYPTO_SUBREDDITS[0]]  # ethereum
-# # 1 month of data
-# start_date, end_date = (
-#     datetime(2014, 1, 1),
-#     datetime(2014, 12, 31)
-# )
-# # Run pipeline
-# eth_sr_one_year_data = elt_crypto_reddit_data(
-#     subreddits=test_subreddit,
-#     start_date=start_date,
-#     end_date=end_date
-# )
-# # Elastic search test
-# es_conn = ESManager()
-# test_query = {
-#     "query": {
-#         "bool": {
-#             "filter": [
-#                 {"term": {"subreddit": f"{CRYPTO_SUBREDDITS[0]}"}}
-#             ]
-#         }
-#     }
-# }
-# res = (
-#     es_conn
-#     .run_match_query(index=REDDIT_CRYPTO_INDEX_NAME, query=test_query)
-# )
-
-# # Load 2014 cache
-# from pmaw import Response
-# cache_key = '0defbb20eaa0c9c3eed13a5a10a38cd8'
-# cache_dir = './cache'
-# resp_2014 = Response.load_cache(cache_key, cache_dir)
-# sample_2014 = next(resp_2014)
-# pprint(sample_2014)
-
-# # 2020 cache
-# cache_key = '5a5c0f0604c9e177440acb9433889380'
-# resp_2020 = Response.load_cache(cache_key, cache_dir)
-# sample_2020 = next(resp_2020)
-# pprint(sample_2020)
