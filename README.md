@@ -30,6 +30,10 @@ poetry shell
 ```
 
 ### Docker
+**Services**
+* ```Elasticsearch``` & ```Kibana``` - For easy text analysis and lookup of data
+* ```Postgres``` - Storing of all other relational data (E.g. cryptocurrency indicies, macroeconomic indicators, etc.)
+
 **Start up**
 ```zsh
 docker compose up # --build
@@ -42,6 +46,15 @@ docker stop <container_id>
 docker kill $(docker ps -q)
 ```
 
+## ELT/ETL Pipelines
+### Data Extraction
+1. Subreddit Data Pull
+* Extracts all subreddit comments and submissions data for a given list of ```subreddits``` over a period specified by ```start_date``` and ```end_date```. Note that data is extracted in batches by ```Year-Month``` to handle PushshiftAPI's (PMAW) connection drops / rate limits.
+* Data is inserted into ES under the ```reddit-crypto``` index by default and serialised locally in ```data/raw_data_dump/reddit``` as ```.pkl``` files.
+* Using the CLI interface:
+  ```zsh
+  ucry-cli extract-reddit-cry-data --start-date 2014-01-01 --end-date 2021-12-31 ethereum ethtrader bitcoin ...
+  ```
 
 ## Appendix:
 ### Using in project poetry venv
