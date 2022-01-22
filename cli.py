@@ -3,7 +3,6 @@ CLI commands for easy pipeline triggers and model training,
 inference and analysis, etc.
 """
 
-from matplotlib.pyplot import stem
 import typer
 from typing import (
     Optional,
@@ -14,8 +13,7 @@ from pipelines.data_engineering.crypto_subreddit_data import (
     elt_crypto_subreddit_data
 )
 from config.reddit_data_cfg import (
-    CRYPTO_REDDIT_DATE_RANGE,
-    CRYPTO_SUBREDDITS
+    CRYPTO_REDDIT_DATE_RANGE
 )
 from data.schema.es_mappings import (
     REDDIT_CRYPTO_INDEX_NAME
