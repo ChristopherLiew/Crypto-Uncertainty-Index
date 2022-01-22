@@ -1,6 +1,7 @@
 """
 Dataclasses for PMAW mappings. Classes are to map PMAW output
 results to SNSCRAPE dataclass schema for consistent data abstraction.
+
 NOTE: Mappings may not be consistent with SNSCRAPE entirely due to
 differing fields returned by PMAW vis a vis SNSCRAPE.
 """
@@ -15,23 +16,18 @@ from snscrape.modules.reddit import (
     Comment,
     Submission
 )
-from pprint import pprint
-
-
-pprint(Submission.__annotations__)
-pprint(Comment.__annotations__)
 
 
 @dataclass
 class SubmissionPMAW:
-    author: Optional[str]
     created_utc: int
     id: str
-    permalink: Optional[str]
-    selftext: Optional[str]
-    subreddit: Optional[str]  # E.g. submission 617p51
     title: str
-    url: str
+    subreddit: str
+    url: Optional[str] = None
+    author: Optional[str] = None
+    permalink: Optional[str] = None
+    selftext: Optional[str] = None
 
     def to_reddit_standard(self) -> Submission:
         doc = asdict(self)
@@ -44,13 +40,13 @@ class SubmissionPMAW:
 
 @dataclass
 class CommentPMAW:
-    author: Optional[str]
-    body: str
     created_utc: int
     id: str
-    parent_id: Optional[str]
-    subreddit: Optional[str]
-    permalink: str
+    body: str
+    subreddit: str
+    author: Optional[str] = None
+    parent_id: Optional[str] = None
+    permalink: Optional[str] = None
 
     def to_reddit_standard(self) -> Comment:
         doc = asdict(self)

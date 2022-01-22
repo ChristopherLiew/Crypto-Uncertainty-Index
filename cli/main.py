@@ -5,6 +5,9 @@ inference and analysis, etc.
 
 from typing import Optional
 import typer
+from pipelines.data_engineering import (
+    crypto_text_data_extraction_pipeline
+)
 
 # App
 app = typer.Typer()
@@ -12,7 +15,7 @@ app = typer.Typer()
 
 # Test
 @app.command()
-def hello(name: Optional[str] = None):
+def main(name: Optional[str] = None):
     greet = "Welcome to the crypto-uncertainty-index CLI"
     if name:
         print(f"Hello {name}, {greet}")
@@ -23,11 +26,18 @@ def hello(name: Optional[str] = None):
 #####################
 ## Data Extraction ##
 #####################
+app.add_typer(
+    crypto_text_data_extraction_pipeline.app,
+    name="extract-reddit-crypto-data",
+    help="""Extracts subreddit data and inserts into ES
+         and serialises into pickle vis Pushshift API."""
+)
 
 
 #####################
 ## Data Processing ##
 #####################
+
 
 
 ###################

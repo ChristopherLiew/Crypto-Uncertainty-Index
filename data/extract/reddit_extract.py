@@ -49,7 +49,7 @@ except Exception as e:
 # To see schema of Subreddit dataclasses:
 # pprint(Submission.__annotations__)
 # pprint(Comment.__annotations__)
-sns_reddit_op_type = Dict[str, List[Union[Submission, Comment]]]
+sns_reddit_op_type = List[Union[Submission, Comment]]
 
 # Config
 DATE_FMT = "%Y-%m-%d"
@@ -78,37 +78,36 @@ def process_reddit_comments_and_submissions(
 
 @timer
 def insert_reddit_to_es(
-    data: sns_reddit_op_type
+    data: sns_reddit_op_type,
+    index: str = REDDIT_CRYPTO_INDEX_NAME
 ) -> None:
 
-    for sr_name, data in data.items():
-
-        log.info(f"Inserting data from {sr_name} to ES")
-        if not es_static_client.index_is_exist(REDDIT_CRYPTO_INDEX_NAME):
-            log.info(f"{REDDIT_CRYPTO_INDEX_NAME} not yet created")
-            (
-                es_static_client
-                .create_index(index=REDDIT_CRYPTO_INDEX_NAME,
-                              mapping=reddit_crypto_mapping)
-            )
-
-        log.info("Generating ES compatible documents")
-        reddit_crypto_gen = (
-            ESManager()
-            .es_doc_generator(
-                data=data,
-                index=REDDIT_CRYPTO_INDEX_NAME,
-                auto_id=True,
-                doc_processing_func=process_reddit_comments_and_submissions)
-            )
-
-        log.info("Documents generated. Inserting documents into ES.")
+    log.info("Inserting data to ES")
+    if not es_static_client.index_is_exist(index):
+        log.info(f"{index} not yet created ... creating index: {index}")
         (
             es_static_client
-            .bulk_insert_data(index=REDDIT_CRYPTO_INDEX_NAME,
-                              data=reddit_crypto_gen)
+            .create_index(index=index,
+                          mapping=reddit_crypto_mapping)
         )
-        log.info("Insertion complete!")
+
+    log.info("Generating ES compatible documents")
+    reddit_crypto_gen = (
+        ESManager()
+        .es_doc_generator(
+            data=data,
+            index=index,
+            auto_id=True,
+            doc_processing_func=process_reddit_comments_and_submissions)
+        )
+
+    log.info("Documents generated. Inserting documents into ES.")
+    (
+        es_static_client
+        .bulk_insert_data(index=index,
+                          data=reddit_crypto_gen)
+    )
+    log.info("Insertion complete!")
 
 
 @timer
@@ -149,6 +148,12 @@ def get_all_crypto_subreddit_data(
                 mem_safe=True,
                 safe_exit=True
             )
+            comment_res_standardised = [
+                from_dict(data_class=CommentPMAW, data=comment)
+                .to_reddit_standard()
+                for comment in (comment_res)
+            ]
+            results.extend(comment_res_standardised)
         except ChunkedEncodingError:
             log.exception("PushshiftAPI (Comments) dropped due to ChunkedEncodingError")
 
@@ -161,24 +166,16 @@ def get_all_crypto_subreddit_data(
                 mem_safe=True,
                 safe_exit=True
             )
+            submissions_res_standardised = [
+                from_dict(data_class=SubmissionPMAW, data=sub)
+                .to_reddit_standard()
+                for sub in (submissions_res)
+            ]
+            results.extend(submissions_res_standardised)
         except ChunkedEncodingError:
             log.exception("PushshiftAPI (Submissions) dropped due to ChunkedEncodingError")
 
-        comment_res_standardised = [
-            from_dict(data_class=CommentPMAW, data=comment)
-            .to_reddit_standard()
-            for comment in tqdm(comment_res)
-        ]
-        submissions_res_standardised = [
-            from_dict(data_class=SubmissionPMAW, data=sub)
-            .to_reddit_standard()
-            for sub in tqdm(submissions_res)
-        ]
-        results.extend(comment_res_standardised)
-        results.extend(submissions_res_standardised)
     else:
         raise ValueError("Please select a valid scraper: pmaw or snscrape")
     log.info(msg=f"Successfully pulled data from subreddit: {subreddit}")
-
-    log.info(msg="All subreddit sucessfully pulled")
     return results

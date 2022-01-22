@@ -3,6 +3,7 @@ name = "crypto-uncertainty-index"
 version = "0.1.0"
 description = ""
 authors = ["christopher.liew <christopher.liew@bytedance.com>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.9"
@@ -18,7 +19,6 @@ plotly-express = "^0.4.1"
 seaborn = "^0.11.2"
 tqdm = "^4.62.3"
 black = "^21.12b0"
-typer-cli = "^0.0.12"
 elasticsearch = "^7.16.3"
 elasticsearch-dsl = "^7.4.0"
 SQLAlchemy = "^1.4.29"
@@ -35,13 +35,14 @@ sqlmodel = "^0.0.6"
 arrow = "^1.2.1"
 pmaw = "^2.1.2"
 dacite = "^1.6.0"
+typer = {extras = ["all"], version = "^0.4.0"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 flake8 = "^4.0.1"
 
 [tool.poetry.scripts]
-crypto-idx = "cli.main:app"
+ucry-index = "cli.main:app"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
