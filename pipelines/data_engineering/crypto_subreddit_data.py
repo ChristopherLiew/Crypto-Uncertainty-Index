@@ -38,7 +38,9 @@ from data.extract.reddit_extract import (
 @timer
 def elt_crypto_subreddit_data(subreddits: List[str],
                               start_date: datetime,
-                              end_date: datetime
+                              end_date: datetime,
+                              mem_safe: bool = True,
+                              safe_exit: bool = True
                               ) -> Optional[Dict[str, Any]]:
     # Accumulators
     log.info("Generating date chunks for batch extraction")
@@ -61,6 +63,7 @@ def elt_crypto_subreddit_data(subreddits: List[str],
         # For each batch of months
         sub_all_data = []
         sub_table_data = [sub]
+        # Kwargs
         for j in tqdm(range(len(date_month_batches)), leave=False):
             batch_start_date, batch_end_date = date_month_batches[j]
             log.info(
@@ -68,9 +71,13 @@ def elt_crypto_subreddit_data(subreddits: List[str],
                 {batch_start_date} ~ {batch_end_date}"""
                 )
             sub_batch_data = extract_subreddit_data(
-                sub,
-                batch_start_date,
-                batch_end_date
+                subreddit=sub,
+                start_date=batch_start_date,
+                end_date=batch_end_date,
+                limit=9999999,
+                scaper="pmaw",
+                mem_safe=mem_safe,
+                safe_exit=safe_exit
             )
             sub_all_data.extend(sub_batch_data)
             # Add stats to summary table
