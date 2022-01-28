@@ -85,9 +85,9 @@ def run_elt_crypto_subreddit_pipe(subreddits: List[str],
     )
 
 
-#####################
-## Data Processing ##
-#####################
+############################
+## Data & Text Processing ##
+############################
 
 
 ###################

@@ -36,6 +36,8 @@ arrow = "^1.2.1"
 pmaw = "^2.1.2"
 dacite = "^1.6.0"
 typer = {extras = ["all"], version = "^0.4.0"}
+gensim = "^4.1.2"
+faiss-cpu = "^1.7.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
