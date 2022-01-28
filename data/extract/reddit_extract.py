@@ -116,9 +116,9 @@ def extract_subreddit_data(
     start_date: Union[str, datetime],
     end_date: Union[str, datetime],
     limit: Optional[int] = 9999999,  # If None get ALL data
-    scraper: str = "pmaw"
+    scraper: str = "pmaw",
+    **kwargs
 ) -> List[Union[Comment, Submission]]:
-
     if isinstance(start_date, str) or isinstance(end_date, str):
         start_date = datetime.strptime(start_date, DATE_FMT)
         end_date = datetime.strptime(end_date, DATE_FMT)
@@ -145,8 +145,8 @@ def extract_subreddit_data(
                 before=end_ts,
                 after=start_ts,
                 limit=limit,
-                mem_safe=True,
-                safe_exit=True
+                mem_safe=kwargs['mem_safe'],
+                safe_exit=kwargs['safe_exit']
             )
             comment_res_standardised = [
                 from_dict(data_class=CommentPMAW, data=comment)
@@ -163,8 +163,8 @@ def extract_subreddit_data(
                 before=end_ts,
                 after=start_ts,
                 limit=limit,
-                mem_safe=True,
-                safe_exit=True
+                mem_safe=kwargs['mem_safe'],
+                safe_exit=kwargs['mem_safe']
             )
             submissions_res_standardised = [
                 from_dict(data_class=SubmissionPMAW, data=sub)

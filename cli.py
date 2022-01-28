@@ -52,7 +52,6 @@ def hello_world(name: str) -> None:
     print(f"Hello there {name}, welcome to the cli interface")
 
 
-
 #####################
 ## Data Extraction ##
 #####################
@@ -64,7 +63,9 @@ START_DATE, END_DATE = CRYPTO_REDDIT_DATE_RANGE.values()
              help="Extracts data from given subreddits for the specified date range.")
 def run_elt_crypto_subreddit_pipe(subreddits: List[str],
                                   start_date: datetime = typer.Option(START_DATE),
-                                  end_date: datetime = typer.Option(END_DATE)
+                                  end_date: datetime = typer.Option(END_DATE),
+                                  mem_safe: bool = typer.Option(True),
+                                  safe_exit: bool = typer.Option(False)
                                   ) -> None:
     f"""
     Extracts data from selected subreddits for a given date range and inserts
@@ -75,17 +76,18 @@ def run_elt_crypto_subreddit_pipe(subreddits: List[str],
         start_date (str, optional): Start Date (Format = %Y-%m-%d). Defaults to 2014-01-01
         end_date (str, optional): End date (Format = %Y-%m-%d). Defaults to 2021-12-31
     """
-
     return (
         elt_crypto_subreddit_data(subreddits=subreddits,
                                   start_date=start_date,
-                                  end_date=end_date)
+                                  end_date=end_date,
+                                  mem_safe=mem_safe,
+                                  safe_exit=safe_exit)
     )
 
 
-#####################
-## Data Processing ##
-#####################
+############################
+## Data & Text Processing ##
+############################
 
 
 ###################
