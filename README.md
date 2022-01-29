@@ -55,14 +55,17 @@ docker kill $(docker ps -q)
   ```zsh
   ucry-cli extract-reddit-cry-data --start-date 2014-01-01 --end-date 2021-12-31 ethereum ethtrader bitcoin ...
   ```
-2. **Text Processing / Analysis of Raw Reddit Data**
+### NLP & Text Analysis
+1. **Text Processing / Analysis of Raw Reddit Data**
 * Uses ES' Reindex API to move and process existing raw data under ```reddit-crypto``` to the ```reddit-crypto-custom``` index using a ```Custom Analyzer``` to handle ```cryptocurrency``` and ```social-media``` specific terms and patterns. See ```es/custom_analyzers``` for details.
 
+2. **Word Embedding Generation**
+* Pipeline generates word embeddings using a specified pretrained ```word2vec``` model (E.g. FastText, GoogleWiki, HuggingFace) from subreddit data (using a specified ```index``` and ```field``` name) and stores it as ```embeddings``` in a elasticsearch index ```reddit-word-embeddings``` by default.
+
+### Uncertainty Index Construction
 3. **Baseline Uncertainty Index (Lucey's)**
 * Uses ```Lucey et al. (2021)```'s methodology to construct a baseline cryptocurrency index using a simple predefined keyword set. Resulting numeric index values are inserted into the elasticsearch index ```ucry-baseline``` by default.
 
-4. **Word Embedding Generation**
-* Pipeline generates word embeddings using a specified pretrained ```word2vec``` model (E.g. FastText, GoogleWiki, HuggingFace) from subreddit data (using a specified ```index``` and ```field``` name) and stores it as ```embeddings``` in a elasticsearch index ```reddit-word-embeddings``` by default.
 
 
 ## Appendix:
