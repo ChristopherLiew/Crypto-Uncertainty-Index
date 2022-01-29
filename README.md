@@ -46,7 +46,7 @@ docker stop <container_id>
 docker kill $(docker ps -q)
 ```
 
-## ELT/ETL Pipelines
+## DE, Modelling & Index Related Pipelines
 ### Data Extraction
 1. Subreddit Data Pull
 * Extracts all subreddit comments and submissions data for a given list of ```subreddits``` over a period specified by ```start_date``` and ```end_date```. Note that data is extracted in batches by ```Year-Month``` to handle PushshiftAPI's (PMAW) connection drops / rate limits.
