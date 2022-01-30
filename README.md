@@ -13,15 +13,13 @@ and forecasting of cryptocurrency volatility.
 ## Set-Up
 Some simple steps to setting up the repository for ETL, Modelling, etc.
 
-### Poetry
-**Install python dependencies**
+### Dependencies & Venv
 ```zsh
 brew install make  # OSX
 make install  # Runs Brew and Poetry
 ```
 
-### Docker
-**Services**
+### Services
 * ```Elasticsearch``` & ```Kibana``` - For easy text analysis and lookup of data
 * ```Postgres``` - Storing of all other relational data (E.g. cryptocurrency indicies, macroeconomic indicators, etc.)
 
