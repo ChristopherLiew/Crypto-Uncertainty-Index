@@ -16,17 +16,8 @@ Some simple steps to setting up the repository for ETL, Modelling, etc.
 ### Poetry
 **Install python dependencies**
 ```zsh
-# Install poetry
-brew install poetry
-
-# Install deps from poetry.lock
-poetry install  
-
-# Refresh deps
-poetry update 
-
-# Activate venv
-poetry shell 
+brew install make  # OSX
+make install  # Runs Brew and Poetry
 ```
 
 ### Docker
@@ -34,16 +25,22 @@ poetry shell
 * ```Elasticsearch``` & ```Kibana``` - For easy text analysis and lookup of data
 * ```Postgres``` - Storing of all other relational data (E.g. cryptocurrency indicies, macroeconomic indicators, etc.)
 
-**Start up**
+**Install**
 ```zsh
-docker compose up # --build
-docker ps
+make build
+```
+**Start Up**
+```zsh
+make run  # After starting up docker daemon
+```
+**Check Services' Health**
+```zsh
+make ps
+make es-cluster-health
 ```
 **Shut down**
 ```zsh
-docker stop <container_id>
-# OR
-docker kill $(docker ps -q)
+make stop  # Stops docker containers
 ```
 
 ## ELT/ETL Pipelines
