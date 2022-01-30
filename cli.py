@@ -9,15 +9,9 @@ from typing import (
     List
 )
 from datetime import datetime
-from pipelines.data_engineering.crypto_subreddit_data import (
-    elt_crypto_subreddit_data
-)
-from config.reddit_data_cfg import (
-    CRYPTO_REDDIT_DATE_RANGE
-)
-from data.schema.es_mappings import (
-    REDDIT_CRYPTO_INDEX_NAME
-)
+from pipelines.data_engineering.crypto_subreddit_data import elt_crypto_subreddit_data
+from config.reddit_data_cfg import CRYPTO_REDDIT_DATE_RANGE
+from data.schema.es_mappings import REDDIT_CRYPTO_INDEX_NAME
 
 # App
 app = typer.Typer()
@@ -41,7 +35,7 @@ def main(
         "-v",
         help="Applcations version",
         callback=_version_callback,
-        is_eager=True
+        is_eager=True,
     )
 ) -> None:
     return
@@ -59,14 +53,17 @@ START_DATE, END_DATE = CRYPTO_REDDIT_DATE_RANGE.values()
 
 
 # Run Extraction
-@app.command("extract-reddit-cry-data",
-             help="Extracts data from given subreddits for the specified date range.")
-def run_elt_crypto_subreddit_pipe(subreddits: List[str],
-                                  start_date: datetime = typer.Option(START_DATE),
-                                  end_date: datetime = typer.Option(END_DATE),
-                                  mem_safe: bool = typer.Option(True),
-                                  safe_exit: bool = typer.Option(False)
-                                  ) -> None:
+@app.command(
+    "extract-reddit-cry-data",
+    help="Extracts data from given subreddits for the specified date range.",
+)
+def run_elt_crypto_subreddit_pipe(
+    subreddits: List[str],
+    start_date: datetime = typer.Option(START_DATE),
+    end_date: datetime = typer.Option(END_DATE),
+    mem_safe: bool = typer.Option(True),
+    safe_exit: bool = typer.Option(False),
+) -> None:
     f"""
     Extracts data from selected subreddits for a given date range and inserts
     results into Elasticsearch index ```{REDDIT_CRYPTO_INDEX_NAME}```. Also
@@ -76,12 +73,12 @@ def run_elt_crypto_subreddit_pipe(subreddits: List[str],
         start_date (str, optional): Start Date (Format = %Y-%m-%d). Defaults to 2014-01-01
         end_date (str, optional): End date (Format = %Y-%m-%d). Defaults to 2021-12-31
     """
-    return (
-        elt_crypto_subreddit_data(subreddits=subreddits,
-                                  start_date=start_date,
-                                  end_date=end_date,
-                                  mem_safe=mem_safe,
-                                  safe_exit=safe_exit)
+    return elt_crypto_subreddit_data(
+        subreddits=subreddits,
+        start_date=start_date,
+        end_date=end_date,
+        mem_safe=mem_safe,
+        safe_exit=safe_exit,
     )
 
 

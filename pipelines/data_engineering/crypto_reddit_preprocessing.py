@@ -18,7 +18,7 @@ Pipeline to Process Subreddit Text Data from ES.
 # Insert Processed Data back into ES
 
 # TASK 3
-# Create an embedding transformer to pull data from es and convert to 
+# Create an embedding transformer to pull data from es and convert to
 # embeddings -> Store embeddings to ES
 
 # TASK 4

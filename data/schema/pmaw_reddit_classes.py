@@ -31,10 +31,10 @@ class SubmissionPMAW:
 
     def to_reddit_standard(self) -> Submission:
         doc = asdict(self)
-        doc['created'] = datetime.fromtimestamp(self.created_utc)
-        doc['link'] = self.permalink
-        del doc['created_utc']
-        del doc['permalink']
+        doc["created"] = datetime.fromtimestamp(self.created_utc)
+        doc["link"] = self.permalink
+        del doc["created_utc"]
+        del doc["permalink"]
         return Submission(**doc)
 
 
@@ -50,10 +50,10 @@ class CommentPMAW:
 
     def to_reddit_standard(self) -> Comment:
         doc = asdict(self)
-        doc['created'] = datetime.fromtimestamp(self.created_utc)
-        doc['url'] = self.permalink
-        doc['parentId'] = self.parent_id
-        del doc['created_utc']
-        del doc['permalink']
-        del doc['parent_id']
+        doc["created"] = datetime.fromtimestamp(self.created_utc)
+        doc["url"] = self.permalink
+        doc["parentId"] = self.parent_id
+        del doc["created_utc"]
+        del doc["permalink"]
+        del doc["parent_id"]
         return Comment(**doc)

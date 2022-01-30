@@ -9,7 +9,7 @@ from utils.logger import log
 
 
 def write_to_pkl(file_path: str, obj: Any) -> None:
-    file_object = open(file_path, 'wb')
+    file_object = open(file_path, "wb")
     log.info("Serializing to Pickle ...")
     pickle.dump(obj=obj, file=file_object)
     file_object.close()
@@ -17,5 +17,5 @@ def write_to_pkl(file_path: str, obj: Any) -> None:
 
 
 def load_fr_pkl(file_path: str) -> Any:
-    file_object = open(file_path, 'rb')
+    file_object = open(file_path, "rb")
     return pickle.load(file_object)
