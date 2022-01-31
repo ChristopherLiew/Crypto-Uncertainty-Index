@@ -4,7 +4,8 @@ Utility functions and decorators for various general usecases.
 
 import os
 import time
-from typing import List
+from pathlib import Path
+from typing import List, Union
 from functools import wraps
 from datetime import datetime
 from arrow import Arrow as arw
@@ -33,7 +34,7 @@ def gen_date_chunks(
     ]
 
 
-def check_and_create_dir(filepath: str) -> None:
+def check_and_create_dir(filepath: Union[str, Path]) -> None:
     if not os.path.exists(filepath):
         os.makedirs(filepath)
         print(f"Directory created at: {filepath}")

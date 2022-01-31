@@ -2,6 +2,7 @@
 Custom ES Analyzers for Indexing and Search Queries
 """
 
+from operator import index
 from nlp.lexicons import emoji_mappings, crypto_mappings
 
 # Park this under settings['analysis']
@@ -10,7 +11,10 @@ reddit_custom_index_analysis = {
         "reddit_index_analyzer": {
             "type": "custom",
             "tokenizer": "standard",
-            "char_filter": ["html_strip"],
+            "char_filter": [
+                "html_strip",
+                "emoticons"
+                ],
             "filter": [
                 "lowercase",
                 "asciifolding",
@@ -19,7 +23,7 @@ reddit_custom_index_analysis = {
             ],
         }
     },
-    # TBD
+    # Tokenizer
     # "tokenizer": {
     #     "punctuation": {
     #         "type": "pattern",
@@ -28,7 +32,10 @@ reddit_custom_index_analysis = {
     #     },
     # Before Tokenization
     "char_filter": {
-        "emoticons": {"type": "mapping", "mappings": emoji_mappings.EMOJI_CHAR_MAPPINGS}
+        "emoticons": {
+            "type": "mapping",
+            "mappings": emoji_mappings.EMOJI_CHAR_MAPPINGS
+            }
     },
     # After Tokenization
     "filter": {

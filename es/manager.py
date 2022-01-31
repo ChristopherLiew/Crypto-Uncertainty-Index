@@ -4,6 +4,7 @@ Helper class to insert and query documents from Elasticsearch.
 
 
 import pandas as pd
+from pprint import pprint
 from typing import Any, Callable, List, Dict, Optional, Union, Generator
 from dataclasses import dataclass
 from elasticsearch import Elasticsearch
@@ -107,8 +108,39 @@ class ESManager:
         resp = self.es_client.indices.delete(index=index, ignore=404)
         log.info(resp)
 
+    def reindex(self, source_index: str, dest_index: str) -> None:
+        assert self.index_is_exist(source_index),\
+            f"Source Index: {source_index} does not exist!"
+        assert self.index_is_exist(dest_index),\
+            f"Destination Index: {dest_index} does not exist!"
+
+        reindex_query = {
+            "source": {
+                "index": source_index
+                },
+            "dest": {
+                "index": dest_index
+                }
+            }
+        self.es_client.reindex(reindex_query, slices='auto', refresh=True)
+
+    def add_alias(self, index: List[str], alias: str) -> None:
+        self.es_client.indices.put_alias(
+            index=index,
+            name=alias
+        )
+
+    def remove_alias(self, index: str, alias: str) -> None:
+        self.es_client.indices.delete_alias(
+            index=index,
+            name=alias
+        )
+
+    def get_aliases(self, name: Optional[List[str]] = None) -> None:
+        pprint(self.es_client.cat.aliases(name=name))
+
     def run_match_query(
-        self, index: str, query: Dict[str, str], output_type: str = "pandas"
+        self, index: str, query: Dict[str, Any]
     ) -> List[Dict[str, Any]]:
         res = self.es_client.search(index=index, body=query)["hits"]["hits"]
         return res

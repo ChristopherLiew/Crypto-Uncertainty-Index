@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "crypto-uncertainty-index"
 version = "0.1.0"
-description = ""
+description = "Cryptocurrency Uncertainty Index with NLP and Reddit Data"
 authors = ["christopher.liew <christopher.liew@bytedance.com>"]
 readme = "README.md"
 
@@ -22,22 +22,21 @@ black = "^21.12b0"
 elasticsearch = "^7.16.3"
 elasticsearch-dsl = "^7.4.0"
 SQLAlchemy = "^1.4.29"
-psaw = "^0.1.0"
-praw = "^7.5.0"
-selenium = "^4.1.0"
-bs4 = "^0.0.1"
-DateTime = "^4.3"
-snscrape = "^0.4.3"
+sqlmodel = "^0.0.6"
 rich = "^11.0.0"
 ipykernel = "^6.7.0"
 jupyter = "^1.0.0"
-sqlmodel = "^0.0.6"
 arrow = "^1.2.1"
+praw = "^7.5.0"
 pmaw = "^2.1.2"
+snscrape = "^0.4.3"
 dacite = "^1.6.0"
 typer = {extras = ["all"], version = "^0.4.0"}
 gensim = "^4.1.2"
 faiss-cpu = "^1.7.2"
+pyLDAvis = "^3.3.1"
+pyarrow = "^6.0.1"
+
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

@@ -3,7 +3,6 @@ Extraction functions to pull historical submissions and comments data
 from Reddit.
 """
 
-from tqdm import tqdm
 from typing import (
     List,
     Dict,
@@ -84,7 +83,10 @@ def insert_reddit_to_es(
     log.info("Inserting data to ES")
     if not es_static_client.index_is_exist(index):
         log.info(f"{index} not yet created ... creating index: {index}")
-        (es_static_client.create_index(index=index, mapping=reddit_crypto_mapping))
+        (
+            es_static_client
+            .create_index(index=index, mapping=reddit_crypto_mapping)
+        )
 
     log.info("Generating ES compatible documents")
     reddit_crypto_gen = ESManager().es_doc_generator(
@@ -117,7 +119,9 @@ def extract_subreddit_data(
                 for dates between {str(start_date)} and {str(end_date)}"""
     )
     if scraper.lower() == "snscrape":
-        sc = RedditSubredditScraper(subreddit, before=end_date, after=start_date)
+        sc = RedditSubredditScraper(subreddit,
+                                    before=end_date,
+                                    after=start_date)
 
         for idx, content in enumerate(sc.get_items()):
             if limit and idx > limit:
@@ -136,13 +140,16 @@ def extract_subreddit_data(
                 safe_exit=kwargs["safe_exit"],
             )
             comment_res_standardised = [
-                from_dict(data_class=CommentPMAW, data=comment).to_reddit_standard()
+                from_dict(data_class=CommentPMAW, data=comment)
+                .to_reddit_standard()
                 for comment in (comment_res)
             ]
             results.extend(comment_res_standardised)
         except ChunkedEncodingError:
-            log.exception("PushshiftAPI (Comments) dropped due to ChunkedEncodingError")
-
+            (
+                log
+                .exception("PushshiftAPI (Comments) dropped due to ChunkedEncodingError")
+            )
         try:
             submissions_res = api.search_submissions(
                 subreddit=subreddit,
@@ -153,7 +160,8 @@ def extract_subreddit_data(
                 safe_exit=kwargs["mem_safe"],
             )
             submissions_res_standardised = [
-                from_dict(data_class=SubmissionPMAW, data=sub).to_reddit_standard()
+                from_dict(data_class=SubmissionPMAW, data=sub)
+                .to_reddit_standard()
                 for sub in (submissions_res)
             ]
             results.extend(submissions_res_standardised)

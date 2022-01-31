@@ -51,7 +51,7 @@ REDDIT_CRYPTO_CUSTOM_INDEX_NAME = "reddit-crypto-custom"
 
 reddit_crypto_custom_mapping = {
     "settings": {
-        "analysis": 
+        "analysis":
             reddit_custom_index_analysis
             },
     "mappings": {
@@ -64,5 +64,5 @@ reddit_crypto_custom_mapping = {
             "type": {"type": "keyword"},
             "parent_id": {"type": "keyword"},
         }
-    },
+    }
 }
