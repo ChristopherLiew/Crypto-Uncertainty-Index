@@ -1,0 +1,6 @@
+[submodule "gsdmm-rust"]
+	path = gsdmm-rust
+	url = https://github.com/ChristopherLiew/gsdmm-rust.git
+[submodule "gsdmm"]
+	path = gsdmm
+	url = https://github.com/ChristopherLiew/gsdmm.git
