@@ -108,7 +108,7 @@ class ESManager:
         resp = self.es_client.indices.delete(index=index, ignore=404)
         log.info(resp)
 
-    def reindex(self, source_index: str, dest_index: str) -> None:
+    def reindex(self, source_index: str, dest_index: str, timeout: int = 10000) -> None:
         assert self.index_is_exist(source_index),\
             f"Source Index: {source_index} does not exist!"
         assert self.index_is_exist(dest_index),\
@@ -122,7 +122,11 @@ class ESManager:
                 "index": dest_index
                 }
             }
-        self.es_client.reindex(reindex_query, slices='auto', refresh=True)
+        self.es_client.reindex(reindex_query,
+                               wait_for_completion=True,
+                               timeout=timeout,
+                               slices='auto',
+                               refresh=True)
 
     def add_alias(self, index: List[str], alias: str) -> None:
         self.es_client.indices.put_alias(
