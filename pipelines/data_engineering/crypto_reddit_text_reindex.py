@@ -1,5 +1,6 @@
 """
-Pipeline to Process Subreddit Text Data from ES.
+Preprocessing Raw Text from Crypto Subreddits by Reindexing to new Index with
+Custom Analyzer based on EDA and other Papers.
 """
 
 # TASK 1

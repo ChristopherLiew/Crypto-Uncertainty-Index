@@ -2,8 +2,11 @@
 Custom ES Analyzers for Indexing and Search Queries
 """
 
-from operator import index
-from nlp.lexicons import emoji_mappings, crypto_mappings
+from nlp.text_preprocessing import (
+    emoji_mappings,
+    crypto_mappings,
+    common_mappings
+)
 
 # Park this under settings['analysis']
 reddit_custom_index_analysis = {
@@ -13,7 +16,9 @@ reddit_custom_index_analysis = {
             "tokenizer": "standard",
             "char_filter": [
                 "html_strip",
-                "emoticons"
+                "emoticons",
+                "crypto_lex",
+                "general_en_contractions"
                 ],
             "filter": [
                 "lowercase",
@@ -35,17 +40,21 @@ reddit_custom_index_analysis = {
         "emoticons": {
             "type": "mapping",
             "mappings": emoji_mappings.EMOJI_CHAR_MAPPINGS
-            }
+            },
+        "crypto_lex": {
+            "type": "mapping",
+            "mappings": crypto_mappings.CRYPTO_LEXICON_MAPPINGS,
+        },
+        "general_en_contractions": {
+            "type": "mapping",
+            "mappings": common_mappings.COMMON_CONTRACTION_MAPPINGS
+        }
     },
     # After Tokenization
     "filter": {
-        "english_stop": {"type": "stop", "stopwords": "_english_"},
-        "crypto_synonyms": {
-            "type": "synonym",
-            # OR "synonyms_path": "analysis/synonym.txt"
-            # (relative to ES config in container)
-            # if large number of synonyms
-            "synonyms": crypto_mappings.CRYPTO_SYNONYM_MAPPINGS,
-        },
+        "english_stop": {
+            "type": "stop",
+            "stopwords": "_english_"
+            }
     },
 }

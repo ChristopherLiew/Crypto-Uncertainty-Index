@@ -21,7 +21,7 @@ from utils import (
 )
 from utils.logger import log
 from utils.serializer import write_to_pkl
-from data.extract.reddit_extract import (
+from etl.extract.reddit_extract import (
     extract_subreddit_data,
     insert_reddit_to_es
 )

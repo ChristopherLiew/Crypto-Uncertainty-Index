@@ -18,11 +18,11 @@ from snscrape.modules.reddit import (
     Submission,
     Comment
 )
-from data.schema.pmaw_reddit_classes import (
+from etl.schema.pmaw_reddit_classes import (
     SubmissionPMAW,
     CommentPMAW
 )
-from data.schema.es_mappings import (
+from etl.schema.es_mappings import (
     reddit_crypto_mapping,
     REDDIT_CRYPTO_INDEX_NAME
 )

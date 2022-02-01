@@ -4,41 +4,17 @@ inference and analysis, etc.
 """
 
 import typer
-from typing import (
-    Optional,
-    List
-)
+from typing import List
 from datetime import datetime
 from pipelines.data_engineering.crypto_subreddit_data import elt_crypto_subreddit_data
 from config.reddit_data_cfg import CRYPTO_REDDIT_DATE_RANGE
-from data.schema.es_mappings import REDDIT_CRYPTO_INDEX_NAME
+from etl.schema.es_mappings import REDDIT_CRYPTO_INDEX_NAME
 
 # App
 app = typer.Typer()
 
 # Details
 __app_name__, __version__ = "crypto-uncertainty-index", "0.1.0"
-
-
-# Callback
-def _version_callback(value: bool) -> None:
-    if value:
-        typer.echo(f"{__app_name__} v{__version__}")
-        raise typer.Exit()
-
-
-@app.callback()
-def main(
-    version: Optional[bool] = typer.Option(
-        None,
-        "--version",
-        "-v",
-        help="Applcations version",
-        callback=_version_callback,
-        is_eager=True,
-    )
-) -> None:
-    return
 
 
 @app.command("hello-world")
@@ -92,6 +68,5 @@ def run_elt_crypto_subreddit_pipe(
 ###################
 
 
-# Entry point
 if __name__ == "__main__":
     app()

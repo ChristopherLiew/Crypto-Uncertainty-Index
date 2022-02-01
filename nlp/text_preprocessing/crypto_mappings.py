@@ -5,10 +5,12 @@ Crypto Lingo Reference:
 https://www.bloomberg.com/news/articles/2021-05-19/what-the-heck-is-hodl-bitcoin-lingo-for-crypto-noobs-quicktake
 """
 
-CRYPTO_SYNONYM_MAPPINGS = [
+CRYPTO_LEXICON_MAPPINGS = [
     "hodl => hold",
     "fomo => fear of missing out",
     "fud => fear, uncertainty, doubt",
 ]
 
-COMMON_CONTRACTION_MAPPINGS = None
+
+# Replace @User etc.
+CRYPTO_PATTERN_REPLACE_MAPPINGS = None
