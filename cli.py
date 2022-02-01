@@ -3,42 +3,25 @@ CLI commands for easy pipeline triggers and model training,
 inference and analysis, etc.
 """
 
+import ast
 import typer
-from typing import (
-    Optional,
-    List
-)
+from typing import List
 from datetime import datetime
+from es.manager import ESManager
+from etl.schema.es_mappings import (
+    REDDIT_CRYPTO_INDEX_NAME,
+    REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
+    reddit_crypto_custom_mapping,
+)
 from pipelines.data_engineering.crypto_subreddit_data import elt_crypto_subreddit_data
 from config.reddit_data_cfg import CRYPTO_REDDIT_DATE_RANGE
-from data.schema.es_mappings import REDDIT_CRYPTO_INDEX_NAME
+from etl.schema.es_mappings import REDDIT_CRYPTO_INDEX_NAME
 
 # App
 app = typer.Typer()
 
 # Details
 __app_name__, __version__ = "crypto-uncertainty-index", "0.1.0"
-
-
-# Callback
-def _version_callback(value: bool) -> None:
-    if value:
-        typer.echo(f"{__app_name__} v{__version__}")
-        raise typer.Exit()
-
-
-@app.callback()
-def main(
-    version: Optional[bool] = typer.Option(
-        None,
-        "--version",
-        "-v",
-        help="Applcations version",
-        callback=_version_callback,
-        is_eager=True,
-    )
-) -> None:
-    return
 
 
 @app.command("hello-world")
@@ -86,12 +69,37 @@ def run_elt_crypto_subreddit_pipe(
 ## Data & Text Processing ##
 ############################
 
+# ES Reindex
+# -> Change dest mapping to allow JSON files as well
+@app.command('es-reindex',
+             help="ES reindexing from a source index to a destination index")
+def run_es_reindex(source_index: str = typer.Option(REDDIT_CRYPTO_INDEX_NAME),
+                   dest_index: str = typer.Option(REDDIT_CRYPTO_CUSTOM_INDEX_NAME),
+                   dest_mapping: str = typer.Option(reddit_crypto_custom_mapping)
+                   ) -> None:
+
+    es_conn = ESManager()
+
+    if not es_conn.index_is_exist(dest_index):
+        es_conn.create_index(
+            index=dest_index,
+            mapping=ast.literal_eval(dest_mapping))
+
+    es_conn.reindex(
+        source_index=source_index,
+        dest_index=dest_index)
+
 
 ###################
 ## NLP Pipelines ##
 ###################
 
 
-# Entry point
+#################################
+## Uncertainty Index Pipelines ##
+#################################
+
+
+
 if __name__ == "__main__":
     app()

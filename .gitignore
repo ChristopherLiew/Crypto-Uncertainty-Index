@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 # Cache & Raw Data Files
-data/raw_data_dump/reddit/*
+etl/raw_data_dump/reddit/*
 cache/*
 
 # Vscode config

@@ -13,10 +13,18 @@ from config.reddit_data_cfg import (
     # CRYPTO_SUBREDDITS,
     REDDIT_DATA_SAVE_DIR,
 )
-from utils import timer, gen_date_chunks, check_and_create_dir
+from pathlib import Path
+from utils import (
+    timer,
+    gen_date_chunks,
+    check_and_create_dir
+)
 from utils.logger import log
 from utils.serializer import write_to_pkl
-from data.extract.reddit_extract import extract_subreddit_data, insert_reddit_to_es
+from etl.extract.reddit_extract import (
+    extract_subreddit_data,
+    insert_reddit_to_es
+)
 
 
 @timer
@@ -66,12 +74,12 @@ def elt_crypto_subreddit_data(
                 "0" if not sub_batch_data else str(len(sub_batch_data))
             )
             # Serialize data to pkl for safety into
-            subreddit_dump_dir = os.path.join(REDDIT_DATA_SAVE_DIR, sub)
+            subreddit_dump_dir = Path(REDDIT_DATA_SAVE_DIR) / sub
             check_and_create_dir(subreddit_dump_dir)
-            file_path = os.path.join(
-                subreddit_dump_dir,
-                f"{sub}_{batch_start_date.date()}_{batch_end_date.date()}.pkl",
-            )
+            file_path = (
+                subreddit_dump_dir /
+                f"{sub}_{batch_start_date.date()}_{batch_end_date.date()}.pkl"
+                )
             write_to_pkl(file_path=file_path, obj=sub_batch_data)
             # Insert to elasticsearch
             insert_reddit_to_es(data=sub_batch_data)

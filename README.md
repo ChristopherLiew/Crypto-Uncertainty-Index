@@ -16,7 +16,7 @@ Some simple steps to setting up the repository for ETL, Modelling, etc.
 ### Dependencies & Venv
 ```zsh
 brew install make  # OSX
-make install  # Runs Brew and Poetry
+make install  # Runs Brew and Poetry Installs
 ```
 
 ### Services
@@ -25,7 +25,7 @@ make install  # Runs Brew and Poetry
 
 **Install**
 ```zsh
-make build
+make build  # Build from docker-compose.yml
 ```
 **Start Up**
 ```zsh
@@ -34,7 +34,7 @@ make run  # After starting up docker daemon
 **Check Services' Health**
 ```zsh
 make ps
-make es-cluster-health
+make es-cluster-health # Check cluster health
 ```
 **Shut down**
 ```zsh
@@ -64,10 +64,13 @@ make stop  # Stops docker containers
 
 
 ## Appendix:
-### Using in project poetry venv
+### Using In-Project poetry venv over cache
 ```zsh
 poetry config virtualenvs.in-project true
 poetry env remove python
 poetry install
 ```
 
+### ES DSL
+* High level Elasticsearch API for Search
+* Documentation [here](https://elasticsearch-dsl.readthedocs.io/en/latest/search_dsl.html)

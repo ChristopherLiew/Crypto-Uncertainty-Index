@@ -3,10 +3,17 @@ install:
 	brew install poetry
 	poetry install
 	poetry shell
+	poetry config experimental.new-installer = false
+
+update:
+	poetry update
+
+exit:
+	exit
 
 # Docker
 run:
-	docker compose up
+	docker-compose -f docker-compose.yml up
 
 build:
 	docker-compose -f docker-compose.yml build
