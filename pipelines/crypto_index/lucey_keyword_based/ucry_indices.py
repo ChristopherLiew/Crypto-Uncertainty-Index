@@ -116,17 +116,6 @@ def get_ucry_doc_count(index: str,
     return res_count['count']
 
 
-# Test
-# 6 Months
-# res_count = get_ucry_doc_count(
-#     index=REDDIT_CRYPTO_INDEX_NAME,
-#     start_date=datetime(2021, 7, 1),
-#     end_date=datetime(2021, 12, 12),
-#     type="price",
-#     field="full_text"
-# )
-
-
 def construct_ucry_index(es_source_index: str,
                          start_date: Union[str, datetime],
                          end_date: Union[str, datetime],
@@ -168,27 +157,3 @@ def construct_ucry_index(es_source_index: str,
     res_df['index_value'] = ((res_df['doc_count'] - mu_1) / sig_1) + 100
     res_df['type'] = type
     return res_df
-
-
-# # Test (6m, Raw index, Monthly + Weekly)
-# res_6m_week_price = construct_ucry_index(
-#     es_source_index=REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
-#     start_date=datetime(2021, 7, 1),
-#     end_date=datetime(2021, 12, 12),
-#     type="price",
-#     granularity="week",
-#     text_field="full_text"
-# )
-
-# res_6m_week_policy = construct_ucry_index(
-#     es_source_index=REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
-#     start_date=datetime(2021, 7, 1),
-#     end_date=datetime(2021, 12, 12),
-#     type="price",
-#     granularity="week",
-#     text_field="full_text"
-# )
-
-# # Test Insertion
-# insert_ucry_to_es(res_6m_week_price)
-# insert_ucry_to_es(res_6m_week_policy)

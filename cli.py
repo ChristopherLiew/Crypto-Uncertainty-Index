@@ -5,7 +5,7 @@ inference and analysis, etc.
 
 import ast
 import typer
-from typing import List, Union
+from typing import List
 from datetime import datetime
 from es.manager import ESManager
 from etl.schema.es_mappings import (
@@ -19,7 +19,6 @@ from pipelines.crypto_index.lucey_keyword_based.ucry_indices import (
     construct_ucry_index
 )
 from config.reddit_data_cfg import CRYPTO_REDDIT_DATE_RANGE
-from etl.schema.es_mappings import REDDIT_CRYPTO_INDEX_NAME
 
 # App
 app = typer.Typer()
