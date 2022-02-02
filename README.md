@@ -61,8 +61,10 @@ make stop  # Stops docker containers
 ### Uncertainty Index Construction
 3. **Baseline Uncertainty Index (Lucey's)**
 * Uses ```Lucey et al. (2021)```'s methodology to construct a baseline cryptocurrency index using a simple predefined keyword set. Resulting numeric index values are inserted into the elasticsearch index ```ucry-baseline``` by default.
-
-
+* Using the CLI interface:
+  ```zsh
+  ucry-cli build-ucry-lucey --start-date 2014-01-01 --end-date 2021-12-31 --granularity weekly --type price
+  ```
 
 ## Appendix:
 ### Using In-Project poetry venv over cache
