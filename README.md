@@ -7,7 +7,8 @@ Constructing a cryptocurrency index based on news-media texts using NLP to measu
 and forecasting of cryptocurrency volatility.
 
 ## Uncertainty Index Construction Approaches
-1. Naive Keyword Counts with Expanded Crypto Lexicon
+1. Baseline Keyword Based Index ```(Lucey et al. 2021)```
+1. Naive Keyword Based Index with Expanded Crypto Lexicon
 2. Measuring Uncertainty using Linguistic Hedges & Language Models
 
 ## Set-Up

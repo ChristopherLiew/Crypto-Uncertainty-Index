@@ -131,6 +131,7 @@ dmypy.json
 # Cache & Raw Data Files
 etl/raw_data_dump/reddit/*
 cache/*
+*.csv
 
 # Vscode config
 .vscode
