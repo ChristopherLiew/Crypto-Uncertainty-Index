@@ -70,9 +70,11 @@ class ESManager:
         mapping: Dict[str, str],
         body: List[Any] = None,
         settings: Dict[str, str] = None,
+        separate_settings: bool = True
     ) -> None:
 
-        mapping["settings"] = DEFAULT_INDEX_SETTINGS if not settings else settings
+        if separate_settings:
+            mapping["settings"] = DEFAULT_INDEX_SETTINGS if not settings else settings
 
         data_size = 0 if not body else len(body)
 
@@ -124,7 +126,7 @@ class ESManager:
             }
         self.es_client.reindex(reindex_query,
                                wait_for_completion=True,
-                               timeout=timeout,
+                               request_timeout=timeout,
                                slices='auto',
                                refresh=True)
 

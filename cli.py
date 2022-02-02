@@ -5,15 +5,19 @@ inference and analysis, etc.
 
 import ast
 import typer
-from typing import List
+from typing import List, Union
 from datetime import datetime
 from es.manager import ESManager
 from etl.schema.es_mappings import (
     REDDIT_CRYPTO_INDEX_NAME,
     REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
-    reddit_crypto_custom_mapping,
+    reddit_crypto_custom_mapping
 )
 from pipelines.data_engineering.crypto_subreddit_data import elt_crypto_subreddit_data
+from pipelines.crypto_index.lucey_keyword_based.ucry_indices import (
+    insert_ucry_to_es,
+    construct_ucry_index
+)
 from config.reddit_data_cfg import CRYPTO_REDDIT_DATE_RANGE
 from etl.schema.es_mappings import REDDIT_CRYPTO_INDEX_NAME
 
@@ -79,11 +83,12 @@ def run_es_reindex(source_index: str = typer.Option(REDDIT_CRYPTO_INDEX_NAME),
                    ) -> None:
 
     es_conn = ESManager()
-
+    print(es_conn.index_is_exist(dest_index))
     if not es_conn.index_is_exist(dest_index):
         es_conn.create_index(
             index=dest_index,
-            mapping=ast.literal_eval(dest_mapping))
+            mapping=ast.literal_eval(dest_mapping),
+            separate_settings=False)
 
     es_conn.reindex(
         source_index=source_index,
@@ -98,7 +103,21 @@ def run_es_reindex(source_index: str = typer.Option(REDDIT_CRYPTO_INDEX_NAME),
 #################################
 ## Uncertainty Index Pipelines ##
 #################################
-
+@app.command(name="build-ucry-lucey",
+             help="Construct crypto uncertainty index based on Lucey's methodology.")
+def construct_lucey_index(es_source_index: str = typer.Option(REDDIT_CRYPTO_CUSTOM_INDEX_NAME),
+                          start_date: datetime = typer.Option(START_DATE),
+                          end_date: datetime = typer.Option(END_DATE),
+                          granularity: str = typer.Option('week', help="Supports day, week, month, year etc."),
+                          text_field: str = typer.Option('full_text', help='Name of field to mine for index'),
+                          type: str = typer.Option('price', help="Lucey index type. One of 'price' or 'policy'")) -> None:
+    index_df = construct_ucry_index(es_source_index=es_source_index,
+                                    start_date=start_date,
+                                    end_date=end_date,
+                                    granularity=granularity,
+                                    type=type,
+                                    text_field=text_field)
+    insert_ucry_to_es(index_df)
 
 
 if __name__ == "__main__":

@@ -76,3 +76,13 @@ reddit_custom_index_analysis = {
         },
     },
 }
+
+
+# Export as json for kibana testing
+# import json
+
+# with open("es/custom_analyzer.json", 'w') as file:
+#     json.dump(reddit_custom_index_analysis,
+#               file,
+#               indent=4,
+#               sort_keys=True)
