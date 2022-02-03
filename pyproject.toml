@@ -22,7 +22,6 @@ black = "^21.12b0"
 elasticsearch = "^7.16.3"
 elasticsearch-dsl = "^7.4.0"
 SQLAlchemy = "^1.4.29"
-sqlmodel = "^0.0.6"
 rich = "^11.0.0"
 ipykernel = "^6.7.0"
 jupyter = "^1.0.0"
@@ -38,6 +37,7 @@ pyLDAvis = "^3.3.1"
 pyarrow = "^6.0.1"
 emot = "^3.1"
 contractions = "^0.1.66"
+altair = "^4.2.0"
 
 
 [tool.poetry.dev-dependencies]

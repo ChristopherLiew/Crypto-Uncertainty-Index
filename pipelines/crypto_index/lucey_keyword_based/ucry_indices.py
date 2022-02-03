@@ -7,44 +7,12 @@ import pandas as pd
 from datetime import datetime
 from typing import Union
 from es.manager import ESManager
-from etl.schema.es_mappings import (
-    REDDIT_CRYPTO_INDEX_NAME,
-    REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
-    LUCEY_UNCERTAINTY_INDEX_NAME,
-    lucey_ucry_mapping
-)
 from utils.logger import log
-from utils import timer
 from utils import gen_date_chunks
 
 
 static_es_conn = ESManager()
 DATE_FMT = "%Y-%m-%d"
-
-
-# Abstract this out for all UCRY indices in ETL > Load Directory
-@timer
-def insert_ucry_to_es(
-    data: pd.DataFrame, index: str = LUCEY_UNCERTAINTY_INDEX_NAME
-) -> None:
-    log.info("Inserting data to ES")
-    if not static_es_conn.index_is_exist(index):
-        log.info(f"{index} not yet created ... creating index: {index}")
-        (
-            static_es_conn
-            .create_index(index=index, mapping=lucey_ucry_mapping)
-        )
-    log.info("Generating ES compatible documents")
-    lucey_ucry_docs = ESManager().es_doc_generator(
-        data=data,
-        index=index,
-        auto_id=True,
-        doc_processing_func=None,
-    )
-    print(next(lucey_ucry_docs))
-    log.info("Documents generated. Inserting documents into ES.")
-    (static_es_conn.bulk_insert_data(index=index, data=lucey_ucry_docs))
-    log.info("Insertion complete!")
 
 
 def get_ucry_doc_count(index: str,
@@ -150,7 +118,11 @@ def construct_ucry_index(es_source_index: str,
             'doc_count': doc_count
         })
     res_df = pd.DataFrame.from_records(raw_doc_counts,
-                                       columns=['start_date', 'end_date', 'doc_count'])
+                                       columns=[
+                                           'start_date',
+                                           'end_date',
+                                           'doc_count']
+                                       )
     log.info("Computing Index Values")
     mu_1 = res_df['doc_count'].mean()
     sig_1 = res_df['doc_count'].std()
