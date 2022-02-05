@@ -29,12 +29,7 @@ from config.reddit_data_cfg import (
 app = typer.Typer()
 
 # Details
-__app_name__, __version__ = "crypto-uncertainty-index", "0.1.0"
-
-
-@app.command("hello-world")
-def hello_world(name: str) -> None:
-    print(f"Hello there {name}, welcome to the cli interface")
+__app_name__, __version__ = "ucry-cli", "0.1.0"
 
 
 #####################
@@ -117,6 +112,11 @@ def run_es_reindex(source_index: str = typer.Option(REDDIT_CRYPTO_INDEX_NAME,
 #################################
 ## Uncertainty Index Pipelines ##
 #################################
+
+def complete_lucey_ucry_type():
+    return ['price', 'policy']
+
+
 @app.command(name="build-ucry-lucey",
              help="Construct crypto uncertainty index based on Lucey's methodology.")
 def construct_lucey_index(es_source_index: str = typer.Option(REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
@@ -130,7 +130,9 @@ def construct_lucey_index(es_source_index: str = typer.Option(REDDIT_CRYPTO_CUST
                           text_field: str = typer.Option('full_text',
                                                          help='Name of field to mine for index'),
                           type: str = typer.Option('price',
-                                                   help="Lucey index type. One of 'price' or 'policy'")) -> None:
+                                                   help="Lucey index type. One of 'price' or 'policy'",
+                                                   autocompletion=complete_lucey_ucry_type)
+                          ) -> None:
 
     index_df = construct_ucry_index(es_source_index=es_source_index,
                                     start_date=start_date,

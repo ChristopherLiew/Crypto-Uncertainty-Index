@@ -88,7 +88,7 @@ def extract_subreddit_data(
             )
             comment_res_standardised = [
                 from_dict(data_class=CommentPMAW, data=comment)
-                .to_reddit_standard()
+                .to_sns_scrape_standard()
                 for comment in (comment_res)
             ]
             results.extend(comment_res_standardised)
@@ -110,7 +110,7 @@ def extract_subreddit_data(
             )
             submissions_res_standardised = [
                 from_dict(data_class=SubmissionPMAW, data=sub)
-                .to_reddit_standard()
+                .to_sns_scrape_standard()
                 for sub in (submissions_res)
             ]
             results.extend(submissions_res_standardised)
