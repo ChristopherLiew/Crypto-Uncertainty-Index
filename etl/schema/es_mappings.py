@@ -2,12 +2,14 @@
 ES Mappings for various data to be stored.
 """
 
-############################
-### Reddit Data Mappings ###
-############################
+
+##################################
+### Uncertainty Index Mappings ###
+##################################
 LUCEY_UNCERTAINTY_INDEX_NAME = "lucey-ucry"
 
-lucey_ucry_mapping = {
+# Standardised Mapping for Uncertainty Indices
+ucry_index_mapping = {
     "mappings": {
         "properties": {
             "type": {"type": "keyword"},

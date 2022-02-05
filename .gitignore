@@ -135,3 +135,6 @@ cache/*
 
 # Vscode config
 .vscode
+
+# Mac Stuff
+.DS_Store

@@ -13,23 +13,23 @@ from etl.schema.es_mappings import (
     REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
     reddit_crypto_custom_mapping
 )
-from pipelines.data_engineering.crypto_subreddit_data import elt_crypto_subreddit_data
+from pipelines.data_engineering.crypto_subreddit_data import (
+    elt_crypto_subreddit_data
+)
 from pipelines.crypto_index.lucey_keyword_based.ucry_indices import (
-    insert_ucry_to_es,
     construct_ucry_index
 )
-from config.reddit_data_cfg import CRYPTO_REDDIT_DATE_RANGE
+from etl.load.ucry_to_es_load import insert_ucry_to_es
+from config.reddit_data_cfg import (
+    CRYPTO_REDDIT_DATE_RANGE,
+    CRYPTO_SUBREDDITS
+)
 
 # App
 app = typer.Typer()
 
 # Details
-__app_name__, __version__ = "crypto-uncertainty-index", "0.1.0"
-
-
-@app.command("hello-world")
-def hello_world(name: str) -> None:
-    print(f"Hello there {name}, welcome to the cli interface")
+__app_name__, __version__ = "ucry-cli", "0.1.0"
 
 
 #####################
@@ -44,11 +44,16 @@ START_DATE, END_DATE = CRYPTO_REDDIT_DATE_RANGE.values()
     help="Extracts data from given subreddits for the specified date range.",
 )
 def run_elt_crypto_subreddit_pipe(
-    subreddits: List[str],
-    start_date: datetime = typer.Option(START_DATE),
-    end_date: datetime = typer.Option(END_DATE),
-    mem_safe: bool = typer.Option(True),
-    safe_exit: bool = typer.Option(False),
+    subreddits: List[str] = typer.Option(CRYPTO_SUBREDDITS,
+                                         help="Subreddits to pull data from"),
+    start_date: datetime = typer.Option(START_DATE,
+                                        help="Start date"),
+    end_date: datetime = typer.Option(END_DATE,
+                                      help="End date"),
+    mem_safe: bool = typer.Option(True,
+                                  help="Toggle memory safety. If True, caches extracted data periodically"),
+    safe_exit: bool = typer.Option(False,
+                                   help="Toggle safe exiting. If True, extraction will pick up where it left off if interrupted"),
 ) -> None:
     f"""
     Extracts data from selected subreddits for a given date range and inserts
@@ -59,6 +64,7 @@ def run_elt_crypto_subreddit_pipe(
         start_date (str, optional): Start Date (Format = %Y-%m-%d). Defaults to 2014-01-01
         end_date (str, optional): End date (Format = %Y-%m-%d). Defaults to 2021-12-31
     """
+
     return elt_crypto_subreddit_data(
         subreddits=subreddits,
         start_date=start_date,
@@ -76,13 +82,17 @@ def run_elt_crypto_subreddit_pipe(
 # -> Change dest mapping to allow JSON files as well
 @app.command('es-reindex',
              help="ES reindexing from a source index to a destination index")
-def run_es_reindex(source_index: str = typer.Option(REDDIT_CRYPTO_INDEX_NAME),
-                   dest_index: str = typer.Option(REDDIT_CRYPTO_CUSTOM_INDEX_NAME),
-                   dest_mapping: str = typer.Option(reddit_crypto_custom_mapping)
+def run_es_reindex(source_index: str = typer.Option(REDDIT_CRYPTO_INDEX_NAME,
+                                                    help="Source ES Index to pull data from"),
+                   dest_index: str = typer.Option(REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
+                                                  help="Destination ES Index to insert data to"),
+                   dest_mapping: str = typer.Option(reddit_crypto_custom_mapping,
+                                                    help="Destination index ES mapping",
+                                                    show_default=False)
                    ) -> None:
 
     es_conn = ESManager()
-    print(es_conn.index_is_exist(dest_index))
+
     if not es_conn.index_is_exist(dest_index):
         es_conn.create_index(
             index=dest_index,
@@ -102,20 +112,35 @@ def run_es_reindex(source_index: str = typer.Option(REDDIT_CRYPTO_INDEX_NAME),
 #################################
 ## Uncertainty Index Pipelines ##
 #################################
+
+def complete_lucey_ucry_type():
+    return ['price', 'policy']
+
+
 @app.command(name="build-ucry-lucey",
              help="Construct crypto uncertainty index based on Lucey's methodology.")
-def construct_lucey_index(es_source_index: str = typer.Option(REDDIT_CRYPTO_CUSTOM_INDEX_NAME),
-                          start_date: datetime = typer.Option(START_DATE),
-                          end_date: datetime = typer.Option(END_DATE),
-                          granularity: str = typer.Option('week', help="Supports day, week, month, year etc."),
-                          text_field: str = typer.Option('full_text', help='Name of field to mine for index'),
-                          type: str = typer.Option('price', help="Lucey index type. One of 'price' or 'policy'")) -> None:
+def construct_lucey_index(es_source_index: str = typer.Option(REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
+                                                              help="ES Index to pull text data from"),
+                          start_date: datetime = typer.Option(START_DATE,
+                                                              help="Start date"),
+                          end_date: datetime = typer.Option(END_DATE,
+                                                            help="End date"),
+                          granularity: str = typer.Option('week',
+                                                          help="Supports day, week, month, year etc."),
+                          text_field: str = typer.Option('full_text',
+                                                         help='Name of field to mine for index'),
+                          type: str = typer.Option('price',
+                                                   help="Lucey index type. One of 'price' or 'policy'",
+                                                   autocompletion=complete_lucey_ucry_type)
+                          ) -> None:
+
     index_df = construct_ucry_index(es_source_index=es_source_index,
                                     start_date=start_date,
                                     end_date=end_date,
                                     granularity=granularity,
                                     type=type,
                                     text_field=text_field)
+
     insert_ucry_to_es(index_df)
 
 
