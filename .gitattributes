@@ -1,4 +1,5 @@
 # Jupyter notebook
 # notebooks/*.ipynb text
 *.ipynb linguist-documentation
+*.sql linguist-detectable=true
 *.sql linguist-language=sql
