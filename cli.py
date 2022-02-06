@@ -21,7 +21,7 @@ from pipelines.data_engineering.crypto_subreddit_data import (
 from pipelines.crypto_index.lucey_keyword_based.ucry_indices import (
     construct_ucry_index
 )
-from etl.load.ucry_to_es_load import insert_ucry_to_es
+from etl.load.ucry_load import insert_ucry_to_es
 
 
 # App

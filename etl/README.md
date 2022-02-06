@@ -2,7 +2,7 @@
 ## Introduction
 This documentation covers the various data sources pertaining to the construction of our Cryptocurrency Uncertainty Index. For details on data engineering pipelines / designs please refer to the main README.md in the ```root dir```.
 
-### Components in the ```data``` directory:
+### Components in the ```ETL``` directory:
 * ```Extract``` - Extract functions and pipelines to pull data from various sources and ingest them into databases (i.e. Elasticsearch or Postgres)
 * ```Schema```- Contains schemas for constructing our databases. Elasticsearch Mappings and Postgres Schemas.
 * ```Raw Data Dump``` - Raw Extracted Data written out as ```.csv``` files, ```binaries``` and other compressed formates.

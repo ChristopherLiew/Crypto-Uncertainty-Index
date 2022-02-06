@@ -285,3 +285,23 @@ reddit_crypto_custom_mapping = {
         }
     }
 }
+
+
+####################################
+### Crypto Price Data Mappings ###
+####################################
+
+CRYPTO_PRICE_INDEX_NAME = "crypto-price"
+
+crypto_price_index_mapping = {
+    "mappings": {
+        "properties": {
+            "currency": {"type": "keyword"},
+            "datetime": {"type": "date"},
+            "open": {"type": "float"},
+            "close": {"type": "float"},
+            "high": {"type": "float"},
+            "low": {"type": "float"},
+        }
+    }
+}
