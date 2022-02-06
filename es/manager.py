@@ -2,20 +2,24 @@
 Helper class to insert and query documents from Elasticsearch.
 """
 
-
+import toml
 import pandas as pd
 from pprint import pprint
+from pathlib import Path
 from typing import Any, Callable, List, Dict, Optional, Union, Generator
 from dataclasses import dataclass
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
 from elasticsearch.exceptions import RequestError
 from utils.logger import log
-from config.es_cfg import (
-    DEFAULT_HOST,
-    DEFAULT_PORT,
-    DEFAULT_INDEX_SETTINGS
-)
+
+
+# Config
+config = toml.load(Path() / "config" / "etl_config.toml")
+es_config = config["elasticsearch"]
+DEFAULT_INDEX_SETTINGS = config["elasticsearch"]["index"]
+DEFAULT_HOST = es_config["default_host"]
+DEFAULT_PORT = es_config["default_port"]
 
 # from elasticsearch_dsl import Search Use for easy search
 

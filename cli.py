@@ -5,6 +5,8 @@ inference and analysis, etc.
 
 import ast
 import typer
+import toml
+from pathlib import Path
 from typing import List
 from datetime import datetime
 from es.manager import ESManager
@@ -20,10 +22,7 @@ from pipelines.crypto_index.lucey_keyword_based.ucry_indices import (
     construct_ucry_index
 )
 from etl.load.ucry_to_es_load import insert_ucry_to_es
-from config.reddit_data_cfg import (
-    CRYPTO_REDDIT_DATE_RANGE,
-    CRYPTO_SUBREDDITS
-)
+
 
 # App
 app = typer.Typer()
@@ -31,11 +30,24 @@ app = typer.Typer()
 # Details
 __app_name__, __version__ = "ucry-cli", "0.1.0"
 
+# Config
+DATE_FMT = "%Y-%m-%d"
+ROOT = Path()
+reddit_config = (
+    toml
+    .load(ROOT / "config" / "etl_config.toml")
+    ["reddit"]
+)
+crypto_config = reddit_config["cryptocurrency"]
 
 #####################
 ## Data Extraction ##
 #####################
-START_DATE, END_DATE = CRYPTO_REDDIT_DATE_RANGE.values()
+CRYPTO_SUBREDDITS = crypto_config["crypto_subreddits"]
+START_DATE, END_DATE = (
+    datetime.strptime(crypto_config["start_date"], DATE_FMT),
+    datetime.strptime(crypto_config["end_date"], DATE_FMT)
+)
 
 
 # Run Extraction

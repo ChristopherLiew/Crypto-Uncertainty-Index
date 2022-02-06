@@ -1,0 +1,31 @@
+title = "Data Extraction & Loading Configuration File"
+
+[elasticsearch]
+default_host = "localhost"
+default_port = 9200
+
+[elasticsearch.index]
+default_num_shards = 5
+default_num_replicas = 1
+
+[reddit.cryptocurrency]
+crypto_subreddits = [
+    "ethereum",
+    "ethtrader",
+    "EtherMining",
+    "Bitcoin",
+    "BitcoinMarkets",
+    "btc",
+    "CryptoCurrency",
+    "CryptoCurrencyTrading",
+]
+start_date = "2014-01-01"
+end_date = "2021-12-31"
+save_dir = "crypto_uncertainty_index/data/raw_data_dump/reddit"
+
+[kucoin]
+base_url = "https://api.kucoin.com"
+default_frequency = "1week"
+start_date = "2014-01-01"
+end_date = "2021-12-31"
+save_dir = "crypto_uncertainty_index/data/raw_data_dump/cryptocurrency" 

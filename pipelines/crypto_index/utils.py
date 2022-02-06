@@ -1,12 +1,22 @@
 """
 [TBD] UCRY Index Related Util Functions
 """
+
+import toml
+from pathlib import Path
+from datetime import datetime
 from etl.schema.es_mappings import REDDIT_CRYPTO_CUSTOM_INDEX_NAME
 from pipelines.crypto_index.lucey_keyword_based.ucry_indices import (
     construct_ucry_index
 )
-from config.reddit_data_cfg import CRYPTO_REDDIT_DATE_RANGE
-START_DATE, END_DATE = CRYPTO_REDDIT_DATE_RANGE.values()
+
+# Config
+DATE_FMT = "%Y-%m-%d"
+config = toml.load(Path() / "config" / "etl_config.toml")
+START_DATE, END_DATE = (
+    datetime.strptime(config["reddit"]["cryptocurrency"]["start_date"], DATE_FMT),
+    datetime.strptime(config["reddit"]["cryptocurrency"]["end_date"], DATE_FMT)
+)
 
 
 # Utils to pull index data from ES and write to csv

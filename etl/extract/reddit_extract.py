@@ -123,5 +123,5 @@ def extract_subreddit_data(
     else:
         raise ValueError("Please select a valid scraper: pmaw or snscrape")
     log.info(msg=f"Successfully pulled data from subreddit: {subreddit}")
-    
+ 
     return results

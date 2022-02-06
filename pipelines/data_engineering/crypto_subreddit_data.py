@@ -3,6 +3,7 @@ Extract all relevant reddit crypto data and insert to ES.
 """
 
 
+import toml
 from tqdm import tqdm
 from datetime import datetime
 from pathlib import Path
@@ -14,9 +15,6 @@ from typing import (
 )
 from rich.table import Table
 from rich.console import Console
-from config.reddit_data_cfg import (
-    REDDIT_DATA_SAVE_DIR
-)
 from etl.extract.reddit_extract import (
     extract_subreddit_data
 )
@@ -30,6 +28,13 @@ from utils import (
 )
 from utils.logger import log
 from utils.serializer import write_to_pkl
+
+
+REDDIT_DATA_SAVE_DIR = Path(
+    toml.load(Path() / "config" / "etl_config.toml")
+    ["reddit"]["cryptocurrency"]
+    ["save_dir"]
+)
 
 
 @timer
@@ -88,7 +93,7 @@ def elt_crypto_subreddit_data(
             )
 
             # Serialize data to pkl for safety into
-            subreddit_dump_dir = Path(REDDIT_DATA_SAVE_DIR) / sub
+            subreddit_dump_dir = REDDIT_DATA_SAVE_DIR / sub
             check_and_create_dir(subreddit_dump_dir)
 
             file_path = (

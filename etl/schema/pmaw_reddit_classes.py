@@ -3,11 +3,15 @@ Dataclasses for PMAW mappings. Classes are to map PMAW output
 results to SNSCRAPE dataclass schema for consistent data abstraction.
 
 NOTE: Mappings may not be consistent with SNSCRAPE entirely due to
-differing pydantic.Field(s returned by PMAW vis a vis SNSCRAPE.
+differing Field(s returned by PMAW vis a vis SNSCRAPE.
 """
 
 
-import pydantic
+from pydantic.dataclasses import dataclass
+from pydantic import (
+    Field,
+    AnyUrl
+)
 from dataclasses import asdict
 from datetime import datetime
 from typing import Optional
@@ -17,16 +21,16 @@ from snscrape.modules.reddit import (
 )
 
 
-@pydantic.dataclasses.dataclass
+@dataclass
 class SubmissionPMAW:
-    created_utc: int
+    created_utc: datetime
     id: str
     title: str
     subreddit: str
-    url: Optional[pydantic.AnyUrl] = pydantic.Field(None, description="URL to reddit submission")
-    author: Optional[str] = pydantic.Field(None, description="Author of reddit submission")
-    permalink: Optional[str] = pydantic.Field(None, description="Link reddit submission")
-    selftext: Optional[str] = pydantic.Field(None, description="Body of reddit submission")
+    url: Optional[str] = Field(None, description="URL to reddit submission")
+    author: Optional[str] = Field(None, description="Author of reddit submission")
+    permalink: Optional[str] = Field(None, description="Link reddit submission")
+    selftext: Optional[str] = Field(None, description="Body of reddit submission")
 
     def __post_init__(self) -> None:
         self.created_utc = datetime.fromtimestamp(self.created_utc)
@@ -40,15 +44,15 @@ class SubmissionPMAW:
         return Submission(**doc)
 
 
-@pydantic.dataclasses.dataclass
+@dataclass
 class CommentPMAW:
-    created_utc: int
+    created_utc: datetime
     id: str
     body: str
     subreddit: str
-    author: Optional[str] = pydantic.Field(None, description="Author of reddit comment")
-    parent_id: Optional[str] = pydantic.Field(None, description="Parent id of reddit comment")
-    permalink: Optional[str] = pydantic.Field(None, description="Link reddit comment")
+    author: Optional[str] = Field(None, description="Author of reddit comment")
+    parent_id: Optional[str] = Field(None, description="Parent id of reddit comment")
+    permalink: Optional[str] = Field(None, description="Link reddit comment")
 
     def __post_init__(self) -> None:
         self.created_utc = datetime.fromtimestamp(self.created_utc)
