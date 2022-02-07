@@ -110,7 +110,7 @@ def elt_crypto_subreddit_data(
 
         crypto_all_data[sub] = sub_all_data
         # Append subreddit res to table
-        summary_table.add_row(*sub_table_data) 
+        summary_table.add_row(*sub_table_data)
 
     # Print out summary table
     console.print(summary_table)

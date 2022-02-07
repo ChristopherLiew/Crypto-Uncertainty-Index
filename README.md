@@ -74,6 +74,24 @@ poetry env remove python
 poetry install
 ```
 
+### Installing llvmlite on M1 Mac
+```zsh
+brew install cmake
+arch -arm64 brew install llvm@11
+# Check LLVM@11 version
+LLVM_CONFIG="/opt/homebrew/Cellar/llvm@11/11.1.0_4/bin/llvm-config" arch -arm64 pip install llvmlite
+```
+To install BERTopic now
+```zsh
+# WARNING: Not tracked by Poetry
+pip3 install -U bertopic
+```
+
+Make shortcut
+```zsh
+make install-bertopic
+```
+
 ### ES DSL
 * High level Elasticsearch API for Search
 * Documentation [here](https://elasticsearch-dsl.readthedocs.io/en/latest/search_dsl.html)

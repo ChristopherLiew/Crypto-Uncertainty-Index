@@ -8,6 +8,9 @@ default_port = 9200
 default_num_shards = 5
 default_num_replicas = 1
 
+[postgres]
+default_local_uri = "postgresql://user:admin@localhost:5432/postgres"
+
 [reddit.cryptocurrency]
 crypto_subreddits = [
     "ethereum",
@@ -21,11 +24,23 @@ crypto_subreddits = [
 ]
 start_date = "2014-01-01"
 end_date = "2021-12-31"
-save_dir = "crypto_uncertainty_index/data/raw_data_dump/reddit"
+save_dir = "crypto_uncertainty_index/etl/raw_data_dump/reddit"
+
+[yfinance.cryptocurrency]
+crypto_tickers = ["BTC-USD"]
+start_date = "2014-01-01"
+end_date = "2021-12-31"
+save_dir = "crypto_uncertainty_index/etl/raw_data_dump/cryptocurrency" 
 
 [kucoin]
 base_url = "https://api.kucoin.com"
 default_frequency = "1week"
 start_date = "2014-01-01"
 end_date = "2021-12-31"
-save_dir = "crypto_uncertainty_index/data/raw_data_dump/cryptocurrency" 
+save_dir = "crypto_uncertainty_index/etl/raw_data_dump/cryptocurrency" 
+
+[yfinance.others]
+other_asset_tickers = ["GC=F", "^GSPC"]
+start_date = "2014-01-01"
+end_date = "2021-12-31"
+save_dir = "crypto_uncertainty_index/etl/raw_data_dump/other_assets" 

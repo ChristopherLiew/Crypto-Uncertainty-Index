@@ -1,6 +1,7 @@
 USE cryptodb;
 
 CREATE TABLE IF NOT EXISTS ucry_index (
+    name VARCHAR,
     type VARCHAR,
     start_date DATE,
     end_date DATE,

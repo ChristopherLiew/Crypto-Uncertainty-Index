@@ -1,7 +1,5 @@
-USE cryptodb;
-
-CREATE TABLE IF NOT EXISTS crypto_price (
-    currency VARCHAR,
+CREATE TABLE IF NOT EXISTS asset_prices (
+    ticker VARCHAR,
     date DATE,
     open DECIMAL,
     close DECIMAL,
