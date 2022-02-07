@@ -7,13 +7,16 @@ import ast
 import typer
 import toml
 from pathlib import Path
-from typing import List
+from typing import List, Union
 from datetime import datetime
 from es.manager import ESManager
 from etl.schema.es_mappings import (
     REDDIT_CRYPTO_INDEX_NAME,
     REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
     reddit_crypto_custom_mapping
+)
+from pipelines.data_engineering.yfinance_data import (
+    elt_yfinance_data
 )
 from pipelines.data_engineering.crypto_subreddit_data import (
     elt_crypto_subreddit_data
@@ -33,12 +36,11 @@ __app_name__, __version__ = "ucry-cli", "0.1.0"
 # Config
 DATE_FMT = "%Y-%m-%d"
 ROOT = Path()
-reddit_config = (
-    toml
-    .load(ROOT / "config" / "etl_config.toml")
-    ["reddit"]
-)
+config = toml.load(ROOT / "config" / "etl_config.toml")
+reddit_config = config["reddit"]
 crypto_config = reddit_config["cryptocurrency"]
+pg_config = config["postgres"]
+yf_config = config["yfinance"]
 
 #####################
 ## Data Extraction ##
@@ -48,7 +50,6 @@ START_DATE, END_DATE = (
     datetime.strptime(crypto_config["start_date"], DATE_FMT),
     datetime.strptime(crypto_config["end_date"], DATE_FMT)
 )
-
 
 # Run Extraction
 @app.command(
@@ -83,6 +84,30 @@ def run_elt_crypto_subreddit_pipe(
         end_date=end_date,
         mem_safe=mem_safe,
         safe_exit=safe_exit,
+    )
+
+
+# Get yfinance data
+@app.command("extract-yfin-data",
+             help="Extracts ticker data from Yahoo Finance")
+def run_elt_yfinance_pipe(
+    tickers: List[str] = typer.Option(yf_config["tickers"],
+                                      help="List of Asset Tickers"),
+    start_date: str = typer.Option(yf_config["start_date"],
+                                   help="Start date to begin extraction"),
+    end_date: str = typer.Option(yf_config["end_date"],
+                                 help="End date to extract up till"),
+    interval: str = typer.Option(yf_config["frequency"],
+                                 help="Granularity of data"),
+    target_table: str = typer.Option(pg_config['tables']['asset_price_table'],
+                                     help="Postgres table to insert data to")
+) -> None:
+    elt_yfinance_data(
+        tickers=tickers,
+        start_date=start_date,
+        end_date=end_date,
+        interval=interval,
+        dest_table=target_table
     )
 
 

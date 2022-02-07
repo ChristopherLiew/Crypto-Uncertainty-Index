@@ -33,7 +33,7 @@ ps:
 # Postgres
 pg-build:
 	poetry shell
-	python sql/setup.py
+	python postgres/setup.py
 
 # Elastic Cluster
 es-cluster-health:

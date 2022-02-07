@@ -3,6 +3,7 @@ SQLAlchemy Relational Models
 """
 
 from sqlalchemy import (
+    BIGINT,
     Column,
     INTEGER,
     VARCHAR,
@@ -24,7 +25,7 @@ class AssetPriceTable(Base):
     high = Column(DECIMAL)
     low = Column(DECIMAL)
     adj_close = Column(DECIMAL)
-    volume = Column(INTEGER)
+    volume = Column(BIGINT)
 
 
 class UcryIndexTable(Base):

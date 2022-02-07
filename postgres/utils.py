@@ -1,5 +1,5 @@
 """
-SQLAlchemy related utils
+SQLAlchemy related utils (DEBUG PD TO PG)
 """
 
 import toml
@@ -45,6 +45,7 @@ def pd_to_pg(data: pd.DataFrame, table_name: str) -> None:
     num_rows_affected = data.to_sql(
         name=table_name,
         con=pg_engine,
-        if_exists='append'
+        if_exists='append',
+        index=False
     )
     log.info(f"Number of rows in {table_name} affected: {num_rows_affected}")
