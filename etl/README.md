@@ -3,8 +3,8 @@
 This documentation covers the various data sources pertaining to the construction of our Cryptocurrency Uncertainty Index. For details on data engineering pipelines / designs please refer to the main README.md in the ```root dir```.
 
 ### Components in the ```ETL``` directory:
-* ```Extract``` - Extract functions and pipelines to pull data from various sources and ingest them into databases (i.e. Elasticsearch or Postgres)
-* ```Schema```- Contains schemas for constructing our databases. Elasticsearch Mappings and Postgres Schemas.
+* ```Extract``` - Extract functions and pipelines to pull data from various sources (APIs) and ingest them into databases (i.e. Elasticsearch or Postgres)
+* ```Schema```- Contains schemas and dataclasses for constructing ES indices' mappings and PyDantic Classes for Vlidation.
 * ```Raw Data Dump``` - Raw Extracted Data written out as ```.csv``` files, ```binaries``` and other compressed formates.
 
 ---
@@ -17,6 +17,3 @@ This documentation covers the various data sources pertaining to the constructio
    * Reddit - Cryptocurrency Subreddits:
      a. r/Bitcoin
      b. r/Ethereum
-
-### 2. Linguistic Uncertainty (Hedge) Based Uncertainty Index
-   * Training & Validation Data - Wikipedia Dumps with Weasel Tags

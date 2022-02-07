@@ -47,6 +47,7 @@ llvmlite = "^0.38.0"
 bertopic = "^0.9.4"
 numpy = "<1.22"
 psycopg2 = "^2.9.3"
+wandb = "^0.12.10"
 
 
 [tool.poetry.scripts]
@@ -55,6 +56,7 @@ ucry-cli = "cli:app"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 flake8 = "^4.0.1"
+pre-commit = "^2.17.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
