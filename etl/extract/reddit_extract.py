@@ -3,11 +3,7 @@ Extraction functions to pull historical submissions and comments data
 from Reddit.
 """
 
-from typing import (
-    List,
-    Union,
-    Optional
-)
+from typing import List, Union, Optional
 from datetime import datetime
 from pmaw import PushshiftAPI
 from requests.exceptions import ChunkedEncodingError
@@ -64,9 +60,7 @@ def extract_subreddit_data(
                 for dates between {str(start_date)} and {str(end_date)}"""
     )
     if scraper.lower() == "snscrape":
-        sc = RedditSubredditScraper(subreddit,
-                                    before=end_date,
-                                    after=start_date)
+        sc = RedditSubredditScraper(subreddit, before=end_date, after=start_date)
 
         for idx, content in enumerate(sc.get_items()):
             if limit and idx > limit:
@@ -87,16 +81,16 @@ def extract_subreddit_data(
                 safe_exit=kwargs["safe_exit"],
             )
             comment_res_standardised = [
-                from_dict(data_class=CommentPMAW, data=comment)
-                .to_sns_scrape_standard()
+                from_dict(data_class=CommentPMAW, data=comment).to_sns_scrape_standard()
                 for comment in (comment_res)
             ]
             results.extend(comment_res_standardised)
 
         except ChunkedEncodingError:
             (
-                log
-                .exception("PushshiftAPI (Comments) dropped due to ChunkedEncodingError")
+                log.exception(
+                    "PushshiftAPI (Comments) dropped due to ChunkedEncodingError"
+                )
             )
 
         try:
@@ -109,8 +103,7 @@ def extract_subreddit_data(
                 safe_exit=kwargs["mem_safe"],
             )
             submissions_res_standardised = [
-                from_dict(data_class=SubmissionPMAW, data=sub)
-                .to_sns_scrape_standard()
+                from_dict(data_class=SubmissionPMAW, data=sub).to_sns_scrape_standard()
                 for sub in (submissions_res)
             ]
             results.extend(submissions_res_standardised)
@@ -123,5 +116,5 @@ def extract_subreddit_data(
     else:
         raise ValueError("Please select a valid scraper: pmaw or snscrape")
     log.info(msg=f"Successfully pulled data from subreddit: {subreddit}")
- 
+
     return results

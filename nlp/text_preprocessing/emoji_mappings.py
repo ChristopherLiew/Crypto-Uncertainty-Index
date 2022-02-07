@@ -7,7 +7,7 @@ EMOJI_CHAR_MAPPINGS = [
     ":( => sad",
     "\ud83d\udc0b => whale",
     ":/ => 'Skeptical, annoyed, undecided, uneasy or hesitant'",
-    "%) => 'Drunk or confused'"
+    "%) => 'Drunk or confused'",
 ]
 
 

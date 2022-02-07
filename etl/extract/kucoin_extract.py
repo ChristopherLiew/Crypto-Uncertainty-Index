@@ -29,26 +29,27 @@ BASE_URL = ku_coin_config["base_url"]
 DEFAULT_FREQUENCY = ku_coin_config["default_frequency"]
 CRYPTO_PRICE_SAVE_DIR = Path(ku_coin_config["save_dir"])
 START_DATE, END_DATE = (
-    datetime
-    .strptime(ku_coin_config["start_date"], DATE_FMT),
-    datetime
-    .strptime(ku_coin_config["end_date"], DATE_FMT)
+    datetime.strptime(ku_coin_config["start_date"], DATE_FMT),
+    datetime.strptime(ku_coin_config["end_date"], DATE_FMT),
 )
 
 
-def extract_kucoin_price_data(coin_pair: str,
-                              start_date: datetime = START_DATE,
-                              end_date: datetime = END_DATE,
-                              frequency: str = DEFAULT_FREQUENCY,
-                              save_dir: Union[str, Path] = CRYPTO_PRICE_SAVE_DIR
-                              ) -> List[KuCoinCandle]:
+def extract_kucoin_price_data(
+    coin_pair: str,
+    start_date: datetime = START_DATE,
+    end_date: datetime = END_DATE,
+    frequency: str = DEFAULT_FREQUENCY,
+    save_dir: Union[str, Path] = CRYPTO_PRICE_SAVE_DIR,
+) -> List[KuCoinCandle]:
 
     start_date = int(start_date.timestamp())
     end_date = int(end_date.timestamp())
     curr_date = end_date
     all_data = []
-    log.info(f"Pulling {coin_pair} from KuCoin API for range:\
-        {start_date} to {end_date}")
+    log.info(
+        f"Pulling {coin_pair} from KuCoin API for range:\
+        {start_date} to {end_date}"
+    )
 
     while curr_date > start_date:
         query = (
@@ -57,7 +58,7 @@ def extract_kucoin_price_data(coin_pair: str,
                 &startAt={start_date}&endAt={curr_date}"
         )
         body = requests.get(query).json()
-        data = body['data']
+        data = body["data"]
         if len(data) > 0:
             curr_date = int(data[-1][0])
             all_data.extend(data)

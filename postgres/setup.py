@@ -12,14 +12,8 @@ from utils import log
 
 
 def init_db():
-    pg_config = (
-        toml.load(Path() / "config" / "etl_config.toml")
-        ['postgres']
-    )
-    pg_engine = create_engine(
-        pg_config['default_local_uri'],
-        echo=True
-    )
+    pg_config = toml.load(Path() / "config" / "etl_config.toml")["postgres"]
+    pg_engine = create_engine(pg_config["default_local_uri"], echo=True)
     Base.metadata.create_all(pg_engine)
 
 

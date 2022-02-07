@@ -1,15 +1,10 @@
-
-
 from typing import (
     List,
     Dict,
     Any,
     Union,
 )
-from etl.schema.es_mappings import (
-    reddit_crypto_mapping,
-    REDDIT_CRYPTO_INDEX_NAME
-)
+from etl.schema.es_mappings import reddit_crypto_mapping, REDDIT_CRYPTO_INDEX_NAME
 from snscrape.modules.reddit import (
     Submission,
     Comment
@@ -38,8 +33,7 @@ def process_reddit_comments_and_submissions(
         "author": reddit_document.author,
     }
     if isinstance(reddit_document, Submission):
-        base_doc["full_text"] =\
-            f"{reddit_document.title} {reddit_document.selftext}"
+        base_doc["full_text"] = f"{reddit_document.title} {reddit_document.selftext}"
         base_doc["type"] = "submission"
         base_doc["parent_id"] = None
     else:
@@ -57,10 +51,7 @@ def insert_reddit_to_es(
     log.info("Inserting data to ES")
     if not es_static_client.index_is_exist(index):
         log.info(f"{index} not yet created ... creating index: {index}")
-        (
-            es_static_client
-            .create_index(index=index, mapping=reddit_crypto_mapping)
-        )
+        (es_static_client.create_index(index=index, mapping=reddit_crypto_mapping))
 
     log.info("Generating ES compatible documents")
     reddit_crypto_gen = ESManager().es_doc_generator(

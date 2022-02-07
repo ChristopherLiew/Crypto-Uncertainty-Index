@@ -3,8 +3,8 @@ SQLAlchemy Relational Models
 """
 
 from sqlalchemy import (
-    BIGINT,
     Column,
+    BIGINT,
     INTEGER,
     VARCHAR,
     DATE,
@@ -14,9 +14,10 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class AssetPriceTable(Base):
 
-    __tablename__ = 'asset_prices'
+    __tablename__ = "asset_prices"
 
     ticker = Column(VARCHAR, primary_key=True)
     date = Column(DATE, primary_key=True)
@@ -30,7 +31,7 @@ class AssetPriceTable(Base):
 
 class UcryIndexTable(Base):
 
-    __tablename__ = 'ucry_index'
+    __tablename__ = "ucry_index"
 
     name = Column(VARCHAR, primary_key=True)
     type = Column(DATE, primary_key=True)

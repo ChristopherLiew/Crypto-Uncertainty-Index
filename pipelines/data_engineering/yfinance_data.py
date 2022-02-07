@@ -4,12 +4,8 @@ Pipeline to extract and ingest Cryptocurrency Price data.
 See: https://github.com/ranaroussi/yfinance
 """
 
-from tkinter import Y
 import toml
-from typing import (
-    Union,
-    List
-)
+from typing import Union, List
 from pathlib import Path
 import yfinance as yf
 from utils.logger import log
@@ -18,42 +14,31 @@ from sqlalchemy import create_engine
 
 
 # Config
-pg_config = (
-    toml.load(Path() / "config" / "etl_config.toml")
-    ['postgres']
-)
-
-# Config
-pg_config = (
-    toml.load(Path() / "config" / "etl_config.toml")
-    ['postgres']
-)
-pg_engine = create_engine(
-    pg_config['default_local_uri'],
-    echo=True
-)
+pg_config = toml.load(Path() / "config" / "etl_config.toml")["postgres"]
+pg_engine = create_engine(pg_config["default_local_uri"], echo=True)
 
 
 yfin_to_pg_map = {
-    'ticker': 'ticker',
-    'Date': 'date',
-    'Open': 'open',
-    'Close': 'close',
-    'High': 'high',
-    'Low': 'low',
-    'Adj Close': 'adj_close',
-    'Volume': 'volume'
+    "ticker": "ticker",
+    "Date": "date",
+    "Open": "open",
+    "Close": "close",
+    "High": "high",
+    "Low": "low",
+    "Adj Close": "adj_close",
+    "Volume": "volume",
 }
 
 
 # Pipeline
-def elt_yfinance_data(tickers: Union[str, List[str]],
-                      start_date: str,
-                      end_date: str,
-                      interval: str = '1wk',
-                      threads: bool = True,
-                      dest_table: str = pg_config['tables']['asset_price_table']
-                      ) -> None:
+def elt_yfinance_data(
+    tickers: Union[str, List[str]],
+    start_date: str,
+    end_date: str,
+    interval: str = "1wk",
+    threads: bool = True,
+    dest_table: str = pg_config["tables"]["asset_price_table"],
+) -> None:
 
     ticker_list = tickers
     if isinstance(tickers, List):
@@ -67,34 +52,16 @@ def elt_yfinance_data(tickers: Union[str, List[str]],
         end=end_date,
         interval=interval,
         threads=threads,
-        group_by='ticker'
+        group_by="ticker",
     )
 
     if len(ticker_list) > 1:
         for tick in ticker_list:
             log.info(f"Inserting {tick} data to {dest_table}")
             ticker_data = (
-                data[tick]
-                .dropna()
-                .reset_index()
-                .rename(columns=yfin_to_pg_map)
+                data[tick].dropna().reset_index().rename(columns=yfin_to_pg_map)
             )
             ticker_data["ticker"] = tick
-            (
-                ticker_data
-                .to_sql(
-                    dest_table,
-                    pg_engine,
-                    index=False,
-                    if_exists="append"
-                )
-            )
+            (ticker_data.to_sql(dest_table, pg_engine, index=False, if_exists="append"))
 
     log.info("All data sucessfully inserted!")
-
-
-# Test
-# elt_yfinance_data(["BTC-USD", "ETH-USD"],
-#                   start_date="2014-01-01",
-#                   end_date="2021-12-31",
-#                   interval="1wk")

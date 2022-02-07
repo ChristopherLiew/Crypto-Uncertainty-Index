@@ -1,7 +1,7 @@
 import pandas as pd
 from es.manager import ESManager
 from etl.schema.es_mappings import (
-    LUCEY_UNCERTAINTY_INDEX_NAME,
+    LUCEY_UNCERTAINTY_INDEX_NAME, 
     ucry_index_mapping
 )
 from utils import timer
@@ -18,10 +18,7 @@ def insert_ucry_to_es(
     log.info("Inserting data to ES")
     if not static_es_conn.index_is_exist(index):
         log.info(f"{index} not yet created ... creating index: {index}")
-        (
-            static_es_conn
-            .create_index(index=index, mapping=ucry_index_mapping)
-        )
+        (static_es_conn.create_index(index=index, mapping=ucry_index_mapping))
     log.info("Generating ES compatible documents")
     lucey_ucry_docs = ESManager().es_doc_generator(
         data=data,

@@ -74,7 +74,7 @@ class ESManager:
         mapping: Dict[str, str],
         body: List[Any] = None,
         settings: Dict[str, str] = None,
-        separate_settings: bool = True
+        separate_settings: bool = True,
     ) -> None:
 
         if separate_settings:
@@ -115,36 +115,30 @@ class ESManager:
         log.info(resp)
 
     def reindex(self, source_index: str, dest_index: str, timeout: int = 10000) -> None:
-        assert self.index_is_exist(source_index),\
-            f"Source Index: {source_index} does not exist!"
-        assert self.index_is_exist(dest_index),\
-            f"Destination Index: {dest_index} does not exist!"
+        assert self.index_is_exist(
+            source_index
+        ), f"Source Index: {source_index} does not exist!"
+        assert self.index_is_exist(
+            dest_index
+        ), f"Destination Index: {dest_index} does not exist!"
 
         reindex_query = {
-            "source": {
-                "index": source_index
-                },
-            "dest": {
-                "index": dest_index
-                }
-            }
-        self.es_client.reindex(reindex_query,
-                               wait_for_completion=True,
-                               request_timeout=timeout,
-                               slices='auto',
-                               refresh=True)
+            "source": {"index": source_index},
+            "dest": {"index": dest_index},
+        }
+        self.es_client.reindex(
+            reindex_query,
+            wait_for_completion=True,
+            request_timeout=timeout,
+            slices="auto",
+            refresh=True,
+        )
 
     def add_alias(self, index: List[str], alias: str) -> None:
-        self.es_client.indices.put_alias(
-            index=index,
-            name=alias
-        )
+        self.es_client.indices.put_alias(index=index, name=alias)
 
     def remove_alias(self, index: str, alias: str) -> None:
-        self.es_client.indices.delete_alias(
-            index=index,
-            name=alias
-        )
+        self.es_client.indices.delete_alias(index=index, name=alias)
 
     def get_aliases(self, name: Optional[List[str]] = None) -> None:
         pprint(self.es_client.cat.aliases(name=name))

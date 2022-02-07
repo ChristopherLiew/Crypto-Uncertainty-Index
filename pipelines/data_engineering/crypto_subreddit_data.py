@@ -7,20 +7,11 @@ import toml
 from tqdm import tqdm
 from datetime import datetime
 from pathlib import Path
-from typing import (
-    List,
-    Optional,
-    Any,
-    Dict
-)
+from typing import List, Optional, Any, Dict
 from rich.table import Table
 from rich.console import Console
-from etl.extract.reddit_extract import (
-    extract_subreddit_data
-)
-from etl.load.reddit_to_es_load import (
-    insert_reddit_to_es
-)
+from etl.extract.reddit_extract import extract_subreddit_data
+from etl.load.reddit_to_es_load import insert_reddit_to_es
 from utils import (
     timer,
     gen_date_chunks,
@@ -31,9 +22,9 @@ from utils.serializer import write_to_pkl
 
 
 REDDIT_DATA_SAVE_DIR = Path(
-    toml.load(Path() / "config" / "etl_config.toml")
-    ["reddit"]["cryptocurrency"]
-    ["save_dir"]
+    toml.load(Path() / "config" / "etl_config.toml")["reddit"]["cryptocurrency"][
+        "save_dir"
+    ]
 )
 
 
@@ -97,9 +88,9 @@ def elt_crypto_subreddit_data(
             check_and_create_dir(subreddit_dump_dir)
 
             file_path = (
-                subreddit_dump_dir /
-                f"{sub}_{batch_start_date.date()}_{batch_end_date.date()}.pkl"
-                )
+                subreddit_dump_dir
+                / f"{sub}_{batch_start_date.date()}_{batch_end_date.date()}.pkl"
+            )
 
             write_to_pkl(file_path=file_path, obj=sub_batch_data)
 

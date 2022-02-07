@@ -8,8 +8,6 @@ install:
 update:
 	poetry update
 
-exit:
-	exit
 
 # Docker
 run:
@@ -22,6 +20,7 @@ up:
 	docker-compose -f docker-compose.yml up
 
 down:
+	echo "WARNING: composing down removes containers and"
 	docker-compose -f docker-compose.yml down
 
 stop:

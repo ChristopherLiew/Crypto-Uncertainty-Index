@@ -11,14 +11,8 @@ from rich.logging import RichHandler
 
 
 # Config
-pg_config = (
-    toml.load(Path() / "config" / "etl_config.toml")
-    ['postgres']
-)
-pg_engine = create_engine(
-    pg_config['default_local_uri'],
-    echo=True
-)
+pg_config = toml.load(Path() / "config" / "etl_config.toml")["postgres"]
+pg_engine = create_engine(pg_config["default_local_uri"], echo=True)
 
 # Logger Confog
 FORMAT = "%(message)s"
@@ -43,9 +37,6 @@ def pd_to_pg(data: pd.DataFrame, table_name: str) -> None:
         table_name (str): Name of Table in default PG Database.
     """
     num_rows_affected = data.to_sql(
-        name=table_name,
-        con=pg_engine,
-        if_exists='append',
-        index=False
+        name=table_name, con=pg_engine, if_exists="append", index=False
     )
     log.info(f"Number of rows in {table_name} affected: {num_rows_affected}")

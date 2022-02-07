@@ -16,7 +16,7 @@ ucry_index_mapping = {
             "start_date": {"type": "date"},
             "end_date": {"type": "keyword"},
             "doc_count": {"type": "integer"},
-            "index_value": {"type": "float"}
+            "index_value": {"type": "float"},
         }
     }
 }
@@ -81,18 +81,18 @@ reddit_crypto_custom_mapping = {
                         "general_en_contractions",
                         "reddit_handle_replace",
                         "twitter_handle_replace",
-                        "lengthy_char_replace"
-                        ],
+                        "lengthy_char_replace",
+                    ],
                     "filter": [
                         "lowercase",
                         "asciifolding",
                         "crypto_synonym",
                         "english_stop",
-                        "kstem"
-                        ],
-                    "tokenizer": "standard"
-                    }
-                },
+                        "kstem",
+                    ],
+                    "tokenizer": "standard",
+                }
+            },
             "char_filter": {
                 "emoticons": {
                     "type": "mapping",
@@ -101,9 +101,9 @@ reddit_crypto_custom_mapping = {
                         ":( => sad",
                         "\ud83d\udc0b => whale",
                         ":/ => 'Skeptical, annoyed, undecided, uneasy or hesitant'",
-                        "%) => 'Drunk or confused'"
-                        ]
-                    },
+                        "%) => 'Drunk or confused'",
+                    ],
+                },
                 "general_en_contractions": {
                     "type": "mapping",
                     "mappings": [
@@ -223,25 +223,25 @@ reddit_crypto_custom_mapping = {
                         "you'll => you will",
                         "you'll've => you will have",
                         "you're => you are",
-                        "you've => you have"
-                        ]
-                    },
+                        "you've => you have",
+                    ],
+                },
                 "lengthy_char_replace": {
                     "type": "pattern_replace",
                     "pattern": "\\b\\w{50,}\\b",
-                    "replacement": ""
-                    },
+                    "replacement": "",
+                },
                 "reddit_handle_replace": {
                     "type": "pattern_replace",
                     "pattern": "/u/[A-Za-z0-9_-]+",
-                    "replacement": "__reddit_handle__"
-                    },
+                    "replacement": "__reddit_handle__",
+                },
                 "twitter_handle_replace": {
                     "type": "pattern_replace",
                     "pattern": "/(^|[^@\\w])@(\\w{1,15})\\b/",
-                    "replacement": "__twitter_handle__"
-                    }
+                    "replacement": "__twitter_handle__",
                 },
+            },
             "filter": {
                 "crypto_synonym": {
                     "type": "synonym_graph",
@@ -260,30 +260,24 @@ reddit_crypto_custom_mapping = {
                         "tx, transaction => transaction",
                         "usd, us dollars, us dollar, dollar, dollars => usd",
                         "lightning network, ln => lightning network",
-                        "rekt, wrecked => wrecked"
-                        ]
-                    },
-                "english_stop": {
-                    "stopwords": "_english_",
-                    "type": "stop"
-                    }
-                }
-            }
+                        "rekt, wrecked => wrecked",
+                    ],
+                },
+                "english_stop": {"stopwords": "_english_", "type": "stop"},
+            },
         },
+    },
     "mappings": {
         "properties": {
             "id": {"type": "keyword"},
             "subreddit": {"type": "keyword"},
             "create_datetime": {"type": "date"},
             "author": {"type": "keyword"},
-            "full_text": {
-                "type": "text",
-                "analyzer": "reddit_index_analyzer"
-                },
+            "full_text": {"type": "text", "analyzer": "reddit_index_analyzer"},
             "type": {"type": "keyword"},
             "parent_id": {"type": "keyword"},
         }
-    }
+    },
 }
 
 
@@ -303,7 +297,7 @@ asset_price_index_mapping = {
             "low": {"type": "float"},
             "close": {"type": "float"},
             "adj_close": {"type": "float"},
-            "volume": {"type": "integer"}
+            "volume": {"type": "integer"},
         }
     }
 }

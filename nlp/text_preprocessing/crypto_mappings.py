@@ -21,7 +21,7 @@ CRYPTO_SYNONYM_MAPPINGS = [
     "tx, transaction => transaction",
     "usd, us dollars, us dollar, dollar, dollars => usd",
     "lightning network, ln => lightning network",
-    "rekt, wrecked => wrecked"
+    "rekt, wrecked => wrecked",
 ]
 
 
