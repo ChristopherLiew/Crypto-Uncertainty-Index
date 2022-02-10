@@ -104,6 +104,7 @@ def construct_ucry_index(
     granularity: str = "month",
     text_field: str = "full_text",
     type: str = "price",
+    prefix: str = "lucey"
 ) -> pd.DataFrame:
     # Get dates for query
     raw_doc_counts = []
@@ -128,5 +129,5 @@ def construct_ucry_index(
     mu_1 = res_df["doc_count"].mean()
     sig_1 = res_df["doc_count"].std()
     res_df["index_value"] = ((res_df["doc_count"] - mu_1) / sig_1) + 100
-    res_df["type"] = type
+    res_df["type"] = prefix + "-" + type
     return res_df

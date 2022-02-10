@@ -30,6 +30,7 @@ start_date = "2014-01-01"
 end_date = "2021-12-31"
 save_dir = "crypto_uncertainty_index/etl/raw_data_dump/reddit"
 
+
 [yfinance]
 # TAKEN FROM CRIX MARKET BASKET (7 FEB 2022)
 tickers = [
@@ -53,4 +54,4 @@ base_url = "https://api.kucoin.com"
 default_frequency = "1week"
 start_date = "2014-01-01"
 end_date = "2021-12-31"
-save_dir = "crypto_uncertainty_index/etl/raw_data_dump/cryptocurrency" 
+save_dir = "crypto_uncertainty_index/etl/raw_data_dump/cryptocurrency"

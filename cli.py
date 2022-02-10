@@ -19,6 +19,7 @@ from pipelines.data_engineering.yfinance_data import elt_yfinance_data
 from pipelines.data_engineering.crypto_subreddit_data import elt_crypto_subreddit_data
 from pipelines.crypto_index.lucey_keyword_based.ucry_indices import construct_ucry_index
 from etl.load.ucry_load import insert_ucry_to_es
+from postgres.utils import pd_to_pg
 
 
 # App
@@ -175,8 +176,11 @@ def construct_lucey_index(
     text_field: str = typer.Option("full_text", help="Name of field to mine for index"),
     type: str = typer.Option(
         "price",
-        help="Lucey index type. One of 'price' or 'policy'",
+        help="Lucey index type. One of ```price``` or ```policy```",
         autocompletion=complete_lucey_ucry_type,
+    ),
+    prefix: str = typer.Option(
+        "lucey", help="Prefix to add to ```type``` to label the index"
     ),
 ) -> None:
 
@@ -187,9 +191,13 @@ def construct_lucey_index(
         granularity=granularity,
         type=type,
         text_field=text_field,
+        prefix=prefix,
     )
 
+    # Insert to ES index
     insert_ucry_to_es(index_df)
+    # Insert to PG table
+    pd_to_pg(index_df, table_name="ucry_index")
 
 
 if __name__ == "__main__":

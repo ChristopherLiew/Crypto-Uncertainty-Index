@@ -1,9 +1,9 @@
 # Set up
 install:
 	brew install poetry
+	poetry config experimental.new-installer = false
 	poetry install
 	poetry shell
-	poetry config experimental.new-installer = false
 
 update:
 	poetry update
@@ -29,10 +29,12 @@ stop:
 ps:
 	docker-compose -f docker-compose.yml ps
 
+
 # Postgres
-pg-build:
+pg-crypto-build:
 	poetry shell
 	python postgres/setup.py
+
 
 # Elastic Cluster
 es-cluster-health:
@@ -41,12 +43,15 @@ es-cluster-health:
 es-cluster-stats:
 	curl -X GET "localhost:9200/_cluster/stats?human&pretty&pretty"
 
+
 # Clean Up
 clean:
 	rm -rf **/.ipynb_checkpoints **/.pytest_cache **/__pycache__ **/**/__pycache__ .ipynb_checkpoints .pytest_cache **/cache
 
-# HEADACHE BUT IT FINALLY WORKS!!! 
-# Install llvmlite + Bertopic
+
+# Others
+# HEADACHE BUT IT FINALLY WORKS!!!
+# Install llvmlite + Bertopic for M1 mac
 install-bertopic:
 	brew install cmake
 	arch -arm64 brew install llvm@11

@@ -134,6 +134,7 @@ cache/*
 *.csv
 *.xml
 *.dtd
+*.txt
 
 # Vscode config
 .vscode
