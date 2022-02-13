@@ -1,80 +1,9 @@
-"""
-ES Mappings for various data to be stored.
-TODO: Tidy up Custom Mappings
-"""
-
-
-##################################
-### Uncertainty Index Mappings ###
-##################################
-LUCEY_UNCERTAINTY_INDEX_NAME = "lucey-ucry"
-
-# Standardised Mapping for Uncertainty Indices
-ucry_index_mapping = {
-    "mappings": {
-        "properties": {
-            "type": {"type": "keyword"},
-            "start_date": {"type": "date"},
-            "end_date": {"type": "keyword"},
-            "doc_count": {"type": "integer"},
-            "index_value": {"type": "float"},
-        }
-    }
-}
-
-
-############################
-### Reddit Data Mappings ###
-############################
-
-# Raw Reddit Crypto Index Mapping
-REDDIT_CRYPTO_INDEX_NAME = "reddit-crypto"
-
-reddit_crypto_mapping = {
-    "mappings": {
-        "properties": {
-            # If we use index = False then no inverted index will be built
-            # -> Slower searches but Faster Indexing and Less Disk Space
-            "id": {"type": "keyword"},  # Not analyzed at point of indexing
-            "subreddit": {"type": "keyword"},
-            "create_datetime": {"type": "date"},
-            "author": {"type": "keyword"},
-            "full_text": {"type": "text"},
-            "type": {"type": "keyword"},
-            "parent_id": {"type": "keyword"},
-        }
-    }
-}
-
-
-# Test Mapping for Reddit
-test_reddit_crypto_mapping = {
-    "mappings": {
-        "properties": {
-            # If we use index = False then no inverted index will be built
-            # -> Slower searches but Faster Indexing and Less Disk Space
-            "id": {"type": "keyword"},  # Not analyzed at point of indexing
-            "subreddit": {"type": "keyword"},
-            "create_datetime": {"type": "text"},
-            "author": {"type": "keyword"},
-            "full_text": {"type": "text"},
-            "type": {"type": "keyword"},
-            "parent_id": {"type": "keyword"},
-        }
-    }
-}
-
-
-# Raw Reddit Crypto Index Mapping with Custom Index Analyser
-REDDIT_CRYPTO_CUSTOM_INDEX_NAME = "reddit-crypto-custom"
-
-reddit_crypto_custom_mapping = {
+PUT /reddit-crypto-topic
+{
     "settings": {
-        "number_of_shards": 5,
-        "number_of_replicas": 1,
         "analysis": {
             "analyzer": {
-                "reddit_index_analyzer": {
+                "reddit_topic_model_analyzer": {
                     "type": "custom",
                     "char_filter": [
                         "html_strip",
@@ -89,7 +18,6 @@ reddit_crypto_custom_mapping = {
                         "asciifolding",
                         "crypto_synonym",
                         "english_stop",
-                        "kstem",
                     ],
                     "tokenizer": "standard",
                 }
@@ -267,38 +195,5 @@ reddit_crypto_custom_mapping = {
                 "english_stop": {"stopwords": "_english_", "type": "stop"},
             },
         },
-    },
-    "mappings": {
-        "properties": {
-            "id": {"type": "keyword"},
-            "subreddit": {"type": "keyword"},
-            "create_datetime": {"type": "date"},
-            "author": {"type": "keyword"},
-            "full_text": {"type": "text", "analyzer": "reddit_index_analyzer"},
-            "type": {"type": "keyword"},
-            "parent_id": {"type": "keyword"},
-        }
-    },
-}
-
-
-##################################
-### Assets Price Data Mappings ###
-##################################
-
-ASSET_PRICE_INDEX_NAME = "asset-price"
-
-asset_price_index_mapping = {
-    "mappings": {
-        "properties": {
-            "ticker": {"type": "keyword"},
-            "date": {"type": "date"},
-            "open": {"type": "float"},
-            "high": {"type": "float"},
-            "low": {"type": "float"},
-            "close": {"type": "float"},
-            "adj_close": {"type": "float"},
-            "volume": {"type": "integer"},
-        }
     }
 }

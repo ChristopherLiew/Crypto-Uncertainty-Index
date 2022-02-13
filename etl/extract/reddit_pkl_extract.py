@@ -12,10 +12,7 @@ from pathlib import Path
 from typing import Union
 from utils.serializer import load_fr_pkl
 from utils.logger import log
-from utils import (
-    timer,
-    check_and_create_dir
-)
+from utils import timer, check_and_create_dir
 from snscrape.modules.reddit import (
     Comment,
     Submission,
@@ -98,8 +95,9 @@ def reddit_pkl_extract_csv(
                             "created": data_dict["created"],
                             "author": data_dict["author"],
                             "full_text": str(data_dict["title"])
-                            + " " + str(data_dict["selftext"]),
-                            "type": "submission"
+                            + " "
+                            + str(data_dict["selftext"]),
+                            "type": "submission",
                         }
                     )
                 else:
@@ -107,12 +105,13 @@ def reddit_pkl_extract_csv(
                     continue
             pkl_data_df = pd.DataFrame(pkl_data_processed, columns=cols)
             dir_data = pd.concat([dir_data, pkl_data_df], axis=0)
-        log.info(f"Data Extraction for directory: {dir} complete! Writing\
-            {len(dir_data)} rows to CSV")
-        dest_dir_path = Path(str(dest_dir)) / dir_name
+        log.info(
+            f"Data Extraction for directory: {dir} complete! Writing\
+            {len(dir_data)} rows to CSV"
+        )
+        dest_dir_path = Path(str(dest_dir))
         check_and_create_dir(dest_dir_path)
-        dir_data.to_csv(dest_dir_path / f"{dir_name}.csv",
-                        index=False)
+        dir_data.to_csv(dest_dir_path / f"{dir_name}.csv", index=False)
     log.info("All data extracted!")
 
 
@@ -120,5 +119,7 @@ def reddit_pkl_extract_csv(
 reddit_pkl_extract_csv(data_dir=data_dir, dest_dir=dest_dir)
 
 # Test
-eth_df = pd.read_csv("/Users/christopherliew/Desktop/Y4S1/HT/crypto_uncertainty_index/etl/raw_data_dump/reddit/csv/ethereum/ethereum.csv")
+eth_df = pd.read_csv(
+    "/Users/christopherliew/Desktop/Y4S1/HT/crypto_uncertainty_index/etl/raw_data_dump/reddit/csv/ethereum/ethereum.csv"
+)
 eth_df.info()
