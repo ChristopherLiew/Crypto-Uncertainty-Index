@@ -28,7 +28,7 @@ crypto_subreddits = [
 ]
 start_date = "2014-01-01"
 end_date = "2021-12-31"
-save_dir = "crypto_uncertainty_index/etl/raw_data_dump/reddit"
+save_dir = "/Users/christopherliew/Desktop/Y4S1/HT/crypto_uncertainty_index/etl/raw_data_dump/reddit"
 
 
 [yfinance]
