@@ -13,7 +13,17 @@ This documentation covers the various data sources pertaining to the constructio
 
 ---
 ## Data Sources
-### 1. Lexical Based Uncertainty Index
+### 1. Lexical Based Uncertainty Index (Extracted from ```PushshiftAPI```)
    * Reddit - Cryptocurrency Subreddits:
      a. r/Bitcoin
      b. r/Ethereum
+     c. r/BitcoinMarkets
+     d. r/CryptoMarkets
+     e. r/CryptoCurrencyTrading
+     f. r/Ethtrader
+
+### 2. Asset Prices (```Yahoo Finance API```)
+  * Cryptocurrency Prices, Volume, etc
+
+### 3. Processed Data
+  * Reddit data processed from Topic Modelling: Available on the drive [here](https://drive.google.com/drive/folders/1ZXXK9wwnmAgEtZyPLItcVsqolX-sWAJa?usp=sharing)

@@ -60,7 +60,10 @@ def gen_es_analyzed_reddit_topic_corpus(
     log.info(f"Processing text data from {data_files}")
     for name, data in tqdm(zip(folder_names, data_files)):
         log.info(f"Processing data from {data}")
-        raw_sr_data = pd.read_csv(data).to_dict("records")
+        raw_sr_data = (
+            pd.read_csv(data, engine="python")
+            .to_dict("records")
+        )
         processed_sr_data = []
         for record in tqdm(raw_sr_data, leave=True):
             # Process text with es analyzer
@@ -81,7 +84,7 @@ def gen_es_analyzed_reddit_topic_corpus(
             Path(output_data_dir) /
             f"{name}_processed_topic.csv"
         )
-        pd.DataFrame(processed_sr_data).to_csv(output_data_path)
+        pd.DataFrame(processed_sr_data).to_csv(output_data_path, index=False)
     log.info("All data successfully processed and written!")
 
 
@@ -90,6 +93,6 @@ gen_es_analyzed_reddit_topic_corpus()
 
 # Test
 eth_df = pd.read_csv(
-    "/Users/christopherliew/Desktop/Y4S1/HT/crypto_uncertainty_index/etl/raw_data_dump/reddit_analyzed/ethereum.csv"
+    "etl/raw_data_dump/reddit_analyzed/ethereum_processed_topic.csv"
 )
 eth_df.info()

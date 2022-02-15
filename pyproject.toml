@@ -17,7 +17,6 @@ spacy = "^3.2.1"
 transformers = "^4.15.0"
 gensim = "<4.0.0"
 top2vec = {extras = ["sentence_transformers"], version = "^1.0.26"}
-bertopic = {extras = ["visualisation"], version = "^0.9.4"}
 wandb = "^0.12.10"
 pyLDAvis = "^3.3.1"
 emot = "^3.1"
