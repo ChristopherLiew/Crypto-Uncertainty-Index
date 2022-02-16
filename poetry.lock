@@ -1666,6 +1666,24 @@ statsmodels = ">=0.11,<0.12.0 || >0.12.0"
 urllib3 = "*"
 
 [[package]]
+name = "polars"
+version = "0.13.3"
+description = "Blazingly fast DataFrame library"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+numpy = ">=1.16.0"
+typing_extensions = {version = ">=4.0.0", markers = "python_version < \"3.10\""}
+
+[package.extras]
+connectorx = ["connectorx"]
+pyarrow = ["pyarrow (>=4.0)"]
+pandas = ["pyarrow (>=4.0)", "pandas"]
+fsspec = ["fsspec"]
+
+[[package]]
 name = "praw"
 version = "7.5.0"
 description = "PRAW, an acronym for `Python Reddit API Wrapper`, is a python package that allows for simple access to reddit's API."
@@ -3240,7 +3258,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.9"
-content-hash = "6c6b9a97733637bcc70b253dde3ad13c787e31e370381c43f28b2164b697db32"
+content-hash = "967e433a7781a01b016cb1e9f3afc1e9ccf64d4a17be0935120b1700c5114ef6"
 
 [metadata.files]
 absl-py = [
@@ -4637,6 +4655,13 @@ pmdarima = [
     {file = "pmdarima-1.8.4-cp39-cp39-win32.whl", hash = "sha256:adf5e6fed4a4c9546c32ee3ad5d9341a019cffa54fd4a941eee1f3b9ba693735"},
     {file = "pmdarima-1.8.4-cp39-cp39-win_amd64.whl", hash = "sha256:6bf387471a65079b2d5d439438d8c09519b27ef06ae3c0e7f2933495648153f8"},
     {file = "pmdarima-1.8.4.tar.gz", hash = "sha256:92b17c5baf2f0952f69f0cfae0511ff396bb281387ff315f162cb8f919859b0f"},
+]
+polars = [
+    {file = "polars-0.13.3-cp36-abi3-macosx_10_7_x86_64.whl", hash = "sha256:21a8ee8aee198999ba8c42cb6abb7bf89efb34ca5239b37ca431546aadc6ac25"},
+    {file = "polars-0.13.3-cp36-abi3-macosx_11_0_arm64.whl", hash = "sha256:93960ba4f1f86a7217f25218b98a79a3ccf1b97aa38ce6337ebe9863cc2d1139"},
+    {file = "polars-0.13.3-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:86194f97ba7eb93bdfaed0d838bdaba2f76b86e522434d7f2507cd844a822e26"},
+    {file = "polars-0.13.3-cp36-abi3-win_amd64.whl", hash = "sha256:a28666910832ffb470132b1a466e82c0709cf5d6f363f0c557c6654edbcc15d4"},
+    {file = "polars-0.13.3.tar.gz", hash = "sha256:f71f2c015b4893eae23b07edfdf5515101f8c8c3b732a4d57f8e3389078691b7"},
 ]
 praw = [
     {file = "praw-7.5.0-py3-none-any.whl", hash = "sha256:28f66a750ffb2aa5c46378942037dfbf9640bc02cd132d4da8a0e9b836581a8e"},

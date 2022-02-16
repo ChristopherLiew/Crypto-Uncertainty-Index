@@ -84,4 +84,4 @@ class StreamingCorpus:
         self.corpus_dict.save_as_text(str(save_fp))
 
     def load_dict(self, save_fp: Union[str, Path]) -> None:
-        self.corpus_dict.load_from_text(str(save_fp))
+        self.corpus_dict = self.corpus_dict.load_from_text(str(save_fp))

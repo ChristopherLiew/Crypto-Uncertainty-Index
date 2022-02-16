@@ -28,7 +28,7 @@ def run_train_and_tune_lda(
         (10, 50), help="Lower and upper bound of K to try out"
     ),
     num_topic_step: int = typer.Option(
-        100, help="Step size to increment K by within topic range"
+        10, help="Step size to increment K by within topic range"
     ),
     num_workers: Optional[int] = typer.Option(
         NUM_CORES - 1, help="Number of workers (CPU cores) to use for parallelization"

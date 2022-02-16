@@ -70,7 +70,7 @@ def train_and_tune_lda(
     log.info("Starting LDA model training")
     for num_topics in range(
         num_topic_range[0],
-        num_topic_range[1],
+        num_topic_range[1] + 1,
         num_topic_step
     ):
         # Train model
@@ -113,7 +113,7 @@ def train_and_tune_lda(
             'u_mass': ave_topic_coherence,
             'top_topics': top_topics
         }
-    write_to_pkl(run_dir, obj=results)
+    write_to_pkl(run_dir / "results.pkl", obj=results)
     log.info(f"""Full training loop complete! Saved Dictionary,
              Models and Results can be found at {run_dir}""")
     return results
