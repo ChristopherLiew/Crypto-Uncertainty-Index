@@ -104,7 +104,7 @@ def construct_ucry_index(
     granularity: str = "month",
     text_field: str = "full_text",
     type: str = "price",
-    prefix: str = "lucey"
+    prefix: str = "lucey",
 ) -> pd.DataFrame:
     # Get dates for query
     raw_doc_counts = []

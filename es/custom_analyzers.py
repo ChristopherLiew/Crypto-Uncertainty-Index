@@ -5,7 +5,7 @@ Custom ES Analyzers for Indexing and Search Queries
 from nlp.text_preprocessing import (
     emoji_mappings,
     crypto_mappings,
-    common_mappings
+    common_mappings,
 )
 
 # Park this under settings['analysis']

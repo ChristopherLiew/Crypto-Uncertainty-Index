@@ -4,10 +4,13 @@ from typing import (
     Any,
     Union,
 )
-from etl.schema.es_mappings import reddit_crypto_mapping, REDDIT_CRYPTO_INDEX_NAME
+from etl.schema.es_mappings import (
+    reddit_crypto_mapping,
+    REDDIT_CRYPTO_INDEX_NAME,
+)
 from snscrape.modules.reddit import (
     Submission,
-    Comment
+    Comment,
 )
 from es.manager import ESManager
 from utils.logger import log

@@ -15,7 +15,7 @@ from etl.load.reddit_to_es_load import insert_reddit_to_es
 from utils import (
     timer,
     gen_date_chunks,
-    check_and_create_dir
+    check_and_create_dir,
 )
 from utils.logger import log
 from utils.serializer import write_to_pkl

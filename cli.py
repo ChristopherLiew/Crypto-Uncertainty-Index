@@ -6,6 +6,7 @@ inference and analysis, etc.
 import ast
 import typer
 import toml
+from nlp.cli import nlp_app
 from pathlib import Path
 from typing import List, Union
 from datetime import datetime
@@ -21,9 +22,13 @@ from pipelines.crypto_index.lucey_keyword_based.ucry_indices import construct_uc
 from etl.load.ucry_load import insert_ucry_to_es
 from postgres.utils import pd_to_pg
 
-
 # App
 app = typer.Typer()
+
+# Add additional Apps
+app.add_typer(nlp_app,
+              name="nlp-toolkit",
+              help="NLP modelling and processes toolkit")
 
 # Details
 __app_name__, __version__ = "ucry-cli", "0.1.0"

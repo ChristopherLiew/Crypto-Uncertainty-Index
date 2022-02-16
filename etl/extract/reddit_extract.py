@@ -10,13 +10,12 @@ from requests.exceptions import ChunkedEncodingError
 from snscrape.modules.reddit import (
     RedditSubredditScraper,
     Submission,
-    Comment
+    Comment,
 )
 from etl.schema.pmaw_reddit_classes import (
     SubmissionPMAW,
-    CommentPMAW
+    CommentPMAW,
 )
-
 from dacite import from_dict
 from es.manager import ESManager
 from utils import timer

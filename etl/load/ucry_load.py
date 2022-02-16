@@ -1,8 +1,8 @@
 import pandas as pd
 from es.manager import ESManager
 from etl.schema.es_mappings import (
-    LUCEY_UNCERTAINTY_INDEX_NAME, 
-    ucry_index_mapping
+    LUCEY_UNCERTAINTY_INDEX_NAME,
+    ucry_index_mapping,
 )
 from utils import timer
 from utils.logger import log

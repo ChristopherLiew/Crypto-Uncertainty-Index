@@ -2,14 +2,7 @@
 SQLAlchemy Relational Models
 """
 
-from sqlalchemy import (
-    Column,
-    BIGINT,
-    INTEGER,
-    VARCHAR,
-    DATE,
-    DECIMAL
-)
+from sqlalchemy import Column, BIGINT, INTEGER, VARCHAR, DATE, DECIMAL
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
