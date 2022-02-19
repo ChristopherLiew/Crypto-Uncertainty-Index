@@ -23,15 +23,14 @@ nlp_app = typer.Typer(name="NLP")
 )
 def run_train_top2vec(
     data: str = typer.Option(
-        "nlp/topic_models/data/processed_reddit_combined/crypto_processed_reddit_combined_20.csv",
+        "nlp/topic_models/data/processed_reddit_combined/crypto_processed_reddit_combined_15.csv",
         help="Corpus data",
     ),
     min_count: int = typer.Option(
         50, help="Minimum number of counts a word should have to be included"
     ),
     speed: str = typer.Option(
-        "learn",
-        help="Learning speed. One of learn, fast-learn or deep-learn"
+        "learn", help="Learning speed. One of learn, fast-learn or deep-learn"
     ),
     num_workers: int = typer.Option(
         NUM_CORES - 1, help="Number of CPU threads to train model"
@@ -42,6 +41,7 @@ def run_train_top2vec(
         "nlp/topic_models/models/top2vec", help="Model save directory"
     ),
 ) -> None:
+
     train_top2vec(
         data=data,
         min_count=min_count,
@@ -49,7 +49,7 @@ def run_train_top2vec(
         num_workers=num_workers,
         embedding_model=embedding_model,
         model_save_dir=model_save_dir,
-        umap_low_mem=umap_low_mem
+        umap_low_mem=umap_low_mem,
     )
 
 
@@ -62,8 +62,9 @@ def run_train_and_tune_lda(
         "nlp/topic_models/data/processed_reddit",
         help="Directory containing csv files with processed data (sans tokenization)",
     ),
+    gram_level: str = typer.Option("unigram", help="Unigram or Bigrams"),
     num_topic_range: Tuple[int, int] = typer.Option(
-        (10, 50), help="Lower and upper bound of K to try out"
+        (5, 55), help="Lower and upper bound of K to try out"
     ),
     num_topic_step: int = typer.Option(
         10, help="Step size to increment K by within topic range"
@@ -84,13 +85,19 @@ def run_train_and_tune_lda(
         "nlp/topic_models/models/lda",
         help="Where to save relevant dict, model data for each run",
     ),
-    dict_save_dir: Optional[str] = typer.Option(
+    trained_dict_save_fp: Optional[str] = typer.Option(
         None,
         help="Location of saved dictionary for corpus. Specify to use pre-constructed dict.",
     ),
+    trained_bigram_save_fp: Optional[str] = typer.Option(
+        None,  # "nlp/topic_models/models/bigram/reddit_bigram_full",
+        help="Bigram Model Save directory",
+    ),
 ) -> None:
+
     train_and_tune_lda(
         raw_data_dir=raw_data_dir,
+        gram_level=gram_level,
         num_topic_range=num_topic_range,
         num_topic_step=num_topic_step,
         num_workers=num_workers,
@@ -100,5 +107,6 @@ def run_train_and_tune_lda(
         eta=eta,
         random_state=random_state,
         save_dir=save_dir,
-        dict_save_dir=dict_save_dir,
+        trained_dict_save_fp=trained_dict_save_fp,
+        trained_bigram_save_fp=trained_bigram_save_fp,
     )

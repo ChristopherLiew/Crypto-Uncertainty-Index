@@ -135,7 +135,8 @@ cache/*
 *.xml
 *.dtd
 *.txt
-nlp/topic_models/models
+nlp/topic_models/models/*
+*.html
 
 # Vscode config
 .vscode

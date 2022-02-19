@@ -15,10 +15,6 @@ from smart_open import open
 from utils.logger import log
 
 
-# TODO:
-# 1) Add in Bigrams and Trigrams
-
-
 class StreamingCorpus:
     """
     Memory friendly corpus for Topic Modelling in Gensim.
@@ -28,7 +24,7 @@ class StreamingCorpus:
         self,
         csv_file_paths: List[Union[str, Path]],
         text_col_idx: int = -1,
-        load_from_saved_fp: Optional[Union[str, Path]] = None
+        load_from_saved_fp: Optional[Union[str, Path]] = None,
     ) -> None:
         """
         Constructor for memory friendly Gensim Corpus.
@@ -41,6 +37,7 @@ class StreamingCorpus:
 
         self.file_paths = csv_file_paths
         self.text_col_idx = text_col_idx
+        self.length = 0
 
         # Initialise tokenizer
         log.info("Constructing Dictionary")
@@ -70,15 +67,26 @@ class StreamingCorpus:
     def __iter__(self):
 
         log.info("Streaming input text to create BOW Corpus")
-
+        # Hacky but reset to 0
+        self.length = 0
         for file_path in self.file_paths:
             for line in open(file_path):
+                self.length += 1
                 # Assume same format as corpus used to build dictionary
                 yield self.corpus_dict.doc2bow(
                     list(tokenize(line.lower().split(",")[self.text_col_idx]))
                 )
 
         log.info("End of StreamingCorpus")
+
+    def __len__(self) -> int:
+        try:
+            return self.__getattribute__("length")
+        except AttributeError as e:
+            e(
+                "Length can only be computed after __iter__\
+              has been called on StreamingCorpus object"
+            )
 
     def save_dict(self, save_fp: Union[str, Path]) -> None:
         self.corpus_dict.save_as_text(str(save_fp))

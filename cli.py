@@ -26,9 +26,7 @@ from postgres.utils import pd_to_pg
 app = typer.Typer()
 
 # Add additional Apps
-app.add_typer(nlp_app,
-              name="nlp-toolkit",
-              help="NLP modelling and processes toolkit")
+app.add_typer(nlp_app, name="nlp-toolkit", help="NLP modelling and processes toolkit")
 
 # Details
 __app_name__, __version__ = "ucry-cli", "0.1.0"

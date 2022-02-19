@@ -24,6 +24,7 @@ from gensim.models import (
     LdaMulticore,
     CoherenceModel,
 )
+from nlp.topic_models.lda.bigram_corpus import BigramStreamingCorpus
 from nlp.topic_models.lda.stream_corpus import (
     StreamingCorpus,
 )
@@ -40,8 +41,9 @@ NUM_CORES = mp.cpu_count()
 
 def train_and_tune_lda(
     raw_data_dir: Union[str, Path],
-    num_topic_range: Tuple[int, int] = (100, 500),
-    num_topic_step: int = 100,
+    gram_level: str = "unigram",
+    num_topic_range: Tuple[int, int] = (5, 55),
+    num_topic_step: int = 10,
     num_workers: int = NUM_CORES - 1,
     chunksize: Optional[int] = 10000,
     passes: Optional[int] = 1,
@@ -50,29 +52,36 @@ def train_and_tune_lda(
     random_state: Optional[int] = 42,
     # coherence_score_type: Optional[str] = 'u_mass',
     save_dir: Optional[Union[str, Path]] = Path("nlp/topic_models/models/lda"),
-    dict_save_dir: Optional[Union[str, Path]] = None
+    trained_dict_save_fp: Optional[Union[str, Path]] = None,
+    trained_bigram_save_fp: Optional[Union[str, Path]] = None,
 ) -> Dict[int, Any]:
+    assert gram_level in ("unigram", "bigram"), ValueError(
+        "Gram level must be one of 'Bigram' or 'Unigram'"
+    )
     log.info("Constructing Streaming Corpus from Data Dir")
     # Create save dir
     run_dir = Path(str(save_dir)) / f"lda_run_{datetime.now()}"
     check_and_create_dir(str(run_dir))
     # Pull data and Construct corpus
     file_paths = list(Path(str(raw_data_dir)).rglob("*.csv"))
-    stream_corpus = StreamingCorpus(
-        csv_file_paths=file_paths,
-        load_from_saved_fp=dict_save_dir
-    )
+    if gram_level == "unigram":
+        stream_corpus = StreamingCorpus(
+            csv_file_paths=file_paths,
+            load_from_saved_fp=trained_dict_save_fp,
+        )
+    else:
+        stream_corpus = BigramStreamingCorpus(
+            csv_file_paths=file_paths,
+            load_from_saved_fp=trained_dict_save_fp,
+            load_from_saved_bigram=trained_bigram_save_fp,
+        )
     # Save dictionary to run
     stream_corpus.save_dict(save_fp=run_dir / "dictionary.txt")
     # Store topics and coherence scores
     results = defaultdict(dict)
     # Iterate over topic num
     log.info("Starting LDA model training")
-    for num_topics in range(
-        num_topic_range[0],
-        num_topic_range[1] + 1,
-        num_topic_step
-    ):
+    for num_topics in range(num_topic_range[0], num_topic_range[1] + 1, num_topic_step):
         # Train model
         log.info(f"Training LDA model with {num_topics} number of topics")
         lda = LdaMulticore(
@@ -106,18 +115,11 @@ def train_and_tune_lda(
         )
         # Save models
         log.info("Saving LDA model")
-        lda.save(
-            str(run_dir / f"lda_model_{num_topics}_{ave_topic_coherence}.lda")
-        )
-        results[num_topics] = {
-            'u_mass': ave_topic_coherence,
-            'top_topics': top_topics
-        }
+        lda.save(str(run_dir / f"lda_model_{num_topics}_{ave_topic_coherence}.lda"))
+        results[num_topics] = {"u_mass": ave_topic_coherence, "top_topics": top_topics}
     write_to_pkl(run_dir / "results.pkl", obj=results)
-    log.info(f"""Full training loop complete! Saved Dictionary,
-             Models and Results can be found at {run_dir}""")
+    log.info(
+        f"""Full training loop complete! Saved Dictionary,
+             Models and Results can be found at {run_dir}"""
+    )
     return results
-
-
-# Run (Start - 14:35 16 Feb 2022)
-# results = train_and_tune_lda(raw_data_dir="nlp/topic_models/data/processed_reddit")

@@ -10,12 +10,13 @@ from pathlib import Path
 from utils.logger import log
 
 
-def create_big_corpus(data_dir: Union[str, Path],
-                      sample_pct: float,
-                      col_name: str,
-                      save_file_name: str,
-                      save_dir: Union[str, Path]
-                      ) -> None:
+def create_big_corpus(
+    data_dir: Union[str, Path],
+    sample_pct: float,
+    col_name: str,
+    save_file_name: str,
+    save_dir: Union[str, Path],
+) -> None:
     """
     Constructs a single csv file from multiple csvs based on a single
     column's data.
@@ -32,18 +33,20 @@ def create_big_corpus(data_dir: Union[str, Path],
     data_files_paths = data_dir_path.rglob("*.csv")
     log.info(f"Reading csv files from: {data_dir} at column {col_name}")
     data = [
-        pl.read_csv(v, columns=[col_name])
-        .sample(frac=sample_pct)
+        pl.read_csv(v, columns=[col_name]).sample(frac=sample_pct)
         for v in data_files_paths
     ]
     log.info(f"Writing csv data to {save_dir}")
-    with open(save_dir_path / save_file_name, 'w', newline='', encoding='UTF8') as new_csv_file:
+    with open(
+        save_dir_path / save_file_name, "w", newline="", encoding="UTF8"
+    ) as new_csv_file:
         csv_writer = csv.writer(new_csv_file)
         # Header
         csv_writer.writerow([col_name])
         # Body
         [
-            csv_writer.writerow([r]) for df in tqdm(data)
+            csv_writer.writerow([r])
+            for df in tqdm(data)
             for r in tqdm(df.to_series(0).drop_nulls().to_list(), leave=True)
         ]
     log.info(f"Data sucessfully combined and saved to {data_dir}")
@@ -52,11 +55,11 @@ def create_big_corpus(data_dir: Union[str, Path],
 # Test
 # create_big_corpus(
 #     data_dir="nlp/topic_models/data/processed_reddit",
-#     sample_pct=0.50,  # Stratified by CSV file
+#     sample_pct=0.15,  # Stratified by CSV file
 #     col_name="full_text",
-#     save_file_name="crypto_processed_reddit_combined_50.csv",
+#     save_file_name="crypto_processed_reddit_combined_15.csv",
 #     save_dir="nlp/topic_models/data/processed_reddit_combined"
 # )
 
-# x = pl.read_csv('nlp/topic_models/data/processed_reddit_combined/crypto_processed_reddit_combined_50.csv')
+# x = pl.read_csv('nlp/topic_models/data/processed_reddit_combined/crypto_processed_reddit_combined_15.csv')
 # len(x)
