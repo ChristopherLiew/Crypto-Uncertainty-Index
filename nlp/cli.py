@@ -2,19 +2,57 @@
 CLI interface for NLP modelling and processes
 """
 
-from curses import raw
-from numpy import save
-from torch import chunk
+
 import typer
-from pathlib import Path
-from typing import Optional, Union, Tuple
-from nlp.topic_models.lda.lda_train import NUM_CORES, train_and_tune_lda
+import multiprocessing as mp
+from typing import Optional, Tuple
+from nlp.topic_models.lda.lda_train import train_and_tune_lda
+from nlp.topic_models.top2vec_train import train_top2vec
+
+# Config
+NUM_CORES = mp.cpu_count()
 
 # Create Typer App
 nlp_app = typer.Typer(name="NLP")
 
 
 # Topic Modelling
+@nlp_app.command(
+    name="train-Top2Vec",
+    help="Trains Top2Vec on a given corpus",
+)
+def run_train_top2vec(
+    data: str = typer.Option(
+        "nlp/topic_models/data/processed_reddit_combined/crypto_processed_reddit_combined_20.csv",
+        help="Corpus data",
+    ),
+    min_count: int = typer.Option(
+        50, help="Minimum number of counts a word should have to be included"
+    ),
+    speed: str = typer.Option(
+        "learn",
+        help="Learning speed. One of learn, fast-learn or deep-learn"
+    ),
+    num_workers: int = typer.Option(
+        NUM_CORES - 1, help="Number of CPU threads to train model"
+    ),
+    embedding_model: str = typer.Option("doc2vec", help="Embedding model"),
+    umap_low_mem: bool = typer.Option(False, help="Whether to use low mem for UMAP"),
+    model_save_dir: str = typer.Option(
+        "nlp/topic_models/models/top2vec", help="Model save directory"
+    ),
+) -> None:
+    train_top2vec(
+        data=data,
+        min_count=min_count,
+        speed=speed,
+        num_workers=num_workers,
+        embedding_model=embedding_model,
+        model_save_dir=model_save_dir,
+        umap_low_mem=umap_low_mem
+    )
+
+
 @nlp_app.command(
     name="train-and-tune-LDA",
     help="Train multiple iterations of LDA for various Num Topics (K)",
@@ -50,7 +88,7 @@ def run_train_and_tune_lda(
         None,
         help="Location of saved dictionary for corpus. Specify to use pre-constructed dict.",
     ),
-):
+) -> None:
     train_and_tune_lda(
         raw_data_dir=raw_data_dir,
         num_topic_range=num_topic_range,
