@@ -14,7 +14,7 @@ repos:
     rev: 1.4.0
     hooks:
       - id: interrogate
-        args: [--quiet, --fail-under=70]
+        args: [--quiet, --fail-under=70, pipelines]
 
 # -   repo: https://gitlab.com/pycqa/flake8
 #     rev: 8f9b4931b9a28896fb43edccb23016a7540f5b82
