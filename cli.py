@@ -18,7 +18,7 @@ from etl.schema.es_mappings import (
 )
 from pipelines.data_engineering.yfinance_data import elt_yfinance_data
 from pipelines.data_engineering.crypto_subreddit_data import elt_crypto_subreddit_data
-from pipelines.crypto_index.lucey_keyword_based.ucry_indices import construct_ucry_index
+from pipelines.crypto_index.ucry_indices import construct_ucry_index
 from etl.load.ucry_load import insert_ucry_to_es
 from postgres.utils import pd_to_pg
 
@@ -164,7 +164,7 @@ def complete_lucey_ucry_type():
 
 
 @app.command(
-    name="build-ucry-lucey",
+    name="build-ucry-index",
     help="Construct crypto uncertainty index based on Lucey's methodology.",
 )
 def construct_lucey_index(
@@ -179,11 +179,11 @@ def construct_lucey_index(
     text_field: str = typer.Option("full_text", help="Name of field to mine for index"),
     type: str = typer.Option(
         "price",
-        help="Lucey index type. One of ```price``` or ```policy```",
+        help="Index type. One of price or policy",
         autocompletion=complete_lucey_ucry_type,
     ),
     prefix: str = typer.Option(
-        "lucey", help="Prefix to add to ```type``` to label the index"
+        "lucey", help="Index name. One of lucey, lda or top2vec"
     ),
 ) -> None:
 

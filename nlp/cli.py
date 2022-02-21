@@ -23,7 +23,7 @@ nlp_app = typer.Typer(name="NLP")
 )
 def run_train_top2vec(
     data: str = typer.Option(
-        "nlp/topic_models/data/processed_reddit_combined/crypto_processed_reddit_combined_15.csv",
+        "nlp/topic_models/data/processed_reddit_combined/crypto_processed_reddit_combined_10.csv",
         help="Corpus data",
     ),
     min_count: int = typer.Option(

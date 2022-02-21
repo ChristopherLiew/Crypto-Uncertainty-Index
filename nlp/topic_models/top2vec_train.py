@@ -29,7 +29,6 @@ def train_top2vec(
     assert num_workers <= NUM_CORES, "Insufficient cores!"
     assert embedding_model in (
         "doc2vec",
-        "sentence-transformers",
         "universal-sentence-encoder",
         "universal-sentence-encoder-multilingual",
         "distiluse-base-multilingual-cased",

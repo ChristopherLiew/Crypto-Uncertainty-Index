@@ -1,0 +1,2265 @@
+{
+    "took": 178,
+    "timed_out": false,
+    "_shards": {
+        "total": 5,
+        "successful": 5,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 10000,
+            "relation": "gte"
+        },
+        "max_score": 1,
+        "hits": [
+            {
+                "_index": "reddit-crypto-custom",
+                "_type": "_doc",
+                "_id": "UglEg34BCZ1d_stFQB3P",
+                "_score": 1,
+                "_source": {
+                    "id": "d1j9s7i",
+                    "subreddit": "ethtrader",
+                    "create_datetime": "2016-03-31T01:03:01",
+                    "author": "Jesse_Livermore",
+                    "full_text": "0 starting point, positively increasing at an increasing rate. Up up and away. Network effect. ",
+                    "type": "comment",
+                    "parent_id": "t1_d1ivlxf"
+                }
+            },
+            {
+                "_index": "reddit-crypto-custom",
+                "_type": "_doc",
+                "_id": "VQlEg34BCZ1d_stFQB3P",
+                "_score": 1,
+                "_source": {
+                    "id": "d1j9pob",
+                    "subreddit": "ethtrader",
+                    "create_datetime": "2016-03-31T01:01:27",
+                    "author": "slacknation",
+                    "full_text": "it doesn't matter as long as u can send tx from that address. tokens at the end of day don't reside in an address like ether, tokens are only recorded in the contract that tracks them.",
+                    "type": "comment",
+                    "parent_id": "t3_4cl4oe"
+                }
+            },
+            {
+                "_index": "reddit-crypto-custom",
+                "_type": "_doc",
+                "_id": "VwlEg34BCZ1d_stFQB3P",
+                "_score": 1,
+                "_source": {
+                    "id": "d1j9c69",
+                    "subreddit": "ethtrader",
+                    "create_datetime": "2016-03-31T00:53:34",
+                    "author": "battbot",
+                    "full_text": "DGX tracks the price of gold, not DGD, which is what the crowdsale was held for yesterday. DGD represents shares in the Digix DAO.\n\n",
+                    "type": "comment",
+                    "parent_id": "t1_d1j6kng"
+                }
+            },
+            {
+                "_index": "reddit-crypto-custom",
+                "_type": "_doc",
+                "_id": "WAlEg34BCZ1d_stFQB3P",
+                "_score": 1,
+                "_source": {
+                    "id": "d1j9bfv",
+                    "subreddit": "ethtrader",
+                    "create_datetime": "2016-03-31T00:53:08",
+                    "author": "dong28894",
+                    "full_text": "Thanks a lot for your feedback. I'm new to Reddit so I don't know how to do it. Is that the job of moderators only?",
+                    "type": "comment",
+                    "parent_id": "t1_d1j3a7e"
+                }
+            },
+            {
+                "_index": "reddit-crypto-custom",
+                "_type": "_doc",
+                "_id": "WglEg34BCZ1d_stFQB3P",
+                "_score": 1,
+                "_source": {
+                    "id": "d1j95jn",
+                    "subreddit": "ethtrader",
+                    "create_datetime": "2016-03-31T00:49:42",
+                    "author": "[deleted]",
+                    "full_text": "[deleted]",
+                    "type": "comment",
+                    "parent_id": "t1_d1j924y"
+                }
+            },
+            {
+                "_index": "reddit-crypto-custom",
+                "_type": "_doc",
+                "_id": "YQlEg34BCZ1d_stFQB3P",
+                "_score": 1,
+                "_source": {
+                    "id": "d1j8bqg",
+                    "subreddit": "ethtrader",
+                    "create_datetime": "2016-03-31T00:32:33",
+                    "author": "Tywess",
+                    "full_text": "Very well written article!",
+                    "type": "comment",
+                    "parent_id": "t3_4clc6s"
+                }
+            },
+            {
+                "_index": "reddit-crypto-custom",
+                "_type": "_doc",
+                "_id": "ZwlEg34BCZ1d_stFQB3P",
+                "_score": 1,
+                "_source": {
+                    "id": "d1j7vc0",
+                    "subreddit": "ethtrader",
+                    "create_datetime": "2016-03-31T00:23:07",
+                    "author": "knircky",
+                    "full_text": "It will be interesting to have an asset in ethereum that is a bit more stable and can be used for trading other than Bitcoin.",
+                    "type": "comment",
+                    "parent_id": "t3_4ckvyr"
+                }
+            },
+            {
+                "_index": "reddit-crypto-custom",
+                "_type": "_doc",
+                "_id": "bAlEg34BCZ1d_stFQB3P",
+                "_score": 1,
+                "_source": {
+                    "id": "d1j7ou6",
+                    "subreddit": "ethtrader",
+                    "create_datetime": "2016-03-31T00:19:24",
+                    "author": "curiosity29",
+                    "full_text": "Did the Digix sale change any of the fundamental indicators of ETH for you?  Seems like one of the first big proof of concepts, and so far it looks, well, popular.",
+                    "type": "comment",
+                    "parent_id": "t3_4cjpis"
+                }
+            },
+            {
+                "_index": "reddit-crypto-custom",
+                "_type": "_doc",
+                "_id": "dQlEg34BCZ1d_stFQB3P",
+                "_score": 1,
+                "_source": {
+                    "id": "d0vojb2",
+                    "subreddit": "ethtrader",
+                    "create_datetime": "2016-03-11T13:42:11",
+                    "author": "mrmaxxx1984",
+                    "full_text": "$10.79\nIt will take some time for consumers to learn about Ethereum and get their fiat converted into ETH.\n\n$15 a week or two after PI day",
+                    "type": "comment",
+                    "parent_id": "t3_49wynl"
+                }
+            },
+            {
+                "_index": "reddit-crypto-custom",
+                "_type": "_doc",
+                "_id": "dglEg34BCZ1d_stFQB3P",
+                "_score": 1,
+                "_source": {
+                    "id": "d0vogdf",
+                    "subreddit": "ethtrader",
+                    "create_datetime": "2016-03-11T13:39:08",
+                    "author": "-o-o-o",
+                    "full_text": "Augur is supposed to be able to handle this..we should make a 2 Eth Contract and the winner takes all lol\n\nhttps://app.augur.net/\nThe Wisdom Behind the Wisdom of the Crowd\nIn 2007, Columbia Business School Professor Michael Mauboussin asked his 73 students to estimate the number of jelly beans in a jar.\n\nTheir estimates ranged from 250 to 4,100. There were 1,116 candies. The average error, which only two students beat, was 700. That is a 62% rate of error.\n  \nHowever, despite the students' poor judgment, the average of their guesses was 1,151— only 3% away from the actual number of jelly beans.\n \nThis study has been repeated in many forms, and the results remain the same. Augur brings this convergence of beliefs to every subject from politics to climatology, harnessing the wisdom of the crowd..\n \n",
+                    "type": "comment",
+                    "parent_id": "t3_49wynl"
+                }
+            }
+        ]
+    },
+    "aggregations": {
+        "count_per_week": {
+            "buckets": [
+                {
+                    "key_as_string": "2013-12-30T00:00:00.000Z",
+                    "key": 1388361600000,
+                    "doc_count": 17278
+                },
+                {
+                    "key_as_string": "2014-01-06T00:00:00.000Z",
+                    "key": 1388966400000,
+                    "doc_count": 32195
+                },
+                {
+                    "key_as_string": "2014-01-13T00:00:00.000Z",
+                    "key": 1389571200000,
+                    "doc_count": 26257
+                },
+                {
+                    "key_as_string": "2014-01-20T00:00:00.000Z",
+                    "key": 1390176000000,
+                    "doc_count": 26630
+                },
+                {
+                    "key_as_string": "2014-01-27T00:00:00.000Z",
+                    "key": 1390780800000,
+                    "doc_count": 32907
+                },
+                {
+                    "key_as_string": "2014-02-03T00:00:00.000Z",
+                    "key": 1391385600000,
+                    "doc_count": 34952
+                },
+                {
+                    "key_as_string": "2014-02-10T00:00:00.000Z",
+                    "key": 1391990400000,
+                    "doc_count": 39930
+                },
+                {
+                    "key_as_string": "2014-02-17T00:00:00.000Z",
+                    "key": 1392595200000,
+                    "doc_count": 38499
+                },
+                {
+                    "key_as_string": "2014-02-24T00:00:00.000Z",
+                    "key": 1393200000000,
+                    "doc_count": 69258
+                },
+                {
+                    "key_as_string": "2014-03-03T00:00:00.000Z",
+                    "key": 1393804800000,
+                    "doc_count": 61230
+                },
+                {
+                    "key_as_string": "2014-03-10T00:00:00.000Z",
+                    "key": 1394409600000,
+                    "doc_count": 43423
+                },
+                {
+                    "key_as_string": "2014-03-17T00:00:00.000Z",
+                    "key": 1395014400000,
+                    "doc_count": 35755
+                },
+                {
+                    "key_as_string": "2014-03-24T00:00:00.000Z",
+                    "key": 1395619200000,
+                    "doc_count": 43435
+                },
+                {
+                    "key_as_string": "2014-03-31T00:00:00.000Z",
+                    "key": 1396224000000,
+                    "doc_count": 32933
+                },
+                {
+                    "key_as_string": "2014-04-07T00:00:00.000Z",
+                    "key": 1396828800000,
+                    "doc_count": 31739
+                },
+                {
+                    "key_as_string": "2014-04-14T00:00:00.000Z",
+                    "key": 1397433600000,
+                    "doc_count": 28606
+                },
+                {
+                    "key_as_string": "2014-04-21T00:00:00.000Z",
+                    "key": 1398038400000,
+                    "doc_count": 24372
+                },
+                {
+                    "key_as_string": "2014-04-28T00:00:00.000Z",
+                    "key": 1398643200000,
+                    "doc_count": 11990
+                },
+                {
+                    "key_as_string": "2014-05-05T00:00:00.000Z",
+                    "key": 1399248000000,
+                    "doc_count": 1311
+                },
+                {
+                    "key_as_string": "2014-05-12T00:00:00.000Z",
+                    "key": 1399852800000,
+                    "doc_count": 1476
+                },
+                {
+                    "key_as_string": "2014-05-19T00:00:00.000Z",
+                    "key": 1400457600000,
+                    "doc_count": 1436
+                },
+                {
+                    "key_as_string": "2014-05-26T00:00:00.000Z",
+                    "key": 1401062400000,
+                    "doc_count": 2415
+                },
+                {
+                    "key_as_string": "2014-06-02T00:00:00.000Z",
+                    "key": 1401667200000,
+                    "doc_count": 6396
+                },
+                {
+                    "key_as_string": "2014-06-09T00:00:00.000Z",
+                    "key": 1402272000000,
+                    "doc_count": 6218
+                },
+                {
+                    "key_as_string": "2014-06-16T00:00:00.000Z",
+                    "key": 1402876800000,
+                    "doc_count": 4998
+                },
+                {
+                    "key_as_string": "2014-06-23T00:00:00.000Z",
+                    "key": 1403481600000,
+                    "doc_count": 4631
+                },
+                {
+                    "key_as_string": "2014-06-30T00:00:00.000Z",
+                    "key": 1404086400000,
+                    "doc_count": 24117
+                },
+                {
+                    "key_as_string": "2014-07-07T00:00:00.000Z",
+                    "key": 1404691200000,
+                    "doc_count": 24801
+                },
+                {
+                    "key_as_string": "2014-07-14T00:00:00.000Z",
+                    "key": 1405296000000,
+                    "doc_count": 26157
+                },
+                {
+                    "key_as_string": "2014-07-21T00:00:00.000Z",
+                    "key": 1405900800000,
+                    "doc_count": 23702
+                },
+                {
+                    "key_as_string": "2014-07-28T00:00:00.000Z",
+                    "key": 1406505600000,
+                    "doc_count": 23978
+                },
+                {
+                    "key_as_string": "2014-08-04T00:00:00.000Z",
+                    "key": 1407110400000,
+                    "doc_count": 22599
+                },
+                {
+                    "key_as_string": "2014-08-11T00:00:00.000Z",
+                    "key": 1407715200000,
+                    "doc_count": 21016
+                },
+                {
+                    "key_as_string": "2014-08-18T00:00:00.000Z",
+                    "key": 1408320000000,
+                    "doc_count": 20021
+                },
+                {
+                    "key_as_string": "2014-08-25T00:00:00.000Z",
+                    "key": 1408924800000,
+                    "doc_count": 18419
+                },
+                {
+                    "key_as_string": "2014-09-01T00:00:00.000Z",
+                    "key": 1409529600000,
+                    "doc_count": 3261
+                },
+                {
+                    "key_as_string": "2014-09-08T00:00:00.000Z",
+                    "key": 1410134400000,
+                    "doc_count": 3834
+                },
+                {
+                    "key_as_string": "2014-09-15T00:00:00.000Z",
+                    "key": 1410739200000,
+                    "doc_count": 4541
+                },
+                {
+                    "key_as_string": "2014-09-22T00:00:00.000Z",
+                    "key": 1411344000000,
+                    "doc_count": 3428
+                },
+                {
+                    "key_as_string": "2014-09-29T00:00:00.000Z",
+                    "key": 1411948800000,
+                    "doc_count": 19321
+                },
+                {
+                    "key_as_string": "2014-10-06T00:00:00.000Z",
+                    "key": 1412553600000,
+                    "doc_count": 27573
+                },
+                {
+                    "key_as_string": "2014-10-13T00:00:00.000Z",
+                    "key": 1413158400000,
+                    "doc_count": 23670
+                },
+                {
+                    "key_as_string": "2014-10-20T00:00:00.000Z",
+                    "key": 1413763200000,
+                    "doc_count": 20525
+                },
+                {
+                    "key_as_string": "2014-10-27T00:00:00.000Z",
+                    "key": 1414368000000,
+                    "doc_count": 22018
+                },
+                {
+                    "key_as_string": "2014-11-03T00:00:00.000Z",
+                    "key": 1414972800000,
+                    "doc_count": 35586
+                },
+                {
+                    "key_as_string": "2014-11-10T00:00:00.000Z",
+                    "key": 1415577600000,
+                    "doc_count": 34323
+                },
+                {
+                    "key_as_string": "2014-11-17T00:00:00.000Z",
+                    "key": 1416182400000,
+                    "doc_count": 25350
+                },
+                {
+                    "key_as_string": "2014-11-24T00:00:00.000Z",
+                    "key": 1416787200000,
+                    "doc_count": 22602
+                },
+                {
+                    "key_as_string": "2014-12-01T00:00:00.000Z",
+                    "key": 1417392000000,
+                    "doc_count": 2252
+                },
+                {
+                    "key_as_string": "2014-12-08T00:00:00.000Z",
+                    "key": 1417996800000,
+                    "doc_count": 1250
+                },
+                {
+                    "key_as_string": "2014-12-15T00:00:00.000Z",
+                    "key": 1418601600000,
+                    "doc_count": 1299
+                },
+                {
+                    "key_as_string": "2014-12-22T00:00:00.000Z",
+                    "key": 1419206400000,
+                    "doc_count": 839
+                },
+                {
+                    "key_as_string": "2014-12-29T00:00:00.000Z",
+                    "key": 1419811200000,
+                    "doc_count": 17615
+                },
+                {
+                    "key_as_string": "2015-01-05T00:00:00.000Z",
+                    "key": 1420416000000,
+                    "doc_count": 39330
+                },
+                {
+                    "key_as_string": "2015-01-12T00:00:00.000Z",
+                    "key": 1421020800000,
+                    "doc_count": 50608
+                },
+                {
+                    "key_as_string": "2015-01-19T00:00:00.000Z",
+                    "key": 1421625600000,
+                    "doc_count": 33398
+                },
+                {
+                    "key_as_string": "2015-01-26T00:00:00.000Z",
+                    "key": 1422230400000,
+                    "doc_count": 33659
+                },
+                {
+                    "key_as_string": "2015-02-02T00:00:00.000Z",
+                    "key": 1422835200000,
+                    "doc_count": 4866
+                },
+                {
+                    "key_as_string": "2015-02-09T00:00:00.000Z",
+                    "key": 1423440000000,
+                    "doc_count": 4961
+                },
+                {
+                    "key_as_string": "2015-02-16T00:00:00.000Z",
+                    "key": 1424044800000,
+                    "doc_count": 4481
+                },
+                {
+                    "key_as_string": "2015-02-23T00:00:00.000Z",
+                    "key": 1424649600000,
+                    "doc_count": 6100
+                },
+                {
+                    "key_as_string": "2015-03-02T00:00:00.000Z",
+                    "key": 1425254400000,
+                    "doc_count": 27396
+                },
+                {
+                    "key_as_string": "2015-03-09T00:00:00.000Z",
+                    "key": 1425859200000,
+                    "doc_count": 27073
+                },
+                {
+                    "key_as_string": "2015-03-16T00:00:00.000Z",
+                    "key": 1426464000000,
+                    "doc_count": 27092
+                },
+                {
+                    "key_as_string": "2015-03-23T00:00:00.000Z",
+                    "key": 1427068800000,
+                    "doc_count": 25653
+                },
+                {
+                    "key_as_string": "2015-03-30T00:00:00.000Z",
+                    "key": 1427673600000,
+                    "doc_count": 26441
+                },
+                {
+                    "key_as_string": "2015-04-06T00:00:00.000Z",
+                    "key": 1428278400000,
+                    "doc_count": 28069
+                },
+                {
+                    "key_as_string": "2015-04-13T00:00:00.000Z",
+                    "key": 1428883200000,
+                    "doc_count": 25625
+                },
+                {
+                    "key_as_string": "2015-04-20T00:00:00.000Z",
+                    "key": 1429488000000,
+                    "doc_count": 26516
+                },
+                {
+                    "key_as_string": "2015-04-27T00:00:00.000Z",
+                    "key": 1430092800000,
+                    "doc_count": 25571
+                },
+                {
+                    "key_as_string": "2015-05-04T00:00:00.000Z",
+                    "key": 1430697600000,
+                    "doc_count": 27189
+                },
+                {
+                    "key_as_string": "2015-05-11T00:00:00.000Z",
+                    "key": 1431302400000,
+                    "doc_count": 22556
+                },
+                {
+                    "key_as_string": "2015-05-18T00:00:00.000Z",
+                    "key": 1431907200000,
+                    "doc_count": 25725
+                },
+                {
+                    "key_as_string": "2015-05-25T00:00:00.000Z",
+                    "key": 1432512000000,
+                    "doc_count": 27641
+                },
+                {
+                    "key_as_string": "2015-06-01T00:00:00.000Z",
+                    "key": 1433116800000,
+                    "doc_count": 27658
+                },
+                {
+                    "key_as_string": "2015-06-08T00:00:00.000Z",
+                    "key": 1433721600000,
+                    "doc_count": 26014
+                },
+                {
+                    "key_as_string": "2015-06-15T00:00:00.000Z",
+                    "key": 1434326400000,
+                    "doc_count": 28330
+                },
+                {
+                    "key_as_string": "2015-06-22T00:00:00.000Z",
+                    "key": 1434931200000,
+                    "doc_count": 24854
+                },
+                {
+                    "key_as_string": "2015-06-29T00:00:00.000Z",
+                    "key": 1435536000000,
+                    "doc_count": 30385
+                },
+                {
+                    "key_as_string": "2015-07-06T00:00:00.000Z",
+                    "key": 1436140800000,
+                    "doc_count": 31087
+                },
+                {
+                    "key_as_string": "2015-07-13T00:00:00.000Z",
+                    "key": 1436745600000,
+                    "doc_count": 27077
+                },
+                {
+                    "key_as_string": "2015-07-20T00:00:00.000Z",
+                    "key": 1437350400000,
+                    "doc_count": 24738
+                },
+                {
+                    "key_as_string": "2015-07-27T00:00:00.000Z",
+                    "key": 1437955200000,
+                    "doc_count": 22681
+                },
+                {
+                    "key_as_string": "2015-08-03T00:00:00.000Z",
+                    "key": 1438560000000,
+                    "doc_count": 25060
+                },
+                {
+                    "key_as_string": "2015-08-10T00:00:00.000Z",
+                    "key": 1439164800000,
+                    "doc_count": 28783
+                },
+                {
+                    "key_as_string": "2015-08-17T00:00:00.000Z",
+                    "key": 1439769600000,
+                    "doc_count": 27958
+                },
+                {
+                    "key_as_string": "2015-08-24T00:00:00.000Z",
+                    "key": 1440374400000,
+                    "doc_count": 22539
+                },
+                {
+                    "key_as_string": "2015-08-31T00:00:00.000Z",
+                    "key": 1440979200000,
+                    "doc_count": 18953
+                },
+                {
+                    "key_as_string": "2015-09-07T00:00:00.000Z",
+                    "key": 1441584000000,
+                    "doc_count": 16724
+                },
+                {
+                    "key_as_string": "2015-09-14T00:00:00.000Z",
+                    "key": 1442188800000,
+                    "doc_count": 16022
+                },
+                {
+                    "key_as_string": "2015-09-21T00:00:00.000Z",
+                    "key": 1442793600000,
+                    "doc_count": 19206
+                },
+                {
+                    "key_as_string": "2015-09-28T00:00:00.000Z",
+                    "key": 1443398400000,
+                    "doc_count": 9543
+                },
+                {
+                    "key_as_string": "2015-10-05T00:00:00.000Z",
+                    "key": 1444003200000,
+                    "doc_count": 4908
+                },
+                {
+                    "key_as_string": "2015-10-12T00:00:00.000Z",
+                    "key": 1444608000000,
+                    "doc_count": 5814
+                },
+                {
+                    "key_as_string": "2015-10-19T00:00:00.000Z",
+                    "key": 1445212800000,
+                    "doc_count": 6255
+                },
+                {
+                    "key_as_string": "2015-10-26T00:00:00.000Z",
+                    "key": 1445817600000,
+                    "doc_count": 12529
+                },
+                {
+                    "key_as_string": "2015-11-02T00:00:00.000Z",
+                    "key": 1446422400000,
+                    "doc_count": 40379
+                },
+                {
+                    "key_as_string": "2015-11-09T00:00:00.000Z",
+                    "key": 1447027200000,
+                    "doc_count": 21397
+                },
+                {
+                    "key_as_string": "2015-11-16T00:00:00.000Z",
+                    "key": 1447632000000,
+                    "doc_count": 16724
+                },
+                {
+                    "key_as_string": "2015-11-23T00:00:00.000Z",
+                    "key": 1448236800000,
+                    "doc_count": 15806
+                },
+                {
+                    "key_as_string": "2015-11-30T00:00:00.000Z",
+                    "key": 1448841600000,
+                    "doc_count": 19331
+                },
+                {
+                    "key_as_string": "2015-12-07T00:00:00.000Z",
+                    "key": 1449446400000,
+                    "doc_count": 25642
+                },
+                {
+                    "key_as_string": "2015-12-14T00:00:00.000Z",
+                    "key": 1450051200000,
+                    "doc_count": 22724
+                },
+                {
+                    "key_as_string": "2015-12-21T00:00:00.000Z",
+                    "key": 1450656000000,
+                    "doc_count": 20080
+                },
+                {
+                    "key_as_string": "2015-12-28T00:00:00.000Z",
+                    "key": 1451260800000,
+                    "doc_count": 14862
+                },
+                {
+                    "key_as_string": "2016-01-04T00:00:00.000Z",
+                    "key": 1451865600000,
+                    "doc_count": 2862
+                },
+                {
+                    "key_as_string": "2016-01-11T00:00:00.000Z",
+                    "key": 1452470400000,
+                    "doc_count": 4807
+                },
+                {
+                    "key_as_string": "2016-01-18T00:00:00.000Z",
+                    "key": 1453075200000,
+                    "doc_count": 4941
+                },
+                {
+                    "key_as_string": "2016-01-25T00:00:00.000Z",
+                    "key": 1453680000000,
+                    "doc_count": 5138
+                },
+                {
+                    "key_as_string": "2016-02-01T00:00:00.000Z",
+                    "key": 1454284800000,
+                    "doc_count": 11206
+                },
+                {
+                    "key_as_string": "2016-02-08T00:00:00.000Z",
+                    "key": 1454889600000,
+                    "doc_count": 13546
+                },
+                {
+                    "key_as_string": "2016-02-15T00:00:00.000Z",
+                    "key": 1455494400000,
+                    "doc_count": 13081
+                },
+                {
+                    "key_as_string": "2016-02-22T00:00:00.000Z",
+                    "key": 1456099200000,
+                    "doc_count": 13046
+                },
+                {
+                    "key_as_string": "2016-02-29T00:00:00.000Z",
+                    "key": 1456704000000,
+                    "doc_count": 16833
+                },
+                {
+                    "key_as_string": "2016-03-07T00:00:00.000Z",
+                    "key": 1457308800000,
+                    "doc_count": 12050
+                },
+                {
+                    "key_as_string": "2016-03-14T00:00:00.000Z",
+                    "key": 1457913600000,
+                    "doc_count": 11150
+                },
+                {
+                    "key_as_string": "2016-03-21T00:00:00.000Z",
+                    "key": 1458518400000,
+                    "doc_count": 8961
+                },
+                {
+                    "key_as_string": "2016-03-28T00:00:00.000Z",
+                    "key": 1459123200000,
+                    "doc_count": 8744
+                },
+                {
+                    "key_as_string": "2016-04-04T00:00:00.000Z",
+                    "key": 1459728000000,
+                    "doc_count": 9668
+                },
+                {
+                    "key_as_string": "2016-04-11T00:00:00.000Z",
+                    "key": 1460332800000,
+                    "doc_count": 10917
+                },
+                {
+                    "key_as_string": "2016-04-18T00:00:00.000Z",
+                    "key": 1460937600000,
+                    "doc_count": 10474
+                },
+                {
+                    "key_as_string": "2016-04-25T00:00:00.000Z",
+                    "key": 1461542400000,
+                    "doc_count": 11679
+                },
+                {
+                    "key_as_string": "2016-05-02T00:00:00.000Z",
+                    "key": 1462147200000,
+                    "doc_count": 19206
+                },
+                {
+                    "key_as_string": "2016-05-09T00:00:00.000Z",
+                    "key": 1462752000000,
+                    "doc_count": 11595
+                },
+                {
+                    "key_as_string": "2016-05-16T00:00:00.000Z",
+                    "key": 1463356800000,
+                    "doc_count": 12207
+                },
+                {
+                    "key_as_string": "2016-05-23T00:00:00.000Z",
+                    "key": 1463961600000,
+                    "doc_count": 13618
+                },
+                {
+                    "key_as_string": "2016-05-30T00:00:00.000Z",
+                    "key": 1464566400000,
+                    "doc_count": 14322
+                },
+                {
+                    "key_as_string": "2016-06-06T00:00:00.000Z",
+                    "key": 1465171200000,
+                    "doc_count": 14608
+                },
+                {
+                    "key_as_string": "2016-06-13T00:00:00.000Z",
+                    "key": 1465776000000,
+                    "doc_count": 34970
+                },
+                {
+                    "key_as_string": "2016-06-20T00:00:00.000Z",
+                    "key": 1466380800000,
+                    "doc_count": 34879
+                },
+                {
+                    "key_as_string": "2016-06-27T00:00:00.000Z",
+                    "key": 1466985600000,
+                    "doc_count": 21781
+                },
+                {
+                    "key_as_string": "2016-07-04T00:00:00.000Z",
+                    "key": 1467590400000,
+                    "doc_count": 17867
+                },
+                {
+                    "key_as_string": "2016-07-11T00:00:00.000Z",
+                    "key": 1468195200000,
+                    "doc_count": 14124
+                },
+                {
+                    "key_as_string": "2016-07-18T00:00:00.000Z",
+                    "key": 1468800000000,
+                    "doc_count": 18203
+                },
+                {
+                    "key_as_string": "2016-07-25T00:00:00.000Z",
+                    "key": 1469404800000,
+                    "doc_count": 22105
+                },
+                {
+                    "key_as_string": "2016-08-01T00:00:00.000Z",
+                    "key": 1470009600000,
+                    "doc_count": 29592
+                },
+                {
+                    "key_as_string": "2016-08-08T00:00:00.000Z",
+                    "key": 1470614400000,
+                    "doc_count": 15386
+                },
+                {
+                    "key_as_string": "2016-08-15T00:00:00.000Z",
+                    "key": 1471219200000,
+                    "doc_count": 10462
+                },
+                {
+                    "key_as_string": "2016-08-22T00:00:00.000Z",
+                    "key": 1471824000000,
+                    "doc_count": 9239
+                },
+                {
+                    "key_as_string": "2016-08-29T00:00:00.000Z",
+                    "key": 1472428800000,
+                    "doc_count": 9385
+                },
+                {
+                    "key_as_string": "2016-09-05T00:00:00.000Z",
+                    "key": 1473033600000,
+                    "doc_count": 9509
+                },
+                {
+                    "key_as_string": "2016-09-12T00:00:00.000Z",
+                    "key": 1473638400000,
+                    "doc_count": 10704
+                },
+                {
+                    "key_as_string": "2016-09-19T00:00:00.000Z",
+                    "key": 1474243200000,
+                    "doc_count": 12861
+                },
+                {
+                    "key_as_string": "2016-09-26T00:00:00.000Z",
+                    "key": 1474848000000,
+                    "doc_count": 10285
+                },
+                {
+                    "key_as_string": "2016-10-03T00:00:00.000Z",
+                    "key": 1475452800000,
+                    "doc_count": 10693
+                },
+                {
+                    "key_as_string": "2016-10-10T00:00:00.000Z",
+                    "key": 1476057600000,
+                    "doc_count": 13516
+                },
+                {
+                    "key_as_string": "2016-10-17T00:00:00.000Z",
+                    "key": 1476662400000,
+                    "doc_count": 12535
+                },
+                {
+                    "key_as_string": "2016-10-24T00:00:00.000Z",
+                    "key": 1477267200000,
+                    "doc_count": 14427
+                },
+                {
+                    "key_as_string": "2016-10-31T00:00:00.000Z",
+                    "key": 1477872000000,
+                    "doc_count": 10439
+                },
+                {
+                    "key_as_string": "2016-11-07T00:00:00.000Z",
+                    "key": 1478476800000,
+                    "doc_count": 11492
+                },
+                {
+                    "key_as_string": "2016-11-14T00:00:00.000Z",
+                    "key": 1479081600000,
+                    "doc_count": 12042
+                },
+                {
+                    "key_as_string": "2016-11-21T00:00:00.000Z",
+                    "key": 1479686400000,
+                    "doc_count": 14624
+                },
+                {
+                    "key_as_string": "2016-11-28T00:00:00.000Z",
+                    "key": 1480291200000,
+                    "doc_count": 14857
+                },
+                {
+                    "key_as_string": "2016-12-05T00:00:00.000Z",
+                    "key": 1480896000000,
+                    "doc_count": 16690
+                },
+                {
+                    "key_as_string": "2016-12-12T00:00:00.000Z",
+                    "key": 1481500800000,
+                    "doc_count": 14041
+                },
+                {
+                    "key_as_string": "2016-12-19T00:00:00.000Z",
+                    "key": 1482105600000,
+                    "doc_count": 17698
+                },
+                {
+                    "key_as_string": "2016-12-26T00:00:00.000Z",
+                    "key": 1482710400000,
+                    "doc_count": 17428
+                },
+                {
+                    "key_as_string": "2017-01-02T00:00:00.000Z",
+                    "key": 1483315200000,
+                    "doc_count": 30186
+                },
+                {
+                    "key_as_string": "2017-01-09T00:00:00.000Z",
+                    "key": 1483920000000,
+                    "doc_count": 21055
+                },
+                {
+                    "key_as_string": "2017-01-16T00:00:00.000Z",
+                    "key": 1484524800000,
+                    "doc_count": 20085
+                },
+                {
+                    "key_as_string": "2017-01-23T00:00:00.000Z",
+                    "key": 1485129600000,
+                    "doc_count": 20483
+                },
+                {
+                    "key_as_string": "2017-01-30T00:00:00.000Z",
+                    "key": 1485734400000,
+                    "doc_count": 22865
+                },
+                {
+                    "key_as_string": "2017-02-06T00:00:00.000Z",
+                    "key": 1486339200000,
+                    "doc_count": 31047
+                },
+                {
+                    "key_as_string": "2017-02-13T00:00:00.000Z",
+                    "key": 1486944000000,
+                    "doc_count": 24290
+                },
+                {
+                    "key_as_string": "2017-02-20T00:00:00.000Z",
+                    "key": 1487548800000,
+                    "doc_count": 36145
+                },
+                {
+                    "key_as_string": "2017-02-27T00:00:00.000Z",
+                    "key": 1488153600000,
+                    "doc_count": 39831
+                },
+                {
+                    "key_as_string": "2017-03-06T00:00:00.000Z",
+                    "key": 1488758400000,
+                    "doc_count": 53849
+                },
+                {
+                    "key_as_string": "2017-03-13T00:00:00.000Z",
+                    "key": 1489363200000,
+                    "doc_count": 65630
+                },
+                {
+                    "key_as_string": "2017-03-20T00:00:00.000Z",
+                    "key": 1489968000000,
+                    "doc_count": 54104
+                },
+                {
+                    "key_as_string": "2017-03-27T00:00:00.000Z",
+                    "key": 1490572800000,
+                    "doc_count": 38787
+                },
+                {
+                    "key_as_string": "2017-04-03T00:00:00.000Z",
+                    "key": 1491177600000,
+                    "doc_count": 34451
+                },
+                {
+                    "key_as_string": "2017-04-10T00:00:00.000Z",
+                    "key": 1491782400000,
+                    "doc_count": 27361
+                },
+                {
+                    "key_as_string": "2017-04-17T00:00:00.000Z",
+                    "key": 1492387200000,
+                    "doc_count": 27236
+                },
+                {
+                    "key_as_string": "2017-04-24T00:00:00.000Z",
+                    "key": 1492992000000,
+                    "doc_count": 34559
+                },
+                {
+                    "key_as_string": "2017-05-01T00:00:00.000Z",
+                    "key": 1493596800000,
+                    "doc_count": 32181
+                },
+                {
+                    "key_as_string": "2017-05-08T00:00:00.000Z",
+                    "key": 1494201600000,
+                    "doc_count": 28149
+                },
+                {
+                    "key_as_string": "2017-05-15T00:00:00.000Z",
+                    "key": 1494806400000,
+                    "doc_count": 33378
+                },
+                {
+                    "key_as_string": "2017-05-22T00:00:00.000Z",
+                    "key": 1495411200000,
+                    "doc_count": 57847
+                },
+                {
+                    "key_as_string": "2017-05-29T00:00:00.000Z",
+                    "key": 1496016000000,
+                    "doc_count": 40347
+                },
+                {
+                    "key_as_string": "2017-06-05T00:00:00.000Z",
+                    "key": 1496620800000,
+                    "doc_count": 43266
+                },
+                {
+                    "key_as_string": "2017-06-12T00:00:00.000Z",
+                    "key": 1497225600000,
+                    "doc_count": 51180
+                },
+                {
+                    "key_as_string": "2017-06-19T00:00:00.000Z",
+                    "key": 1497830400000,
+                    "doc_count": 40128
+                },
+                {
+                    "key_as_string": "2017-06-26T00:00:00.000Z",
+                    "key": 1498435200000,
+                    "doc_count": 43063
+                },
+                {
+                    "key_as_string": "2017-07-03T00:00:00.000Z",
+                    "key": 1499040000000,
+                    "doc_count": 34946
+                },
+                {
+                    "key_as_string": "2017-07-10T00:00:00.000Z",
+                    "key": 1499644800000,
+                    "doc_count": 51546
+                },
+                {
+                    "key_as_string": "2017-07-17T00:00:00.000Z",
+                    "key": 1500249600000,
+                    "doc_count": 52450
+                },
+                {
+                    "key_as_string": "2017-07-24T00:00:00.000Z",
+                    "key": 1500854400000,
+                    "doc_count": 34972
+                },
+                {
+                    "key_as_string": "2017-07-31T00:00:00.000Z",
+                    "key": 1501459200000,
+                    "doc_count": 82409
+                },
+                {
+                    "key_as_string": "2017-08-07T00:00:00.000Z",
+                    "key": 1502064000000,
+                    "doc_count": 90589
+                },
+                {
+                    "key_as_string": "2017-08-14T00:00:00.000Z",
+                    "key": 1502668800000,
+                    "doc_count": 97454
+                },
+                {
+                    "key_as_string": "2017-08-21T00:00:00.000Z",
+                    "key": 1503273600000,
+                    "doc_count": 81576
+                },
+                {
+                    "key_as_string": "2017-08-28T00:00:00.000Z",
+                    "key": 1503878400000,
+                    "doc_count": 53342
+                },
+                {
+                    "key_as_string": "2017-09-04T00:00:00.000Z",
+                    "key": 1504483200000,
+                    "doc_count": 4293
+                },
+                {
+                    "key_as_string": "2017-09-11T00:00:00.000Z",
+                    "key": 1505088000000,
+                    "doc_count": 5499
+                },
+                {
+                    "key_as_string": "2017-09-18T00:00:00.000Z",
+                    "key": 1505692800000,
+                    "doc_count": 4180
+                },
+                {
+                    "key_as_string": "2017-09-25T00:00:00.000Z",
+                    "key": 1506297600000,
+                    "doc_count": 6016
+                },
+                {
+                    "key_as_string": "2017-10-02T00:00:00.000Z",
+                    "key": 1506902400000,
+                    "doc_count": 33192
+                },
+                {
+                    "key_as_string": "2017-10-09T00:00:00.000Z",
+                    "key": 1507507200000,
+                    "doc_count": 44130
+                },
+                {
+                    "key_as_string": "2017-10-16T00:00:00.000Z",
+                    "key": 1508112000000,
+                    "doc_count": 44328
+                },
+                {
+                    "key_as_string": "2017-10-23T00:00:00.000Z",
+                    "key": 1508716800000,
+                    "doc_count": 39742
+                },
+                {
+                    "key_as_string": "2017-10-30T00:00:00.000Z",
+                    "key": 1509321600000,
+                    "doc_count": 45035
+                },
+                {
+                    "key_as_string": "2017-11-06T00:00:00.000Z",
+                    "key": 1509926400000,
+                    "doc_count": 61325
+                },
+                {
+                    "key_as_string": "2017-11-13T00:00:00.000Z",
+                    "key": 1510531200000,
+                    "doc_count": 52664
+                },
+                {
+                    "key_as_string": "2017-11-20T00:00:00.000Z",
+                    "key": 1511136000000,
+                    "doc_count": 62180
+                },
+                {
+                    "key_as_string": "2017-11-27T00:00:00.000Z",
+                    "key": 1511740800000,
+                    "doc_count": 82356
+                },
+                {
+                    "key_as_string": "2017-12-04T00:00:00.000Z",
+                    "key": 1512345600000,
+                    "doc_count": 76603
+                },
+                {
+                    "key_as_string": "2017-12-11T00:00:00.000Z",
+                    "key": 1512950400000,
+                    "doc_count": 69820
+                },
+                {
+                    "key_as_string": "2017-12-18T00:00:00.000Z",
+                    "key": 1513555200000,
+                    "doc_count": 86102
+                },
+                {
+                    "key_as_string": "2017-12-25T00:00:00.000Z",
+                    "key": 1514160000000,
+                    "doc_count": 48145
+                },
+                {
+                    "key_as_string": "2018-01-01T00:00:00.000Z",
+                    "key": 1514764800000,
+                    "doc_count": 78213
+                },
+                {
+                    "key_as_string": "2018-01-08T00:00:00.000Z",
+                    "key": 1515369600000,
+                    "doc_count": 91147
+                },
+                {
+                    "key_as_string": "2018-01-15T00:00:00.000Z",
+                    "key": 1515974400000,
+                    "doc_count": 82506
+                },
+                {
+                    "key_as_string": "2018-01-22T00:00:00.000Z",
+                    "key": 1516579200000,
+                    "doc_count": 62588
+                },
+                {
+                    "key_as_string": "2018-01-29T00:00:00.000Z",
+                    "key": 1517184000000,
+                    "doc_count": 33031
+                },
+                {
+                    "key_as_string": "2018-02-05T00:00:00.000Z",
+                    "key": 1517788800000,
+                    "doc_count": 6265
+                },
+                {
+                    "key_as_string": "2018-02-12T00:00:00.000Z",
+                    "key": 1518393600000,
+                    "doc_count": 5127
+                },
+                {
+                    "key_as_string": "2018-02-19T00:00:00.000Z",
+                    "key": 1518998400000,
+                    "doc_count": 4851
+                },
+                {
+                    "key_as_string": "2018-02-26T00:00:00.000Z",
+                    "key": 1519603200000,
+                    "doc_count": 5047
+                },
+                {
+                    "key_as_string": "2018-03-05T00:00:00.000Z",
+                    "key": 1520208000000,
+                    "doc_count": 4665
+                },
+                {
+                    "key_as_string": "2018-03-12T00:00:00.000Z",
+                    "key": 1520812800000,
+                    "doc_count": 4566
+                },
+                {
+                    "key_as_string": "2018-03-19T00:00:00.000Z",
+                    "key": 1521417600000,
+                    "doc_count": 4206
+                },
+                {
+                    "key_as_string": "2018-03-26T00:00:00.000Z",
+                    "key": 1522022400000,
+                    "doc_count": 9716
+                },
+                {
+                    "key_as_string": "2018-04-02T00:00:00.000Z",
+                    "key": 1522627200000,
+                    "doc_count": 64972
+                },
+                {
+                    "key_as_string": "2018-04-09T00:00:00.000Z",
+                    "key": 1523232000000,
+                    "doc_count": 62959
+                },
+                {
+                    "key_as_string": "2018-04-16T00:00:00.000Z",
+                    "key": 1523836800000,
+                    "doc_count": 60240
+                },
+                {
+                    "key_as_string": "2018-04-23T00:00:00.000Z",
+                    "key": 1524441600000,
+                    "doc_count": 68596
+                },
+                {
+                    "key_as_string": "2018-04-30T00:00:00.000Z",
+                    "key": 1525046400000,
+                    "doc_count": 21403
+                },
+                {
+                    "key_as_string": "2018-05-07T00:00:00.000Z",
+                    "key": 1525651200000,
+                    "doc_count": 17389
+                },
+                {
+                    "key_as_string": "2018-05-14T00:00:00.000Z",
+                    "key": 1526256000000,
+                    "doc_count": 17156
+                },
+                {
+                    "key_as_string": "2018-05-21T00:00:00.000Z",
+                    "key": 1526860800000,
+                    "doc_count": 16026
+                },
+                {
+                    "key_as_string": "2018-05-28T00:00:00.000Z",
+                    "key": 1527465600000,
+                    "doc_count": 18521
+                },
+                {
+                    "key_as_string": "2018-06-04T00:00:00.000Z",
+                    "key": 1528070400000,
+                    "doc_count": 23719
+                },
+                {
+                    "key_as_string": "2018-06-11T00:00:00.000Z",
+                    "key": 1528675200000,
+                    "doc_count": 32208
+                },
+                {
+                    "key_as_string": "2018-06-18T00:00:00.000Z",
+                    "key": 1529280000000,
+                    "doc_count": 30973
+                },
+                {
+                    "key_as_string": "2018-06-25T00:00:00.000Z",
+                    "key": 1529884800000,
+                    "doc_count": 30023
+                },
+                {
+                    "key_as_string": "2018-07-02T00:00:00.000Z",
+                    "key": 1530489600000,
+                    "doc_count": 38572
+                },
+                {
+                    "key_as_string": "2018-07-09T00:00:00.000Z",
+                    "key": 1531094400000,
+                    "doc_count": 38586
+                },
+                {
+                    "key_as_string": "2018-07-16T00:00:00.000Z",
+                    "key": 1531699200000,
+                    "doc_count": 44553
+                },
+                {
+                    "key_as_string": "2018-07-23T00:00:00.000Z",
+                    "key": 1532304000000,
+                    "doc_count": 44181
+                },
+                {
+                    "key_as_string": "2018-07-30T00:00:00.000Z",
+                    "key": 1532908800000,
+                    "doc_count": 40421
+                },
+                {
+                    "key_as_string": "2018-08-06T00:00:00.000Z",
+                    "key": 1533513600000,
+                    "doc_count": 52975
+                },
+                {
+                    "key_as_string": "2018-08-13T00:00:00.000Z",
+                    "key": 1534118400000,
+                    "doc_count": 51513
+                },
+                {
+                    "key_as_string": "2018-08-20T00:00:00.000Z",
+                    "key": 1534723200000,
+                    "doc_count": 42772
+                },
+                {
+                    "key_as_string": "2018-08-27T00:00:00.000Z",
+                    "key": 1535328000000,
+                    "doc_count": 35778
+                },
+                {
+                    "key_as_string": "2018-09-03T00:00:00.000Z",
+                    "key": 1535932800000,
+                    "doc_count": 22822
+                },
+                {
+                    "key_as_string": "2018-09-10T00:00:00.000Z",
+                    "key": 1536537600000,
+                    "doc_count": 24637
+                },
+                {
+                    "key_as_string": "2018-09-17T00:00:00.000Z",
+                    "key": 1537142400000,
+                    "doc_count": 15977
+                },
+                {
+                    "key_as_string": "2018-09-24T00:00:00.000Z",
+                    "key": 1537747200000,
+                    "doc_count": 13579
+                },
+                {
+                    "key_as_string": "2018-10-01T00:00:00.000Z",
+                    "key": 1538352000000,
+                    "doc_count": 30637
+                },
+                {
+                    "key_as_string": "2018-10-08T00:00:00.000Z",
+                    "key": 1538956800000,
+                    "doc_count": 32527
+                },
+                {
+                    "key_as_string": "2018-10-15T00:00:00.000Z",
+                    "key": 1539561600000,
+                    "doc_count": 35750
+                },
+                {
+                    "key_as_string": "2018-10-22T00:00:00.000Z",
+                    "key": 1540166400000,
+                    "doc_count": 28464
+                },
+                {
+                    "key_as_string": "2018-10-29T00:00:00.000Z",
+                    "key": 1540771200000,
+                    "doc_count": 32728
+                },
+                {
+                    "key_as_string": "2018-11-05T00:00:00.000Z",
+                    "key": 1541376000000,
+                    "doc_count": 40282
+                },
+                {
+                    "key_as_string": "2018-11-12T00:00:00.000Z",
+                    "key": 1541980800000,
+                    "doc_count": 50383
+                },
+                {
+                    "key_as_string": "2018-11-19T00:00:00.000Z",
+                    "key": 1542585600000,
+                    "doc_count": 77374
+                },
+                {
+                    "key_as_string": "2018-11-26T00:00:00.000Z",
+                    "key": 1543190400000,
+                    "doc_count": 54132
+                },
+                {
+                    "key_as_string": "2018-12-03T00:00:00.000Z",
+                    "key": 1543795200000,
+                    "doc_count": 52657
+                },
+                {
+                    "key_as_string": "2018-12-10T00:00:00.000Z",
+                    "key": 1544400000000,
+                    "doc_count": 43964
+                },
+                {
+                    "key_as_string": "2018-12-17T00:00:00.000Z",
+                    "key": 1545004800000,
+                    "doc_count": 42727
+                },
+                {
+                    "key_as_string": "2018-12-24T00:00:00.000Z",
+                    "key": 1545609600000,
+                    "doc_count": 37434
+                },
+                {
+                    "key_as_string": "2018-12-31T00:00:00.000Z",
+                    "key": 1546214400000,
+                    "doc_count": 33321
+                },
+                {
+                    "key_as_string": "2019-01-07T00:00:00.000Z",
+                    "key": 1546819200000,
+                    "doc_count": 38021
+                },
+                {
+                    "key_as_string": "2019-01-14T00:00:00.000Z",
+                    "key": 1547424000000,
+                    "doc_count": 34550
+                },
+                {
+                    "key_as_string": "2019-01-21T00:00:00.000Z",
+                    "key": 1548028800000,
+                    "doc_count": 33275
+                },
+                {
+                    "key_as_string": "2019-01-28T00:00:00.000Z",
+                    "key": 1548633600000,
+                    "doc_count": 30306
+                },
+                {
+                    "key_as_string": "2019-02-04T00:00:00.000Z",
+                    "key": 1549238400000,
+                    "doc_count": 29880
+                },
+                {
+                    "key_as_string": "2019-02-11T00:00:00.000Z",
+                    "key": 1549843200000,
+                    "doc_count": 30398
+                },
+                {
+                    "key_as_string": "2019-02-18T00:00:00.000Z",
+                    "key": 1550448000000,
+                    "doc_count": 37852
+                },
+                {
+                    "key_as_string": "2019-02-25T00:00:00.000Z",
+                    "key": 1551052800000,
+                    "doc_count": 25853
+                },
+                {
+                    "key_as_string": "2019-03-04T00:00:00.000Z",
+                    "key": 1551657600000,
+                    "doc_count": 16179
+                },
+                {
+                    "key_as_string": "2019-03-11T00:00:00.000Z",
+                    "key": 1552262400000,
+                    "doc_count": 14960
+                },
+                {
+                    "key_as_string": "2019-03-18T00:00:00.000Z",
+                    "key": 1552867200000,
+                    "doc_count": 13591
+                },
+                {
+                    "key_as_string": "2019-03-25T00:00:00.000Z",
+                    "key": 1553472000000,
+                    "doc_count": 13942
+                },
+                {
+                    "key_as_string": "2019-04-01T00:00:00.000Z",
+                    "key": 1554076800000,
+                    "doc_count": 48508
+                },
+                {
+                    "key_as_string": "2019-04-08T00:00:00.000Z",
+                    "key": 1554681600000,
+                    "doc_count": 45310
+                },
+                {
+                    "key_as_string": "2019-04-15T00:00:00.000Z",
+                    "key": 1555286400000,
+                    "doc_count": 38105
+                },
+                {
+                    "key_as_string": "2019-04-22T00:00:00.000Z",
+                    "key": 1555891200000,
+                    "doc_count": 43870
+                },
+                {
+                    "key_as_string": "2019-04-29T00:00:00.000Z",
+                    "key": 1556496000000,
+                    "doc_count": 23423
+                },
+                {
+                    "key_as_string": "2019-05-06T00:00:00.000Z",
+                    "key": 1557100800000,
+                    "doc_count": 26521
+                },
+                {
+                    "key_as_string": "2019-05-13T00:00:00.000Z",
+                    "key": 1557705600000,
+                    "doc_count": 33611
+                },
+                {
+                    "key_as_string": "2019-05-20T00:00:00.000Z",
+                    "key": 1558310400000,
+                    "doc_count": 18115
+                },
+                {
+                    "key_as_string": "2019-05-27T00:00:00.000Z",
+                    "key": 1558915200000,
+                    "doc_count": 21368
+                },
+                {
+                    "key_as_string": "2019-06-03T00:00:00.000Z",
+                    "key": 1559520000000,
+                    "doc_count": 16625
+                },
+                {
+                    "key_as_string": "2019-06-10T00:00:00.000Z",
+                    "key": 1560124800000,
+                    "doc_count": 18729
+                },
+                {
+                    "key_as_string": "2019-06-17T00:00:00.000Z",
+                    "key": 1560729600000,
+                    "doc_count": 27235
+                },
+                {
+                    "key_as_string": "2019-06-24T00:00:00.000Z",
+                    "key": 1561334400000,
+                    "doc_count": 32459
+                },
+                {
+                    "key_as_string": "2019-07-01T00:00:00.000Z",
+                    "key": 1561939200000,
+                    "doc_count": 38107
+                },
+                {
+                    "key_as_string": "2019-07-08T00:00:00.000Z",
+                    "key": 1562544000000,
+                    "doc_count": 47764
+                },
+                {
+                    "key_as_string": "2019-07-15T00:00:00.000Z",
+                    "key": 1563148800000,
+                    "doc_count": 48611
+                },
+                {
+                    "key_as_string": "2019-07-22T00:00:00.000Z",
+                    "key": 1563753600000,
+                    "doc_count": 37411
+                },
+                {
+                    "key_as_string": "2019-07-29T00:00:00.000Z",
+                    "key": 1564358400000,
+                    "doc_count": 23945
+                },
+                {
+                    "key_as_string": "2019-08-05T00:00:00.000Z",
+                    "key": 1564963200000,
+                    "doc_count": 17992
+                },
+                {
+                    "key_as_string": "2019-08-12T00:00:00.000Z",
+                    "key": 1565568000000,
+                    "doc_count": 16317
+                },
+                {
+                    "key_as_string": "2019-08-19T00:00:00.000Z",
+                    "key": 1566172800000,
+                    "doc_count": 11773
+                },
+                {
+                    "key_as_string": "2019-08-26T00:00:00.000Z",
+                    "key": 1566777600000,
+                    "doc_count": 9480
+                },
+                {
+                    "key_as_string": "2019-09-02T00:00:00.000Z",
+                    "key": 1567382400000,
+                    "doc_count": 10677
+                },
+                {
+                    "key_as_string": "2019-09-09T00:00:00.000Z",
+                    "key": 1567987200000,
+                    "doc_count": 8363
+                },
+                {
+                    "key_as_string": "2019-09-16T00:00:00.000Z",
+                    "key": 1568592000000,
+                    "doc_count": 9733
+                },
+                {
+                    "key_as_string": "2019-09-23T00:00:00.000Z",
+                    "key": 1569196800000,
+                    "doc_count": 11762
+                },
+                {
+                    "key_as_string": "2019-09-30T00:00:00.000Z",
+                    "key": 1569801600000,
+                    "doc_count": 16340
+                },
+                {
+                    "key_as_string": "2019-10-07T00:00:00.000Z",
+                    "key": 1570406400000,
+                    "doc_count": 17091
+                },
+                {
+                    "key_as_string": "2019-10-14T00:00:00.000Z",
+                    "key": 1571011200000,
+                    "doc_count": 16076
+                },
+                {
+                    "key_as_string": "2019-10-21T00:00:00.000Z",
+                    "key": 1571616000000,
+                    "doc_count": 23046
+                },
+                {
+                    "key_as_string": "2019-10-28T00:00:00.000Z",
+                    "key": 1572220800000,
+                    "doc_count": 15262
+                },
+                {
+                    "key_as_string": "2019-11-04T00:00:00.000Z",
+                    "key": 1572825600000,
+                    "doc_count": 7765
+                },
+                {
+                    "key_as_string": "2019-11-11T00:00:00.000Z",
+                    "key": 1573430400000,
+                    "doc_count": 7314
+                },
+                {
+                    "key_as_string": "2019-11-18T00:00:00.000Z",
+                    "key": 1574035200000,
+                    "doc_count": 10563
+                },
+                {
+                    "key_as_string": "2019-11-25T00:00:00.000Z",
+                    "key": 1574640000000,
+                    "doc_count": 10203
+                },
+                {
+                    "key_as_string": "2019-12-02T00:00:00.000Z",
+                    "key": 1575244800000,
+                    "doc_count": 24723
+                },
+                {
+                    "key_as_string": "2019-12-09T00:00:00.000Z",
+                    "key": 1575849600000,
+                    "doc_count": 20819
+                },
+                {
+                    "key_as_string": "2019-12-16T00:00:00.000Z",
+                    "key": 1576454400000,
+                    "doc_count": 24287
+                },
+                {
+                    "key_as_string": "2019-12-23T00:00:00.000Z",
+                    "key": 1577059200000,
+                    "doc_count": 19032
+                },
+                {
+                    "key_as_string": "2019-12-30T00:00:00.000Z",
+                    "key": 1577664000000,
+                    "doc_count": 20259
+                },
+                {
+                    "key_as_string": "2020-01-06T00:00:00.000Z",
+                    "key": 1578268800000,
+                    "doc_count": 23187
+                },
+                {
+                    "key_as_string": "2020-01-13T00:00:00.000Z",
+                    "key": 1578873600000,
+                    "doc_count": 25655
+                },
+                {
+                    "key_as_string": "2020-01-20T00:00:00.000Z",
+                    "key": 1579478400000,
+                    "doc_count": 21180
+                },
+                {
+                    "key_as_string": "2020-01-27T00:00:00.000Z",
+                    "key": 1580083200000,
+                    "doc_count": 21642
+                },
+                {
+                    "key_as_string": "2020-02-03T00:00:00.000Z",
+                    "key": 1580688000000,
+                    "doc_count": 10539
+                },
+                {
+                    "key_as_string": "2020-02-10T00:00:00.000Z",
+                    "key": 1581292800000,
+                    "doc_count": 11280
+                },
+                {
+                    "key_as_string": "2020-02-17T00:00:00.000Z",
+                    "key": 1581897600000,
+                    "doc_count": 9619
+                },
+                {
+                    "key_as_string": "2020-02-24T00:00:00.000Z",
+                    "key": 1582502400000,
+                    "doc_count": 11165
+                },
+                {
+                    "key_as_string": "2020-03-02T00:00:00.000Z",
+                    "key": 1583107200000,
+                    "doc_count": 19947
+                },
+                {
+                    "key_as_string": "2020-03-09T00:00:00.000Z",
+                    "key": 1583712000000,
+                    "doc_count": 40962
+                },
+                {
+                    "key_as_string": "2020-03-16T00:00:00.000Z",
+                    "key": 1584316800000,
+                    "doc_count": 30572
+                },
+                {
+                    "key_as_string": "2020-03-23T00:00:00.000Z",
+                    "key": 1584921600000,
+                    "doc_count": 23667
+                },
+                {
+                    "key_as_string": "2020-03-30T00:00:00.000Z",
+                    "key": 1585526400000,
+                    "doc_count": 18981
+                },
+                {
+                    "key_as_string": "2020-04-06T00:00:00.000Z",
+                    "key": 1586131200000,
+                    "doc_count": 19055
+                },
+                {
+                    "key_as_string": "2020-04-13T00:00:00.000Z",
+                    "key": 1586736000000,
+                    "doc_count": 22836
+                },
+                {
+                    "key_as_string": "2020-04-20T00:00:00.000Z",
+                    "key": 1587340800000,
+                    "doc_count": 21774
+                },
+                {
+                    "key_as_string": "2020-04-27T00:00:00.000Z",
+                    "key": 1587945600000,
+                    "doc_count": 21591
+                },
+                {
+                    "key_as_string": "2020-05-04T00:00:00.000Z",
+                    "key": 1588550400000,
+                    "doc_count": 12845
+                },
+                {
+                    "key_as_string": "2020-05-11T00:00:00.000Z",
+                    "key": 1589155200000,
+                    "doc_count": 13362
+                },
+                {
+                    "key_as_string": "2020-05-18T00:00:00.000Z",
+                    "key": 1589760000000,
+                    "doc_count": 12379
+                },
+                {
+                    "key_as_string": "2020-05-25T00:00:00.000Z",
+                    "key": 1590364800000,
+                    "doc_count": 10123
+                },
+                {
+                    "key_as_string": "2020-06-01T00:00:00.000Z",
+                    "key": 1590969600000,
+                    "doc_count": 26958
+                },
+                {
+                    "key_as_string": "2020-06-08T00:00:00.000Z",
+                    "key": 1591574400000,
+                    "doc_count": 24168
+                },
+                {
+                    "key_as_string": "2020-06-15T00:00:00.000Z",
+                    "key": 1592179200000,
+                    "doc_count": 23186
+                },
+                {
+                    "key_as_string": "2020-06-22T00:00:00.000Z",
+                    "key": 1592784000000,
+                    "doc_count": 21861
+                },
+                {
+                    "key_as_string": "2020-06-29T00:00:00.000Z",
+                    "key": 1593388800000,
+                    "doc_count": 18976
+                },
+                {
+                    "key_as_string": "2020-07-06T00:00:00.000Z",
+                    "key": 1593993600000,
+                    "doc_count": 18423
+                },
+                {
+                    "key_as_string": "2020-07-13T00:00:00.000Z",
+                    "key": 1594598400000,
+                    "doc_count": 19011
+                },
+                {
+                    "key_as_string": "2020-07-20T00:00:00.000Z",
+                    "key": 1595203200000,
+                    "doc_count": 23174
+                },
+                {
+                    "key_as_string": "2020-07-27T00:00:00.000Z",
+                    "key": 1595808000000,
+                    "doc_count": 34875
+                },
+                {
+                    "key_as_string": "2020-08-03T00:00:00.000Z",
+                    "key": 1596412800000,
+                    "doc_count": 26086
+                },
+                {
+                    "key_as_string": "2020-08-10T00:00:00.000Z",
+                    "key": 1597017600000,
+                    "doc_count": 26838
+                },
+                {
+                    "key_as_string": "2020-08-17T00:00:00.000Z",
+                    "key": 1597622400000,
+                    "doc_count": 23030
+                },
+                {
+                    "key_as_string": "2020-08-24T00:00:00.000Z",
+                    "key": 1598227200000,
+                    "doc_count": 19051
+                },
+                {
+                    "key_as_string": "2020-08-31T00:00:00.000Z",
+                    "key": 1598832000000,
+                    "doc_count": 23941
+                },
+                {
+                    "key_as_string": "2020-09-07T00:00:00.000Z",
+                    "key": 1599436800000,
+                    "doc_count": 19052
+                },
+                {
+                    "key_as_string": "2020-09-14T00:00:00.000Z",
+                    "key": 1600041600000,
+                    "doc_count": 16730
+                },
+                {
+                    "key_as_string": "2020-09-21T00:00:00.000Z",
+                    "key": 1600646400000,
+                    "doc_count": 13455
+                },
+                {
+                    "key_as_string": "2020-09-28T00:00:00.000Z",
+                    "key": 1601251200000,
+                    "doc_count": 18692
+                },
+                {
+                    "key_as_string": "2020-10-05T00:00:00.000Z",
+                    "key": 1601856000000,
+                    "doc_count": 18326
+                },
+                {
+                    "key_as_string": "2020-10-12T00:00:00.000Z",
+                    "key": 1602460800000,
+                    "doc_count": 18289
+                },
+                {
+                    "key_as_string": "2020-10-19T00:00:00.000Z",
+                    "key": 1603065600000,
+                    "doc_count": 26849
+                },
+                {
+                    "key_as_string": "2020-10-26T00:00:00.000Z",
+                    "key": 1603670400000,
+                    "doc_count": 30009
+                },
+                {
+                    "key_as_string": "2020-11-02T00:00:00.000Z",
+                    "key": 1604275200000,
+                    "doc_count": 21008
+                },
+                {
+                    "key_as_string": "2020-11-09T00:00:00.000Z",
+                    "key": 1604880000000,
+                    "doc_count": 32526
+                },
+                {
+                    "key_as_string": "2020-11-16T00:00:00.000Z",
+                    "key": 1605484800000,
+                    "doc_count": 49895
+                },
+                {
+                    "key_as_string": "2020-11-23T00:00:00.000Z",
+                    "key": 1606089600000,
+                    "doc_count": 50101
+                },
+                {
+                    "key_as_string": "2020-11-30T00:00:00.000Z",
+                    "key": 1606694400000,
+                    "doc_count": 20294
+                },
+                {
+                    "key_as_string": "2020-12-07T00:00:00.000Z",
+                    "key": 1607299200000,
+                    "doc_count": 13115
+                },
+                {
+                    "key_as_string": "2020-12-14T00:00:00.000Z",
+                    "key": 1607904000000,
+                    "doc_count": 18876
+                },
+                {
+                    "key_as_string": "2020-12-21T00:00:00.000Z",
+                    "key": 1608508800000,
+                    "doc_count": 18677
+                },
+                {
+                    "key_as_string": "2020-12-28T00:00:00.000Z",
+                    "key": 1609113600000,
+                    "doc_count": 41638
+                },
+                {
+                    "key_as_string": "2021-01-04T00:00:00.000Z",
+                    "key": 1609718400000,
+                    "doc_count": 80572
+                },
+                {
+                    "key_as_string": "2021-01-11T00:00:00.000Z",
+                    "key": 1610323200000,
+                    "doc_count": 70242
+                },
+                {
+                    "key_as_string": "2021-01-18T00:00:00.000Z",
+                    "key": 1610928000000,
+                    "doc_count": 53007
+                },
+                {
+                    "key_as_string": "2021-01-25T00:00:00.000Z",
+                    "key": 1611532800000,
+                    "doc_count": 51084
+                },
+                {
+                    "key_as_string": "2021-02-01T00:00:00.000Z",
+                    "key": 1612137600000,
+                    "doc_count": 30514
+                },
+                {
+                    "key_as_string": "2021-02-08T00:00:00.000Z",
+                    "key": 1612742400000,
+                    "doc_count": 52065
+                },
+                {
+                    "key_as_string": "2021-02-15T00:00:00.000Z",
+                    "key": 1613347200000,
+                    "doc_count": 62020
+                },
+                {
+                    "key_as_string": "2021-02-22T00:00:00.000Z",
+                    "key": 1613952000000,
+                    "doc_count": 59493
+                },
+                {
+                    "key_as_string": "2021-03-01T00:00:00.000Z",
+                    "key": 1614556800000,
+                    "doc_count": 32031
+                },
+                {
+                    "key_as_string": "2021-03-08T00:00:00.000Z",
+                    "key": 1615161600000,
+                    "doc_count": 79279
+                },
+                {
+                    "key_as_string": "2021-03-15T00:00:00.000Z",
+                    "key": 1615766400000,
+                    "doc_count": 38821
+                },
+                {
+                    "key_as_string": "2021-03-22T00:00:00.000Z",
+                    "key": 1616371200000,
+                    "doc_count": 7167
+                },
+                {
+                    "key_as_string": "2021-03-29T00:00:00.000Z",
+                    "key": 1616976000000,
+                    "doc_count": 53693
+                },
+                {
+                    "key_as_string": "2021-04-05T00:00:00.000Z",
+                    "key": 1617580800000,
+                    "doc_count": 26665
+                },
+                {
+                    "key_as_string": "2021-04-12T00:00:00.000Z",
+                    "key": 1618185600000,
+                    "doc_count": 32304
+                },
+                {
+                    "key_as_string": "2021-04-19T00:00:00.000Z",
+                    "key": 1618790400000,
+                    "doc_count": 54819
+                },
+                {
+                    "key_as_string": "2021-04-26T00:00:00.000Z",
+                    "key": 1619395200000,
+                    "doc_count": 61435
+                },
+                {
+                    "key_as_string": "2021-05-03T00:00:00.000Z",
+                    "key": 1620000000000,
+                    "doc_count": 93190
+                },
+                {
+                    "key_as_string": "2021-05-10T00:00:00.000Z",
+                    "key": 1620604800000,
+                    "doc_count": 106498
+                },
+                {
+                    "key_as_string": "2021-05-17T00:00:00.000Z",
+                    "key": 1621209600000,
+                    "doc_count": 140777
+                },
+                {
+                    "key_as_string": "2021-05-24T00:00:00.000Z",
+                    "key": 1621814400000,
+                    "doc_count": 92337
+                },
+                {
+                    "key_as_string": "2021-05-31T00:00:00.000Z",
+                    "key": 1622419200000,
+                    "doc_count": 70275
+                },
+                {
+                    "key_as_string": "2021-06-07T00:00:00.000Z",
+                    "key": 1623024000000,
+                    "doc_count": 71005
+                },
+                {
+                    "key_as_string": "2021-06-14T00:00:00.000Z",
+                    "key": 1623628800000,
+                    "doc_count": 60077
+                },
+                {
+                    "key_as_string": "2021-06-21T00:00:00.000Z",
+                    "key": 1624233600000,
+                    "doc_count": 67197
+                },
+                {
+                    "key_as_string": "2021-06-28T00:00:00.000Z",
+                    "key": 1624838400000,
+                    "doc_count": 56721
+                },
+                {
+                    "key_as_string": "2021-07-05T00:00:00.000Z",
+                    "key": 1625443200000,
+                    "doc_count": 47876
+                },
+                {
+                    "key_as_string": "2021-07-12T00:00:00.000Z",
+                    "key": 1626048000000,
+                    "doc_count": 53013
+                },
+                {
+                    "key_as_string": "2021-07-19T00:00:00.000Z",
+                    "key": 1626652800000,
+                    "doc_count": 55778
+                },
+                {
+                    "key_as_string": "2021-07-26T00:00:00.000Z",
+                    "key": 1627257600000,
+                    "doc_count": 64470
+                },
+                {
+                    "key_as_string": "2021-08-02T00:00:00.000Z",
+                    "key": 1627862400000,
+                    "doc_count": 80343
+                },
+                {
+                    "key_as_string": "2021-08-09T00:00:00.000Z",
+                    "key": 1628467200000,
+                    "doc_count": 78306
+                },
+                {
+                    "key_as_string": "2021-08-16T00:00:00.000Z",
+                    "key": 1629072000000,
+                    "doc_count": 65652
+                },
+                {
+                    "key_as_string": "2021-08-23T00:00:00.000Z",
+                    "key": 1629676800000,
+                    "doc_count": 65605
+                },
+                {
+                    "key_as_string": "2021-08-30T00:00:00.000Z",
+                    "key": 1630281600000,
+                    "doc_count": 66827
+                },
+                {
+                    "key_as_string": "2021-09-06T00:00:00.000Z",
+                    "key": 1630886400000,
+                    "doc_count": 69688
+                },
+                {
+                    "key_as_string": "2021-09-13T00:00:00.000Z",
+                    "key": 1631491200000,
+                    "doc_count": 58099
+                },
+                {
+                    "key_as_string": "2021-09-20T00:00:00.000Z",
+                    "key": 1632096000000,
+                    "doc_count": 54055
+                },
+                {
+                    "key_as_string": "2021-09-27T00:00:00.000Z",
+                    "key": 1632700800000,
+                    "doc_count": 49556
+                },
+                {
+                    "key_as_string": "2021-10-04T00:00:00.000Z",
+                    "key": 1633305600000,
+                    "doc_count": 45784
+                },
+                {
+                    "key_as_string": "2021-10-11T00:00:00.000Z",
+                    "key": 1633910400000,
+                    "doc_count": 50499
+                },
+                {
+                    "key_as_string": "2021-10-18T00:00:00.000Z",
+                    "key": 1634515200000,
+                    "doc_count": 56831
+                },
+                {
+                    "key_as_string": "2021-10-25T00:00:00.000Z",
+                    "key": 1635120000000,
+                    "doc_count": 56839
+                },
+                {
+                    "key_as_string": "2021-11-01T00:00:00.000Z",
+                    "key": 1635724800000,
+                    "doc_count": 82729
+                },
+                {
+                    "key_as_string": "2021-11-08T00:00:00.000Z",
+                    "key": 1636329600000,
+                    "doc_count": 101037
+                },
+                {
+                    "key_as_string": "2021-11-15T00:00:00.000Z",
+                    "key": 1636934400000,
+                    "doc_count": 90160
+                },
+                {
+                    "key_as_string": "2021-11-22T00:00:00.000Z",
+                    "key": 1637539200000,
+                    "doc_count": 82316
+                },
+                {
+                    "key_as_string": "2021-11-29T00:00:00.000Z",
+                    "key": 1638144000000,
+                    "doc_count": 98887
+                },
+                {
+                    "key_as_string": "2021-12-06T00:00:00.000Z",
+                    "key": 1638748800000,
+                    "doc_count": 85552
+                },
+                {
+                    "key_as_string": "2021-12-13T00:00:00.000Z",
+                    "key": 1639353600000,
+                    "doc_count": 89453
+                },
+                {
+                    "key_as_string": "2021-12-20T00:00:00.000Z",
+                    "key": 1639958400000,
+                    "doc_count": 85389
+                },
+                {
+                    "key_as_string": "2021-12-27T00:00:00.000Z",
+                    "key": 1640563200000,
+                    "doc_count": 60627
+                }
+            ]
+        }
+    }
+}

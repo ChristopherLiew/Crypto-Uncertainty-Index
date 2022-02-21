@@ -17,13 +17,10 @@ from smart_open import open
 from utils.logger import log
 from nlp.topic_models.lda.stream_corpus import StreamingCorpus
 
-# TODO:
-# 1) Add in Bigrams and Trigrams
-
 
 class BigramStreamingCorpus(StreamingCorpus):
     """
-    Memory friendly corpus for Topic Modelling in Gensim.
+    Memory friendly bigram corpus for Topic Modelling in Gensim.
     """
 
     def __init__(
@@ -33,7 +30,9 @@ class BigramStreamingCorpus(StreamingCorpus):
         text_col_idx: int = -1,
         vocab_no_below: int = 20,
         vocab_no_above: float = 0.5,
-        bigram_save_fp: Optional[Union[str, Path]] = "nlp/topic_models/models/bigram/reddit_bigram_full",
+        bigram_save_fp: Optional[
+            Union[str, Path]
+        ] = "nlp/topic_models/models/bigram/reddit_bigram_full",
         load_from_saved_bigram: Optional[Union[str, Path]] = None,
         load_from_saved_fp: Optional[Union[str, Path]] = None,
     ) -> None:
@@ -83,6 +82,7 @@ class BigramStreamingCorpus(StreamingCorpus):
 
     def __iter__(self):
         log.info("Streaming input text to create BOW Corpus")
+        self.length = 0
         for file_path in self.file_paths:
             for line in open(file_path):
                 self.length += 1
@@ -97,8 +97,7 @@ class BigramStreamingCorpus(StreamingCorpus):
         bigram = Phrases(min_count=self.bigram_min_count)
         for file_path in self.file_paths:
             bigram.add_vocab(
-                line.lower().split(",")[self.text_col_idx]
-                for line in open(file_path)
+                line.lower().split(",")[self.text_col_idx] for line in open(file_path)
             )
         self.bigram_model = Phraser(bigram)
         log.info("Saving Bigram Model")
