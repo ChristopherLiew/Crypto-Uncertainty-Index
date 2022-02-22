@@ -31,14 +31,7 @@ def price_query(field: str, start_date: datetime, end_date: datetime) -> Dict[st
                         "bool": {
                             "should": [
                                 {"wildcard": {f"{field}": "uncertain*"}},
-                                {
-                                    "terms": {
-                                        f"{field}": [
-                                            "fear",
-                                            "doubt"
-                                        ]
-                                    }
-                                },
+                                {"terms": {f"{field}": ["fear", "doubt"]}},
                             ]
                         }
                     },
@@ -95,14 +88,7 @@ def policy_query(
                         "bool": {
                             "should": [
                                 {"wildcard": {f"{field}": "uncertain*"}},
-                                {
-                                    "terms": {
-                                        f"{field}": [
-                                            "fear",
-                                            "doubt"
-                                        ]
-                                    }
-                                },
+                                {"terms": {f"{field}": ["fear", "doubt"]}},
                             ]
                         }
                     },
