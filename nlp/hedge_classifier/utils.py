@@ -23,39 +23,29 @@ rec_metric = load_metric("recall")
 def compute_clf_metrics(eval_pred: EvalPrediction) -> Callable[[EvalPrediction], Dict]:
 
     logits, labels = eval_pred
-    predictions = np.argmax(logits, axis=1)
+    predictions = np.argmax(logits, axis=-1)
     metrics = dict()
 
-    metrics["accuracy"] = acc_metric.compute(
-        predictions=predictions,
-        references=labels
-    )
+    metrics["accuracy"] = acc_metric.compute(predictions=predictions, references=labels)
     metrics["f1"] = f1_metric.compute(
-        predictions=predictions,
-        references=labels,
-        average="macro"
+        predictions=predictions, references=labels, average="macro"
     )
     metrics["precision"] = prec_metric.compute(
-        predictions=predictions,
-        references=labels,
-        average="macro"
+        predictions=predictions, references=labels, average="macro"
     )
     metrics["recall"] = rec_metric.compute(
-        predictions=predictions,
-        references=labels,
-        average="macro"
+        predictions=predictions, references=labels, average="macro"
     )
     return metrics
 
 
+# No validation
 def get_data_files(data_dir_root: Path, format: str = "csv") -> Dict[str, str]:
     data_files = dict()
-    train_path, val_path, test_path = (
+    train_path, test_path = (
         f"train.{format}",
-        f"validation.{format}",
-        # f"test.{format}",
+        f"test.{format}",
     )
     data_files["train"] = str(data_dir_root / train_path)
-    data_files["validation"] = str(data_dir_root / val_path)
-    # data_files["test"] = str(data_dir_root / test_path)
+    data_files["test"] = str(data_dir_root / test_path)
     return data_files
