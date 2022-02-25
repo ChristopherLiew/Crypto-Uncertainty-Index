@@ -23,19 +23,21 @@ from utils.logger import log
 # Remove words with characters smaller than 2
 
 # STOPWORD LIST
-ENHANCED_STOPWORDS = STOPWORDS.union(['http', 'https', 'com', 'www'])
+ENHANCED_STOPWORDS = STOPWORDS.union(["http", "https", "com", "www"])
 
 
 class StreamingCorpus:
     """
     Memory friendly corpus for Topic Modelling in Gensim.
     """
+
     def __init__(
         self,
         csv_file_paths: List[Union[str, Path]],
         text_col_idx: int = -1,
         load_from_saved_fp: Optional[Union[str, Path]] = None,
-        stop_words: Set[str] = ENHANCED_STOPWORDS
+        stop_words: Set[str] = ENHANCED_STOPWORDS,
+        min_word_len: int = 2,
     ) -> None:
         """
         Constructor for memory friendly Gensim Corpus.
@@ -60,7 +62,11 @@ class StreamingCorpus:
             # Update with additional docs from additional files
             for file_path in csv_file_paths:
                 self.corpus_dict.add_documents(
-                    [tok for tok in list(tokenize(line.lower().split(",")[text_col_idx])) if tok not in stop_words and len(tok) > 1]
+                    [
+                        tok
+                        for tok in list(tokenize(line.lower().split(",")[text_col_idx]))
+                        if tok not in stop_words and len(tok) >= min_word_len
+                    ]
                     for line in open(file_path)
                 )
                 # remove gaps in id sequence after words were removed
@@ -69,6 +75,7 @@ class StreamingCorpus:
                 log.info("Filtering extreme tokens")
                 self.corpus_dict.filter_extremes(no_below=20, no_above=0.5)
             log.info(f"Dictionary constructed: {self.corpus_dict}")
+
     def __iter__(self):
         log.info("Streaming input text to create BOW Corpus")
         # Hacky but reset to 0
@@ -81,6 +88,7 @@ class StreamingCorpus:
                     list(tokenize(line.lower().split(",")[self.text_col_idx]))
                 )
         log.info("End of StreamingCorpus")
+
     def __len__(self) -> int:
         try:
             return self.__getattribute__("length")
@@ -89,11 +97,14 @@ class StreamingCorpus:
                 "Length can only be computed after __iter__\
               has been called on StreamingCorpus object"
             )
+
     def save_dict(self, save_fp: Union[str, Path]) -> None:
         self.corpus_dict.save_as_text(str(save_fp))
+
     def load_dict(self, save_fp: Union[str, Path]) -> None:
         self.corpus_dict = self.corpus_dict.load_from_text(str(save_fp))
 
 
-file_paths = list(Path('nlp/topic_models/data/processed_reddit').glob("*.csv"))
-corpus = StreamingCorpus(file_paths)
+# Test
+# file_paths = list(Path("nlp/topic_models/data/processed_reddit").glob("*.csv"))
+# corpus = StreamingCorpus(file_paths)
