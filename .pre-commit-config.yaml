@@ -10,16 +10,8 @@ repos:
     # -   id: check-added-large-files
     -   id: check-ast
     -   id: check-json
-# -   repo: https://gitlab.com/pycqa/flake8
-#     rev: 8f9b4931b9a28896fb43edccb23016a7540f5b82
+# -   repo: https://github.com/econchick/interrogate
+#     rev: 1.4.0
 #     hooks:
-#     -   id: flake8
-# -   repo: https://github.com/codespell-project/codespell
-#     rev: v1.16.0
-#     hooks:
-#     -   id: codespell
-#         name: codespell
-#         description: Checks for common misspellings in text files.
-#         entry: codespell --ignore-words ignore-spelling-words.txt readme.md code.py
-#         language: python
-#         types: [text]
+#       - id: interrogate
+#         args: [--vv]

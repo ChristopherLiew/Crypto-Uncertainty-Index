@@ -12,8 +12,6 @@ For Gensim 3.8.3 there is no Ensemble LDA, we will instead run multiple
 Multi-Core LDAs and optimize using topic coherence / log-likelihood.
 """
 
-# TODO:
-# 1) Incorporate into NLP cli application
 
 import multiprocessing as mp
 from collections import defaultdict
@@ -24,13 +22,13 @@ from gensim.models import (
     LdaMulticore,
     CoherenceModel,
 )
-from nlp.topic_models.lda.bigram_corpus import BigramStreamingCorpus
+from nlp.topic_models.lda.bigram_corpus import (
+    BigramStreamingCorpus,
+)
 from nlp.topic_models.lda.stream_corpus import (
     StreamingCorpus,
 )
-from utils import (
-    check_and_create_dir,
-)
+from utils import check_and_create_dir
 from utils.logger import log
 from utils.serializer import write_to_pkl
 
@@ -42,8 +40,8 @@ NUM_CORES = mp.cpu_count()
 def train_and_tune_lda(
     raw_data_dir: Union[str, Path],
     gram_level: str = "unigram",
-    num_topic_range: Tuple[int, int] = (5, 55),
-    num_topic_step: int = 10,
+    num_topic_range: Tuple[int, int] = (1, 10),
+    num_topic_step: int = 1,
     num_workers: int = NUM_CORES - 1,
     chunksize: Optional[int] = 10000,
     passes: Optional[int] = 1,

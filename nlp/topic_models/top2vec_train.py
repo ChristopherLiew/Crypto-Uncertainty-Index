@@ -1,5 +1,7 @@
 """
 Training Script for Top2Vec Algorithm.
+
+HSDBSCAN ref: https://stackoverflow.com/questions/67898039/hdbscan-difference-between-parameters
 """
 
 from multiprocessing import cpu_count
@@ -25,13 +27,14 @@ def train_top2vec(
     embedding_model: str = "doc2vec",
     model_save_dir: Union[str, Path] = Path("."),
     umap_low_mem: bool = False,
+    hdb_min_cluster_size: int = 100,
 ) -> None:
     assert num_workers <= NUM_CORES, "Insufficient cores!"
     assert embedding_model in (
         "doc2vec",
         "universal-sentence-encoder",
         "universal-sentence-encoder-multilingual",
-        "distiluse-base-multilingual-cased",
+        "distiluse-base-multilingual-cased",  # Sentence Transformers
     )
     log.info("Loading corpus")
     train_data = pl.read_csv(data).to_series(0).to_list()
@@ -44,6 +47,7 @@ def train_top2vec(
         speed=speed,
         workers=num_workers,
         umap_args={"low_memory": umap_low_mem},
+        hdbscan_args={"min_cluster_size": hdb_min_cluster_size},
         embedding_model=embedding_model,
         use_corpus_file=True if embedding_model == "doc2vec" else False,
     )
