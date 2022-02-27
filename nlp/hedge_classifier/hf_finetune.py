@@ -17,7 +17,7 @@ import torch
 import wandb
 import ray
 from ray import tune
-from ray.tune import CLIReporterfrom
+from ray.tune import CLIReporter
 from ray.tune.schedulers import PopulationBasedTraining
 from typing import Dict, Optional
 from datetime import datetime
@@ -190,6 +190,8 @@ def tune_and_train_hf_clf(
     )
     # End WandB Session
     wandb.finish()
+    # Serialize Best Trial
+    return best_trial
 
 
 # Test

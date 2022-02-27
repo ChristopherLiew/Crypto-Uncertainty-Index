@@ -1,4 +1,16 @@
-# Set up
+help:
+	@echo "Available Commands:"
+	@echo " - install	: Installs all poetry related requirements"
+	@echo " - update	: Updates requirements with poetry"
+	@echo " - run		: Run docker compose up"
+	@echo " - down		: Stops and removes all running docker services"
+	@echo " - stop		: Stops running docker services"
+	@echo " - ps		: Shows all running docker services"
+	@echo " - pg-crypto-build	: Builds postgres with related crypto uncertainty tables"
+	@echo " - es-cluster-health	: Get elasticsearch cluster health"
+	@echo " - clean	: Cleans up project by removing python, pytest and ipynb caches"
+	@echo " - format : Runs Black to format all files"
+
 install:
 	brew install poetry
 	poetry config experimental.new-installer = false
@@ -8,16 +20,12 @@ install:
 update:
 	poetry update
 
-
 # Docker
 run:
 	docker-compose -f docker-compose.yml up
 
 build:
 	docker-compose -f docker-compose.yml build
-
-up:
-	docker-compose -f docker-compose.yml up
 
 down:
 	echo "WARNING: composing down removes containers and"
@@ -29,12 +37,10 @@ stop:
 ps:
 	docker-compose -f docker-compose.yml ps
 
-
 # Postgres
 pg-crypto-build:
 	poetry shell
-	python postgres/setup.py
-
+	python3 postgres/setup.py
 
 # Elastic Cluster
 es-cluster-health:
@@ -43,15 +49,14 @@ es-cluster-health:
 es-cluster-stats:
 	curl -X GET "localhost:9200/_cluster/stats?human&pretty&pretty"
 
-
 # Clean Up
 clean:
 	rm -rf **/.ipynb_checkpoints **/.pytest_cache **/__pycache__ **/**/__pycache__ .ipynb_checkpoints .pytest_cache **/cache
 
+format:
+	black .
 
 # Others
-# HEADACHE BUT IT FINALLY WORKS!!!
-# Install llvmlite + Bertopic for M1 mac
 install-bertopic:
 	brew install cmake
 	arch -arm64 brew install llvm@11

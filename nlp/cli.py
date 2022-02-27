@@ -37,6 +37,7 @@ def run_train_top2vec(
     ),
     embedding_model: str = typer.Option("doc2vec", help="Embedding model"),
     umap_low_mem: bool = typer.Option(False, help="Whether to use low mem for UMAP"),
+    hdb_min_cluster_size: int = typer.Option(100, help="HDBSCAN min cluster size"),
     model_save_dir: str = typer.Option(
         "nlp/topic_models/models/top2vec", help="Model save directory"
     ),
@@ -50,6 +51,7 @@ def run_train_top2vec(
         embedding_model=embedding_model,
         model_save_dir=model_save_dir,
         umap_low_mem=umap_low_mem,
+        hdb_min_cluster_size=hdb_min_cluster_size,
     )
 
 
@@ -64,10 +66,10 @@ def run_train_and_tune_lda(
     ),
     gram_level: str = typer.Option("unigram", help="Unigram or Bigrams"),
     num_topic_range: Tuple[int, int] = typer.Option(
-        (5, 55), help="Lower and upper bound of K to try out"
+        (1, 10), help="Lower and upper bound of K to try out"
     ),
     num_topic_step: int = typer.Option(
-        10, help="Step size to increment K by within topic range"
+        1, help="Step size to increment K by within topic range"
     ),
     num_workers: Optional[int] = typer.Option(
         NUM_CORES - 1, help="Number of workers (CPU cores) to use for parallelization"
