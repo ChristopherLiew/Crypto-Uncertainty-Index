@@ -138,6 +138,10 @@ cache/*
 nlp/topic_models/models/*
 *.html
 
+# ML stuff
+wandb
+ray_results
+
 # Vscode config
 .vscode
 
