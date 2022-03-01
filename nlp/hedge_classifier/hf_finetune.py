@@ -131,7 +131,8 @@ def train_pbt_hf_clf(
     # Get Pretrained Modelfor Ray Hyperparam Tuning (must pass as func)
     def get_model() -> AutoModelForSequenceClassification:
         return AutoModelForSequenceClassification.from_pretrained(
-            model_name, num_labels=num_labels)
+            model_name, num_labels=num_labels
+        )
 
     # Training Config
     train_args = TrainingArguments(
@@ -233,16 +234,16 @@ def train_pbt_hf_clf(
 #     ray_num_trials = 8
 
 #     train_pbt_hf_clf(
-#         model_name=model_name,
-#         train_data_dir=train_data_dir,
-#         model_save_dir=model_save_dir,
-#         num_labels=num_labels,
-#         text_col=text_col,
-#         wandb_args=wandb_args,
-#         train_data_file_type=train_data_file_type,
-#         sample_data_size=sample_data_size,
-#         num_gpus_per_trial=num_gpus_per_trial,
-#         smoke_test=smoke_test,
-#         ray_address=ray_address,
-#         ray_num_trials=ray_num_trials
+# model_name=model_name,
+# train_data_dir=train_data_dir,
+# model_save_dir=model_save_dir,
+# num_labels=num_labels,
+# text_col=text_col,
+# wandb_args=wandb_args,
+# train_data_file_type=train_data_file_type,
+# sample_data_size=sample_data_size,
+# num_gpus_per_trial=num_gpus_per_trial,
+# smoke_test=smoke_test,
+# ray_address=ray_address,
+# ray_num_trials=ray_num_trials
 #     )

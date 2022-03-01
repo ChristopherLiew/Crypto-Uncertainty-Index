@@ -19,8 +19,7 @@ from utils.logger import log
 
 
 # TODO:
-# Remove URL stuff
-# Remove words with characters smaller than 2
+# Add in Train - Test Split
 
 # STOPWORD LIST
 ENHANCED_STOPWORDS = STOPWORDS.union(["http", "https", "com", "www"])
