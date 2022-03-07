@@ -8,7 +8,7 @@ import typer
 import toml
 from nlp.cli import nlp_app
 from pathlib import Path
-from typing import List, Union
+from typing import List
 from datetime import datetime
 from es.manager import ESManager
 from etl.schema.es_mappings import (
@@ -25,9 +25,6 @@ from postgres.utils import pd_to_pg
 # App
 app = typer.Typer()
 
-# Add additional Apps
-app.add_typer(nlp_app, name="nlp-toolkit", help="NLP modelling and processes toolkit")
-
 # Details
 __app_name__, __version__ = "ucry-cli", "0.1.0"
 
@@ -39,6 +36,11 @@ reddit_config = config["reddit"]
 crypto_config = reddit_config["cryptocurrency"]
 pg_config = config["postgres"]
 yf_config = config["yfinance"]
+
+
+# Add additional Apps
+app.add_typer(nlp_app, name="nlp-toolkit", help="NLP modelling and processes toolkit")
+
 
 #####################
 ## Data Extraction ##
@@ -149,16 +151,9 @@ def run_es_reindex(
     es_conn.reindex(source_index=source_index, dest_index=dest_index)
 
 
-###################
-## NLP Pipelines ##
-###################
-
-
 #################################
 ## Uncertainty Index Pipelines ##
 #################################
-
-
 def complete_lucey_ucry_type():
     return ["price", "policy"]
 

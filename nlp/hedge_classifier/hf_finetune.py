@@ -5,53 +5,54 @@ Reference:
 1) https://docs.ray.io/en/latest/tune/examples/pbt_transformers.html
 2) https://huggingface.co/blog/ray-tune
 3) https://deepmind.com/blog/article/population-based-training-neural-networks
+4) https://ruanchaves.medium.com/integrating-ray-tune-hugging-face-transformers-and-w-b-172c07ce2854
 """
 
-# TBD:
-# Test functionality
-# Train model
+# TODO:
+# 1. Fix WandB integration [see: https://github.com/wandb/client/issues/3045]
+# 2. Train on SageMaker
 
-
+import json
 import os
+from typing import Dict, Optional
+from pathlib import Path
+from datetime import datetime
 import torch
 import wandb
 import ray
 from ray import tune
 from ray.tune import CLIReporter
+from ray.tune.logger import DEFAULT_LOGGERS
+from ray.tune.integration.wandb import (
+    WandbLoggerCallback,
+    WandbLogger,
+)
 from ray.tune.schedulers import PopulationBasedTraining
-from typing import Dict, Optional
-from pathlib import Path
-from datetime import datetime
 from datasets import load_dataset
 from transformers import (
     AutoTokenizer,
     AutoModelForSequenceClassification,
     DataCollatorWithPadding,
-    Trainer,
     TrainingArguments,
 )
-from transformers.integrations import TensorBoardCallback
+from transformers.trainer import Trainer
 from nlp.hedge_classifier.utils import (
     compute_clf_metrics,
     get_data_files,
 )
+from utils.logger import log
 
 
 # Config
 DATE_FMT = "%Y-%m-%dT%H:%M:%S"
-
-# WANDB Set Up
-WANDB_RUN_NAME = "hedge-clf-hf-" + datetime.now().strftime(DATE_FMT)
-
+# WANDB Set Up (Abstract out to TOML file)
+WANDB_RUN_NAME = "PBT-Ray-Hedge-Clf-" + datetime.now().strftime(DATE_FMT)
 WANDB_PROJECT_TAGS = [
     "HuggingFaceTransformer",
     "HedgeClassifier",
     "TrainingRun",
     "CryptoUncertaintyIndex",
 ]
-
-
-# Move to .toml config file
 WANDB_DEFAULT_ARGS = {
     "entity": "chrisliew",
     "project": "crypto-hedge-uncertainty",
@@ -67,50 +68,55 @@ def train_pbt_hf_clf(
     model_save_dir: str,
     num_labels: int = 2,
     text_col: str = "text",
-    wandb_args: Dict[str, str] = WANDB_DEFAULT_ARGS,
     train_data_file_type: str = "csv",
     sample_data_size: Optional[int] = None,
+    wandb_args: Dict[str, str] = WANDB_DEFAULT_ARGS,
     num_gpus_per_trial: Optional[int] = 0,  # Set to num GPUs available
-    smoke_test: bool = False,
     ray_address: Optional[str] = None,
     ray_num_trials: int = 8,  # Number of times to rand sample a point
+    smoke_test: bool = False,
 ) -> None:
 
     # Ray Tune set up
+    log.info("Setting up Ray Tune")
     ray.init(ray_address)  # Defaults to None = Local
 
     # WandB set up
-    wandb.login()
-    os.environ["WANDB_LOG_MODEL"] = "true"
-    os.environ["WANDB_WATCH"] = "all"
-    wandb_args["tags"].append(model_name)
+    # log.info("Setting up Weights U Biases")
+    # wandb.login()
+    # os.environ["WANDB_LOG_MODEL"] = "true"
+    # os.environ["WANDB_WATCH"] = "all"
+    # wandb_args["tags"].append(model_name)
 
     # Initialize WandB run (Only needed to log artifacts)
-    run = wandb.init(
-        job_type="training",
-        project=wandb_args.get("project", "DummyProjName"),
-        name=wandb_args.get("run", "DummyRunName"),
-        tags=wandb_args.get("tags", ["DummyTrainTag"]),
-        entity=wandb_args["entity"],
-    )
+    # wandb.init(
+    #     job_type="training",
+    #     project=wandb_args.get("project", "DummyProjName"),
+    #     name=wandb_args.get("run", "DummyRunName"),
+    #     tags=wandb_args.get("tags", ["DummyTrainTag"]),
+    #     entity=wandb_args["entity"],
+    # )
 
-    # Check for CUDA
+    # Check for GPUs
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+
+    log.info("Preparing Datasets")
 
     # Get dataset
     data_files = get_data_files(Path(train_data_dir))
     datasets = load_dataset(train_data_file_type, data_files=data_files)
 
-    # Load Tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    # Load Tokenizer (Set Normalization=True if tweets are raw to handle emojis etc)
+    tokenizer = AutoTokenizer.from_pretrained(model_name, normalization=True)
 
     def tokenizer_function(texts):
         return tokenizer(texts[text_col], padding="max_length", truncation=True)
 
+    log.info("Tokenizing Datasets")
     # Tokenize Datasets
     tokenized_datasets = datasets.map(tokenizer_function, batched=True)
 
-    # Final Datasets
+    # Final + Sampled Datasets
     sample_train_ds = (
         tokenized_datasets["train"].shuffle(seed=42).select(range(sample_data_size))
     )
@@ -123,6 +129,7 @@ def train_pbt_hf_clf(
     # Data Collator with Padding (Dynamic Padding)
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
+    log.info(f"Loading {model_name} from cache or Hugging Face hub")
     # Download Pretrained Model
     AutoModelForSequenceClassification.from_pretrained(
         model_name, num_labels=num_labels
@@ -130,14 +137,15 @@ def train_pbt_hf_clf(
 
     # Get Pretrained Modelfor Ray Hyperparam Tuning (must pass as func)
     def get_model() -> AutoModelForSequenceClassification:
-        return AutoModelForSequenceClassification.from_pretrained(
+        model = AutoModelForSequenceClassification.from_pretrained(
             model_name, num_labels=num_labels
         )
+        return model
 
     # Training Config
     train_args = TrainingArguments(
-        report_to="wandb",
-        run_name=wandb_args.get("run", "DummyHFTrainRun"),
+        # report_to="wandb",
+        # run_name=wandb_args.get("run", "DummyHFTrainRun"),
         output_dir=model_save_dir,
         load_best_model_at_end=True,
         evaluation_strategy="steps",  # Eval often to prune bad trials
@@ -153,9 +161,6 @@ def train_pbt_hf_clf(
         logging_dir="./nlp/hedge_classifier/logs",
     )
 
-    # Callbacks
-    tb_callback = TensorBoardCallback()
-
     # Trainer
     trainer = Trainer(
         model_init=get_model,
@@ -164,43 +169,58 @@ def train_pbt_hf_clf(
         eval_dataset=sample_test_ds if sample_data_size else test_ds,
         data_collator=data_collator,
         compute_metrics=compute_clf_metrics,
-        callbacks=[tb_callback],
     )
 
     # PBT Hyperparam Search with RayTune
-    tune_config = {
-        "per_device_train_batch_size": 32,
-        "per_device_eval_batch_size": 32,
-        "num_train_epochs": tune.choice([2, 3, 4, 5]),
-        "max_steps": 1 if smoke_test else -1,  # Used for smoke test.
-    }
+    def hp_space_fn(*args, **kwargs):
+        config = {
+            "per_device_train_batch_size": 32,
+            "per_device_eval_batch_size": 32,
+            "warmup_steps": tune.choice([50, 100, 500]),
+            "num_train_epochs": tune.choice([2, 3, 4, 5]),
+            "weight_decay": tune.uniform(0.0, 0.3),
+            "learning_rate": tune.choice([1e-5, 2e-5, 5e-5]),
+            "max_steps": 1 if smoke_test else -1,
+        }
+        # wandb_config = {
+        #     "wandb": {
+        #         "project": wandb_args.get("project", "DummyProjName"),
+        #         "api_key": os.environ.get("API_KEY"),
+        #         "log_config": True,
+        #     }
+        # }
+        # config.update(wandb_config)
+        return config
 
     scheduler = PopulationBasedTraining(
         time_attr="training_iteration",
         metric="eval_acc",
         mode="max",
-        perturbation_interval=1,
-        hyperparam_mutations={
-            "weight_decay": tune.uniform(0.0, 0.3),
-            "learning_rate": tune.uniform(1e-5, 5e-5),
-            "per_device_train_batch_size": [16, 32, 64],
-        },
+        perturbation_interval=1,  # Perturb after 1 training iteration
     )
 
     reporter = CLIReporter(
         parameter_columns={
+            "warmup_steps": "warmup",
             "weight_decay": "w_decay",
             "learning_rate": "lr",
-            "per_device_train_batch_size": "train_bs/gpu",
+            "per_device_train_batch_size": "train_bs/cpu",
             "num_train_epochs": "num_epochs",
         },
-        metric_columns=["eval_acc", "eval_loss", "epoch", "training_iteration"],
+        metric_columns=[
+            "eval_acc",
+            "eval_loss",
+            "epoch",
+            "training_iteration",
+        ],
     )
 
+    log.info("Running Population Based Training - Hyperparams Search")
     best_trial = trainer.hyperparameter_search(
-        hp_space=lambda _: tune_config,
+        hp_space=hp_space_fn,
+        direction="maximize",
         backend="ray",
-        n_trials=ray_num_trials,  # Check what this means
+        n_trials=ray_num_trials,
         resources_per_trial={"cpu": 1, "gpu": num_gpus_per_trial},
         scheduler=scheduler,
         keep_checkpoints_num=1,
@@ -208,14 +228,22 @@ def train_pbt_hf_clf(
         stop={"training_iteration": 1} if smoke_test else None,
         progress_reporter=reporter,
         local_dir="./nlp/hedge_classifier/ray_results/",
-        name="tune_bertweet_pbt",
+        name="tune_hf_pbt",
         log_to_file=True,
+        # loggers=DEFAULT_LOGGERS + (WandbLogger,),
+    )
+
+    log.info("Population Based Training completed!")
+    best_params = json.dumps(best_trial.hyperparameters, indent=4)
+    log.info(f"Best Hyperparams: {best_params}")
+    log.info(f"Serializing Best Params to Current Directory: {os.getcwd()}")
+    json.dump(
+        best_params,
+        fp=f"./hf_pbt_finetune/best_params_{datetime.now().strptime(DATE_FMT)}",
     )
 
     # End WandB Session
     wandb.finish()
-    # Serialize Best Trial
-    return best_trial
 
 
 # Test

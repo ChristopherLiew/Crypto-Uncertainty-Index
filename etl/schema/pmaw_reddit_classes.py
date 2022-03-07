@@ -8,7 +8,7 @@ differing Field(s returned by PMAW vis a vis SNSCRAPE.
 
 
 from pydantic.dataclasses import dataclass
-from pydantic import Field, AnyUrl
+from pydantic import Field
 from dataclasses import asdict
 from datetime import datetime
 from typing import Optional

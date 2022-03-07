@@ -41,7 +41,7 @@ ipykernel = "^6.7.0"
 jupyter = "^1.0.0"
 arrow = "^1.2.1"
 tqdm = "^4.62.3"
-black = "^21.12b0"
+black = {extras = ["jupyter"], version = "^22.1.0"}
 dacite = "^1.6.0"
 requests = "^2.27.1"
 toml = "^0.10.2"
@@ -61,6 +61,9 @@ ray = "^1.10.0"
 little-mallet-wrapper = "^0.5.0"
 shap = "^0.40.0"
 emoji = "^1.6.3"
+tensorboard = "^2.8.0"
+tensorboardX = "^2.5"
+gradio = "^2.8.5"
 
 [tool.poetry.scripts]
 ucry-cli = "cli:app"

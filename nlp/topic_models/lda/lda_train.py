@@ -12,15 +12,15 @@ For Gensim 3.8.3 there is no Ensemble LDA, we will instead run multiple
 Multi-Core LDAs and optimize using topic coherence / log-likelihood.
 """
 
-
+import json
 import multiprocessing as mp
 from collections import defaultdict
 from typing import Dict, Any, Tuple, Union, Optional
 from datetime import datetime
 from pathlib import Path
+from xmlrpc.client import Boolean
 from gensim.models import (
     LdaMulticore,
-    CoherenceModel,
 )
 from nlp.topic_models.lda.bigram_corpus import (
     BigramStreamingCorpus,
@@ -30,7 +30,6 @@ from nlp.topic_models.lda.stream_corpus import (
 )
 from utils import check_and_create_dir
 from utils.logger import log
-from utils.serializer import write_to_pkl
 
 
 # Assuming 1 core = 1 thread
@@ -48,20 +47,21 @@ def train_and_tune_lda(
     alpha: Optional[Union[str, float]] = "symmetric",
     eta: Optional[float] = None,
     random_state: Optional[int] = 42,
-    # coherence_score_type: Optional[str] = 'u_mass',
     save_dir: Optional[Union[str, Path]] = Path("nlp/topic_models/models/lda"),
     trained_dict_save_fp: Optional[Union[str, Path]] = None,
     trained_bigram_save_fp: Optional[Union[str, Path]] = None,
+    get_perplexity: Optional[bool] = False,
+    test_data_dir: Optional[Union[str, Path]] = None,
 ) -> Dict[int, Any]:
     assert gram_level in ("unigram", "bigram"), ValueError(
         "Gram level must be one of 'Bigram' or 'Unigram'"
     )
-    log.info("Constructing Streaming Corpus from Data Dir")
+    log.info(f"Constructing Streaming Corpus from Data Dir from: {raw_data_dir}")
     # Create save dir
-    run_dir = Path(str(save_dir)) / f"lda_run_{datetime.now()}"
+    run_dir = Path(save_dir) / f"lda_run_{datetime.now()}"
     check_and_create_dir(str(run_dir))
     # Pull data and Construct corpus
-    file_paths = list(Path(str(raw_data_dir)).rglob("*.csv"))
+    file_paths = list(Path(raw_data_dir).rglob("*.csv"))
     if gram_level == "unigram":
         stream_corpus = StreamingCorpus(
             csv_file_paths=file_paths,
@@ -72,6 +72,13 @@ def train_and_tune_lda(
             csv_file_paths=file_paths,
             load_from_saved_fp=trained_dict_save_fp,
             load_from_saved_bigram=trained_bigram_save_fp,
+        )
+    # Create test corpus if necessary
+    if get_perplexity:
+        log.info(f"Constructing Test Corpus from Test Data Dir: {test_data_dir}")
+        test_data_paths = list(Path(test_data_dir).rglob("*.csv"))
+        test_corpus = StreamingCorpus(
+            csv_file_paths=test_data_paths,
         )
     # Save dictionary to run
     stream_corpus.save_dict(save_fp=run_dir / "dictionary.txt")
@@ -93,17 +100,10 @@ def train_and_tune_lda(
             eta=eta,
             random_state=random_state,
         )
-        # Get topic coherence
+        # Get UMass Topic Coherence
         log.info(
-            f"Running Coherence model on LDA model with {num_topics} number of topics"
+            f"Getting LDA model UMass with {num_topics} number of topics for Training Data"
         )
-        # coherence_model = CoherenceModel(
-        #     model=lda,
-        #     corpus=stream_corpus,
-        #     dictionary=stream_corpus.corpus_dict,
-        #     coherence=coherence_score_type
-        # )
-        # coherence_score = coherence_model.get_coherence()
         top_topics = lda.top_topics(stream_corpus)
         ave_topic_coherence = sum([t[1] for t in top_topics]) / num_topics
         log.info(
@@ -111,11 +111,24 @@ def train_and_tune_lda(
                  topics has a average UMass coherence score
                  of {ave_topic_coherence}"""
         )
+        # Get log perplexity on hold out set
+        log_perplexity = 'null'
+        if get_perplexity:
+            log.info("Getting perplexity on Test Data")
+            log_perplexity = lda.log_perplexity(test_corpus)
+            log.info(f"Log Perplexity on the Test Data set: {log_perplexity}")
         # Save models
         log.info("Saving LDA model")
-        lda.save(str(run_dir / f"lda_model_{num_topics}_{ave_topic_coherence}.lda"))
-        results[num_topics] = {"u_mass": ave_topic_coherence, "top_topics": top_topics}
-    write_to_pkl(run_dir / "results.pkl", obj=results)
+        lda.save(str(run_dir / f"lda_model_{num_topics}_{ave_topic_coherence}_{log_perplexity}.lda"))
+        results[num_topics] = {
+            "u_mass": str(ave_topic_coherence),
+            "top_topics": str(top_topics),
+            "log_perplexity": str(log_perplexity),
+        }
+    # Save results as JSON
+    log.info("Saving results as JSON")
+    with open(str(run_dir / "results.json"), 'w') as fp:
+        json.dump(results, fp, indent=4)
     log.info(
         f"""Full training loop complete! Saved Dictionary,
              Models and Results can be found at {run_dir}"""

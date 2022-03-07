@@ -2,7 +2,7 @@
 CLI interface for NLP modelling and processes
 """
 
-
+from pandas_datareader import test
 import typer
 import multiprocessing as mp
 from typing import Optional, Tuple
@@ -17,9 +17,11 @@ NUM_CORES = mp.cpu_count()
 nlp_app = typer.Typer(name="NLP")
 
 
-# Hedge Classifier
+####################
+# Hedge Classifier #
+####################
 @nlp_app.command(
-    name="finetune-pbt-hedge-clf",
+    name="pbt-hedge-clf",
     help="Finetunes Hugging Face classifier using SOTA population based training",
 )
 def run_train_and_tune_hf_clf(
@@ -60,9 +62,11 @@ def run_train_and_tune_hf_clf(
     )
 
 
-# Topic Modelling
+###################
+# Topic Modelling #
+###################
 @nlp_app.command(
-    name="train-Top2Vec",
+    name="train-t2v",
     help="Trains Top2Vec on a given corpus",
 )
 def run_train_top2vec(
@@ -100,12 +104,13 @@ def run_train_top2vec(
 
 
 @nlp_app.command(
-    name="train-and-tune-LDA",
+    name="train-multi-lda",
     help="Train multiple iterations of LDA for various Num Topics (K)",
 )
 def run_train_and_tune_lda(
     raw_data_dir: str = typer.Option(
-        "nlp/topic_models/data/processed_reddit",
+        # 100%: nlp/topic_models/data/processed_reddit
+        "nlp/topic_models/data/processed_reddit_train_test/train",
         help="Directory containing csv files with processed data (sans tokenization)",
     ),
     gram_level: str = typer.Option("unigram", help="Unigram or Bigrams"),
@@ -139,6 +144,14 @@ def run_train_and_tune_lda(
         None,  # "nlp/topic_models/models/bigram/reddit_bigram_full",
         help="Bigram Model Save directory",
     ),
+    get_perplexity: Optional[bool] = typer.Option(
+        True,
+        help="Whether to compute log perplexity on each model on a held out test set.",
+    ),
+    test_data_dir: Optional[str] = typer.Option(
+        "nlp/topic_models/data/processed_reddit_train_test/test",
+        help="File path to test data dir to compute log perplexity on."
+    ),
 ) -> None:
 
     train_and_tune_lda(
@@ -155,4 +168,6 @@ def run_train_and_tune_lda(
         save_dir=save_dir,
         trained_dict_save_fp=trained_dict_save_fp,
         trained_bigram_save_fp=trained_bigram_save_fp,
+        get_perplexity=get_perplexity,
+        test_data_dir=test_data_dir,
     )

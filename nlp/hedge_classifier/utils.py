@@ -39,7 +39,7 @@ def compute_clf_metrics(eval_pred: EvalPrediction) -> Callable[[EvalPrediction],
     return metrics
 
 
-# No validation
+# Train-Test only
 def get_data_files(data_dir_root: Path, format: str = "csv") -> Dict[str, str]:
     data_files = dict()
     train_path, test_path = (
