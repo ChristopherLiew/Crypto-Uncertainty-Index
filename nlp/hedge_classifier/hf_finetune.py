@@ -22,11 +22,11 @@ import wandb
 import ray
 from ray import tune
 from ray.tune import CLIReporter
-from ray.tune.logger import DEFAULT_LOGGERS
-from ray.tune.integration.wandb import (
-    WandbLoggerCallback,
-    WandbLogger,
-)
+# from ray.tune.logger import DEFAULT_LOGGERS
+# from ray.tune.integration.wandb import (
+#     WandbLoggerCallback,
+#     WandbLogger,
+# )
 from ray.tune.schedulers import PopulationBasedTraining
 from datasets import load_dataset
 from transformers import (
@@ -237,13 +237,11 @@ def train_pbt_hf_clf(
     best_params = json.dumps(best_trial.hyperparameters, indent=4)
     log.info(f"Best Hyperparams: {best_params}")
     log.info(f"Serializing Best Params to Current Directory: {os.getcwd()}")
-    json.dump(
-        best_params,
-        fp=f"./hf_pbt_finetune/best_params_{datetime.now().strptime(DATE_FMT)}",
-    )
+    with open(f"./hf_pbt_finetune/best_params_{datetime.now().strptime(DATE_FMT)}.json", "w") as fp:
+        json.dump(best_params, fp, indent=4)
 
     # End WandB Session
-    wandb.finish()
+    # wandb.finish()
 
 
 # Test
