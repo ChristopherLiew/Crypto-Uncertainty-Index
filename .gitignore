@@ -132,6 +132,7 @@ dmypy.json
 etl/raw_data_dump/reddit/*
 cache/*
 *.csv
+!nlp/hedge_classifier/data/wiki_weasel_clean/*.csv
 *.xml
 *.dtd
 *.txt
