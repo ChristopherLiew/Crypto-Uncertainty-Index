@@ -11,6 +11,7 @@ Reference:
 # TODO:
 # 1. Fix WandB integration [see: https://github.com/wandb/client/issues/3045]
 # 2. Train on SageMaker
+# 3. Refactor file paths to save results
 
 import json
 import os
@@ -18,7 +19,7 @@ from typing import Dict, Optional
 from pathlib import Path
 from datetime import datetime
 import torch
-import wandb
+# import wandb
 import ray
 from ray import tune
 from ray.tune import CLIReporter
@@ -27,6 +28,7 @@ from ray.tune import CLIReporter
 #     WandbLoggerCallback,
 #     WandbLogger,
 # )
+from ray.tune.examples.pbt_transformers.utils import build_compute_metrics_fn
 from ray.tune.schedulers import PopulationBasedTraining
 from datasets import load_dataset
 from transformers import (
@@ -37,7 +39,6 @@ from transformers import (
 )
 from transformers.trainer import Trainer
 from nlp.hedge_classifier.utils import (
-    compute_clf_metrics,
     get_data_files,
 )
 from utils.logger import log
@@ -71,7 +72,8 @@ def train_pbt_hf_clf(
     train_data_file_type: str = "csv",
     sample_data_size: Optional[int] = None,
     wandb_args: Dict[str, str] = WANDB_DEFAULT_ARGS,
-    num_gpus_per_trial: Optional[int] = 0,  # Set to num GPUs available
+    num_cpus_per_trial: Optional[int] = 4,
+    num_gpus_per_trial: Optional[int] = 1,  # Set to num GPUs available
     ray_address: Optional[str] = None,
     ray_num_trials: int = 8,  # Number of times to rand sample a point
     smoke_test: bool = False,
@@ -117,12 +119,13 @@ def train_pbt_hf_clf(
     tokenized_datasets = datasets.map(tokenizer_function, batched=True)
 
     # Final + Sampled Datasets
-    sample_train_ds = (
-        tokenized_datasets["train"].shuffle(seed=42).select(range(sample_data_size))
-    )
-    sample_test_ds = (
-        tokenized_datasets["test"].shuffle(seed=42).select(range(sample_data_size))
-    )
+    if sample_data_size:
+        sample_train_ds = (
+            tokenized_datasets["train"].shuffle(seed=42).select(range(sample_data_size))
+        )
+        sample_test_ds = (
+            tokenized_datasets["test"].shuffle(seed=42).select(range(sample_data_size))
+        )
     train_ds = tokenized_datasets["train"]
     test_ds = tokenized_datasets["test"]
 
@@ -144,8 +147,7 @@ def train_pbt_hf_clf(
 
     # Training Config
     train_args = TrainingArguments(
-        # report_to="wandb",
-        # run_name=wandb_args.get("run", "DummyHFTrainRun"),
+        report_to=None,
         output_dir=model_save_dir,
         load_best_model_at_end=True,
         evaluation_strategy="steps",  # Eval often to prune bad trials
@@ -168,7 +170,7 @@ def train_pbt_hf_clf(
         train_dataset=sample_train_ds if sample_data_size else train_ds,
         eval_dataset=sample_test_ds if sample_data_size else test_ds,
         data_collator=data_collator,
-        compute_metrics=compute_clf_metrics,
+        compute_metrics=build_compute_metrics_fn("rte"),  # See: Glue Output Modes (rte == classification)
     )
 
     # PBT Hyperparam Search with RayTune
@@ -182,14 +184,6 @@ def train_pbt_hf_clf(
             "learning_rate": tune.choice([1e-5, 2e-5, 5e-5]),
             "max_steps": 1 if smoke_test else -1,
         }
-        # wandb_config = {
-        #     "wandb": {
-        #         "project": wandb_args.get("project", "DummyProjName"),
-        #         "api_key": os.environ.get("API_KEY"),
-        #         "log_config": True,
-        #     }
-        # }
-        # config.update(wandb_config)
         return config
 
     scheduler = PopulationBasedTraining(
@@ -204,7 +198,7 @@ def train_pbt_hf_clf(
             "warmup_steps": "warmup",
             "weight_decay": "w_decay",
             "learning_rate": "lr",
-            "per_device_train_batch_size": "train_bs/cpu",
+            "per_device_train_batch_size": "train_bs/gpu",
             "num_train_epochs": "num_epochs",
         },
         metric_columns=[
@@ -221,14 +215,17 @@ def train_pbt_hf_clf(
         direction="maximize",
         backend="ray",
         n_trials=ray_num_trials,
-        resources_per_trial={"cpu": 1, "gpu": num_gpus_per_trial},
+        resources_per_trial={
+            "cpu": num_cpus_per_trial,
+            "gpu": num_gpus_per_trial
+            },
         scheduler=scheduler,
         keep_checkpoints_num=1,
         checkpoint_score_attr="training_iteration",
         stop={"training_iteration": 1} if smoke_test else None,
         progress_reporter=reporter,
-        local_dir="./nlp/hedge_classifier/ray_results/",
-        name="tune_hf_pbt",
+        local_dir="./nlp/hedge_classifier/hyper_tuning/ray_results/",
+        name=f"tune_hf_pbt_{datetime.now().strftime(DATE_FMT)}",
         log_to_file=True,
         # loggers=DEFAULT_LOGGERS + (WandbLogger,),
     )
@@ -237,7 +234,9 @@ def train_pbt_hf_clf(
     best_params = json.dumps(best_trial.hyperparameters, indent=4)
     log.info(f"Best Hyperparams: {best_params}")
     log.info(f"Serializing Best Params to Current Directory: {os.getcwd()}")
-    with open(f"./hf_pbt_finetune/best_params_{datetime.now().strptime(DATE_FMT)}.json", "w") as fp:
+    with open(
+        f"./nlp/hedge_classifier/hyper_tuning/pbt_best_params/best_params_{datetime.now().strftime(DATE_FMT)}.json", "w"
+    ) as fp:
         json.dump(best_params, fp, indent=4)
 
     # End WandB Session
