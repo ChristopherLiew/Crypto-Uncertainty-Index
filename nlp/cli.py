@@ -8,7 +8,7 @@ import multiprocessing as mp
 from typing import Optional, Tuple
 from nlp.topic_models.lda.lda_train import train_and_tune_lda
 from nlp.topic_models.top2vec_train import train_top2vec
-from nlp.hedge_classifier.hf_finetune import train_pbt_hf_clf
+from nlp.hedge_classifier.pbt_hf_tune import train_pbt_hf_clf
 
 # Config
 NUM_CORES = mp.cpu_count()
@@ -38,8 +38,12 @@ def run_train_and_tune_hf_clf(
     sample_data_size: int = typer.Option(
         None, help="Amount of train and test data to use as a subsample for testing."
     ),
+    num_cpus_per_trial: int = typer.Option(
+        4,
+        help="Number of CPUs to use per trial"
+    ),
     num_gpus_per_trial: int = typer.Option(
-        0, help="Number of GPUs to use per hyperparam tuning trial in PBT process."
+        1, help="Number of GPUs to use per trial."
     ),
     smoke_test: bool = typer.Option(False, help="Whether to run a smoke test."),
     ray_address: str = typer.Option(
@@ -55,6 +59,7 @@ def run_train_and_tune_hf_clf(
         train_data_dir=train_data_dir,
         model_save_dir=model_save_dir,
         sample_data_size=sample_data_size,
+        num_cpus_per_trial=num_cpus_per_trial,
         num_gpus_per_trial=num_gpus_per_trial,
         smoke_test=smoke_test,
         ray_address=ray_address,

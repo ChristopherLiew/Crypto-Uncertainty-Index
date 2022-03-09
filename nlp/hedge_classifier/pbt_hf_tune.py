@@ -9,9 +9,11 @@ Reference:
 """
 
 # TODO:
-# 1. Fix WandB integration [see: https://github.com/wandb/client/issues/3045]
-# 2. Train on SageMaker
-# 3. Refactor file paths to save results
+# 1. Train on SageMaker [Done]
+# 2. Refactor function
+#   > WandB integration
+#   > File paths and structure
+#   > Abstract out WandB config and other configs to TOML
 
 import json
 import os
@@ -241,34 +243,3 @@ def train_pbt_hf_clf(
 
     # End WandB Session
     # wandb.finish()
-
-
-# Test
-# if __name__ == "__main__":
-#     model_name = "vinai/bertweet-base"
-#     train_data_dir = "nlp/hedge_classifier/data/wiki_weasel_clean"
-#     model_save_dir = "nlp/hedge_classifier/models"
-#     num_labels = 2
-#     text_col = "text"
-#     wandb_args = WANDB_DEFAULT_ARGS
-#     train_data_file_type = "csv"
-#     sample_data_size = 1000
-#     num_gpus_per_trial = 0
-#     smoke_test = False
-#     ray_address = None
-#     ray_num_trials = 8
-
-#     train_pbt_hf_clf(
-# model_name=model_name,
-# train_data_dir=train_data_dir,
-# model_save_dir=model_save_dir,
-# num_labels=num_labels,
-# text_col=text_col,
-# wandb_args=wandb_args,
-# train_data_file_type=train_data_file_type,
-# sample_data_size=sample_data_size,
-# num_gpus_per_trial=num_gpus_per_trial,
-# smoke_test=smoke_test,
-# ray_address=ray_address,
-# ray_num_trials=ray_num_trials
-#     )
