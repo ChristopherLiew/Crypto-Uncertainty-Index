@@ -51,6 +51,7 @@ START_DATE, END_DATE = (
     datetime.strptime(crypto_config["end_date"], DATE_FMT),
 )
 
+
 # Run Extraction
 @app.command(
     "extract-reddit-cry-data",

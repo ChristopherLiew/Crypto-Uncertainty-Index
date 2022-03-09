@@ -2,13 +2,12 @@
 CLI interface for NLP modelling and processes
 """
 
-from pandas_datareader import test
 import typer
 import multiprocessing as mp
 from typing import Optional, Tuple
 from nlp.topic_models.lda.lda_train import train_and_tune_lda
 from nlp.topic_models.top2vec_train import train_top2vec
-from nlp.hedge_classifier.pbt_hf_tune import train_pbt_hf_clf
+from nlp.hedge_classifier.huggingface.pbt_transformer import train_pbt_hf_clf
 
 # Config
 NUM_CORES = mp.cpu_count()
@@ -38,13 +37,8 @@ def run_train_and_tune_hf_clf(
     sample_data_size: int = typer.Option(
         None, help="Amount of train and test data to use as a subsample for testing."
     ),
-    num_cpus_per_trial: int = typer.Option(
-        4,
-        help="Number of CPUs to use per trial"
-    ),
-    num_gpus_per_trial: int = typer.Option(
-        1, help="Number of GPUs to use per trial."
-    ),
+    num_cpus_per_trial: int = typer.Option(4, help="Number of CPUs to use per trial"),
+    num_gpus_per_trial: int = typer.Option(1, help="Number of GPUs to use per trial."),
     smoke_test: bool = typer.Option(False, help="Whether to run a smoke test."),
     ray_address: str = typer.Option(
         None, help="Ray address location. If None uses Local."
@@ -155,7 +149,7 @@ def run_train_and_tune_lda(
     ),
     test_data_dir: Optional[str] = typer.Option(
         "nlp/topic_models/data/processed_reddit_train_test/test",
-        help="File path to test data dir to compute log perplexity on."
+        help="File path to test data dir to compute log perplexity on.",
     ),
 ) -> None:
 

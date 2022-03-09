@@ -1,9 +1,9 @@
 # Cryptocurrency Uncertainty Index
 
-![](https://img.shields.io/badge/python-3.8.12-blue) ![](https://img.shields.io/badge/code--style-black-lightgrey) ![](https://img.shields.io/github/commit-activity/m/ChristopherLiew/Crypto-Uncertainty-Index?color=green) ![](https://img.shields.io/github/issues/ChristopherLiew/Crypto-Uncertainty-Index?color=red&style=plastic) 
+![](https://img.shields.io/badge/python-3.8.12-blue) ![](https://img.shields.io/badge/code--style-black-lightgrey) ![](https://img.shields.io/github/commit-activity/m/ChristopherLiew/Crypto-Uncertainty-Index?color=green) ![](https://img.shields.io/github/issues/ChristopherLiew/Crypto-Uncertainty-Index?color=red&style=plastic)
 
 ## Overview
-Constructing a cryptocurrency index based on news-media texts using NLP to measure cryptocurrency uncertainty for downstream time series analysis 
+Constructing a cryptocurrency index based on news-media texts using NLP to measure cryptocurrency uncertainty for downstream time series analysis
 and forecasting of cryptocurrency volatility.
 
 ## Uncertainty Index Construction Approaches
@@ -24,11 +24,11 @@ make install  # Runs Brew and Poetry Installs
 * ```Elasticsearch``` & ```Kibana``` - For easy text analysis and lookup of data
 * ```Postgres``` - Storing of all other relational data (E.g. cryptocurrency indicies, macroeconomic indicators, etc.)
 
-**Install**
+**Build Services**
 ```zsh
 make build  # Build from docker-compose.yml
 ```
-**Start Up**
+**Start Services**
 ```zsh
 make run  # After starting up docker daemon
 ```
@@ -36,13 +36,14 @@ make run  # After starting up docker daemon
 ```zsh
 make ps
 make es-cluster-health # Check cluster health
+# ADD IN POSTGRES HEALTH CHECK
 ```
-**Shut down**
+**Stop Services**
 ```zsh
 make stop  # Stops docker containers
 ```
 
-## DE, Modelling & Index Related Pipelines
+## Pipelines: Data Extraction, NLP Modelling & Indices Construction
 ### Data Extraction
 1. **Subreddit Data Pull via PushshiftAPI**
 * Extracts all subreddit comments and submissions data for a given list of ```subreddits``` over a period specified by ```start_date``` and ```end_date```. Note that data is extracted in batches by ```Year-Month``` to handle PushshiftAPI's (PMAW) connection drops / rate limits.
@@ -51,16 +52,38 @@ make stop  # Stops docker containers
   ```zsh
   ucry-cli extract-reddit-cry-data --start-date 2014-01-01 --end-date 2021-12-31 ethereum ethtrader bitcoin ...
   ```
-### NLP & Text Analysis
+### Text Processing
 1. **Text Processing / Analysis of Raw Reddit Data**
 * Uses ES' Reindex API to move and process existing raw data under ```reddit-crypto``` to the ```reddit-crypto-custom``` index using a ```Custom Analyzer``` to handle ```cryptocurrency``` and ```social-media``` specific terms and patterns. See ```es/custom_analyzers``` for details.
+* Using the CLI interface:
+```zsh
+ucry-cli es-reindex <SOURCE-INDEX> <DEST-INDEX> <DEST-MAPPING>
+```
 
-2. **Word Embedding Generation**
-* Pipeline generates word embeddings using a specified pretrained ```word2vec``` model (E.g. FastText, GoogleWiki, HuggingFace) from subreddit data (using a specified ```index``` and ```field``` name) and stores it as ```embeddings``` in a elasticsearch index ```reddit-word-embeddings``` by default.
+### NLP Tool Kit
+1. **LDA Topic Modelling**
+* Trains a LDA topic model using ```Gensim```'s Multicore LDA implementation optimized with variational Bayes.
+* Using the CLI interface:
+  ```zsh
+  ucry-cli nlp-toolkit train-multi-lda <RAW-DATA-DIR> <GRAM-LEVEL> <NUM-TOPIC-RANGE> <NUM-TOPIC-STEP> <NUM-WORKERS> <CHUNKSIZE> <PASSES> <ALPHA> <ETA> ...
+  ```
+
+2. **Top2Vec Topic Modelling**
+* Trains a Top2Vec topic model using joint word and document embeddings with the ```Doc2Vec``` algorithm (Default).
+* Using the CLI interface:
+  ```zsh
+  ucry-cli nlp-toolkit train-t2v <DATA> <MIN-COUNT> <SPEED> <NUM-WORKERS> <EMBEDDING-MODEL> <HDB-MIN-CLUSTER-SIZE> <MODEL-SAVE-DIR> ...
+  ```
+3. **Population Based Training finetuned BERTweet Classifier**
+* Finetunes a ```Hugging Face``` model (```VinAI's BERTweet``` but can be changed) using SOTA Population Based Training with ```Ray Tune``` and logs models trained and hyperparam sweep with ```Weights & Biases```.
+* Using the CLI interface:
+  ```zsh
+  ucry-cli nlp-toolkit pbt-hedge-clf <MODEL-NAME> <TRAIN-DATA-DIR> <MODEL-SAVE-DIR> <NUM-CPUS-PER-TRIAL> <NUM-GPUS-PER-TRIAL> <RAY-NUM-TRIALS> ...
+  ```
 
 ### Uncertainty Index Construction
 3. **Baseline Uncertainty Index (Lucey's)**
-* Uses ```Lucey et al. (2021)```'s methodology to construct a baseline cryptocurrency index using a simple predefined keyword set. Resulting numeric index values are inserted into the elasticsearch index ```ucry-baseline``` by default.
+* Uses ```Lucey et al. (2021)```'s methodology to construct a baseline cryptocurrency index using a simple ```predefined keyword set```. Resulting numeric index values are inserted into the elasticsearch index ```ucry-baseline``` by default.
 * Using the CLI interface:
   ```zsh
   ucry-cli build-ucry-lucey --start-date 2014-01-01 --end-date 2021-12-31 --granularity weekly --type price
@@ -69,29 +92,9 @@ make stop  # Stops docker containers
 ## Appendix:
 ### Using In-Project poetry venv over cache
 ```zsh
-poetry config virtualenvs.in-project true
-poetry env remove python
-poetry install
+poetry env remove python3.8  # Remove Cache
+poetry config virtualenvs.in-project true  # Create in-project venv
+poetry env use .venv # Set venv Path
+poetry update
+poetry install  # Install deps
 ```
-
-### Installing llvmlite on M1 Mac
-```zsh
-brew install cmake
-arch -arm64 brew install llvm@11
-# Check LLVM@11 version
-LLVM_CONFIG="/opt/homebrew/Cellar/llvm@11/11.1.0_4/bin/llvm-config" arch -arm64 pip install llvmlite
-```
-To install BERTopic now
-```zsh
-# WARNING: Not tracked by Poetry
-pip3 install -U bertopic
-```
-
-Make shortcut
-```zsh
-make install-bertopic
-```
-
-### ES DSL
-* High level Elasticsearch API for Search
-* Documentation [here](https://elasticsearch-dsl.readthedocs.io/en/latest/search_dsl.html)

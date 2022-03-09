@@ -916,7 +916,7 @@ tool = ["click (>=6.0.0)"]
 
 [[package]]
 name = "gradio"
-version = "2.8.8"
+version = "2.8.9"
 description = "Python library for easily interacting with trained machine learning models"
 category = "main"
 optional = false
@@ -4729,8 +4729,8 @@ google-auth-oauthlib = [
     {file = "google_auth_oauthlib-0.4.6-py2.py3-none-any.whl", hash = "sha256:3f2a6e802eebbb6fb736a370fbf3b055edcb6b52878bf2f26330b5e041316c73"},
 ]
 gradio = [
-    {file = "gradio-2.8.8-py3-none-any.whl", hash = "sha256:83a8cf98d81c745fcb63d396f09ed2f8d0fed0cb01890be6def01eb3cf378580"},
-    {file = "gradio-2.8.8.tar.gz", hash = "sha256:0273070d52bf41372fe0714f3e54bec597c326525dd0192b8293ce083c3793a2"},
+    {file = "gradio-2.8.9-py3-none-any.whl", hash = "sha256:85fd4d4fd525015468ef041b6817a969ad98a0f167bdd2223723ebfb8943e8ac"},
+    {file = "gradio-2.8.9.tar.gz", hash = "sha256:cfe69baa8bc7f593d292cfb618340b4cbdc42e53e925289aefbbeaf4de98da5d"},
 ]
 greenlet = [
     {file = "greenlet-1.1.2-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:58df5c2a0e293bf665a51f8a100d3e9956febfbf1d9aaf8c0677cf70218910c6"},

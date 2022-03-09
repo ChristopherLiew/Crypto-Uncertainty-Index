@@ -18,7 +18,6 @@ from collections import defaultdict
 from typing import Dict, Any, Tuple, Union, Optional
 from datetime import datetime
 from pathlib import Path
-from xmlrpc.client import Boolean
 from gensim.models import (
     LdaMulticore,
 )
@@ -112,14 +111,19 @@ def train_and_tune_lda(
                  of {ave_topic_coherence}"""
         )
         # Get log perplexity on hold out set
-        log_perplexity = 'null'
+        log_perplexity = "null"
         if get_perplexity:
             log.info("Getting perplexity on Test Data")
             log_perplexity = lda.log_perplexity(test_corpus)
             log.info(f"Log Perplexity on the Test Data set: {log_perplexity}")
         # Save models
         log.info("Saving LDA model")
-        lda.save(str(run_dir / f"lda_model_{num_topics}_{ave_topic_coherence}_{log_perplexity}.lda"))
+        lda.save(
+            str(
+                run_dir
+                / f"lda_model_{num_topics}_{ave_topic_coherence}_{log_perplexity}.lda"
+            )
+        )
         results[num_topics] = {
             "u_mass": str(ave_topic_coherence),
             "top_topics": str(top_topics),
@@ -127,7 +131,7 @@ def train_and_tune_lda(
         }
     # Save results as JSON
     log.info("Saving results as JSON")
-    with open(str(run_dir / "results.json"), 'w') as fp:
+    with open(str(run_dir / "results.json"), "w") as fp:
         json.dump(results, fp, indent=4)
     log.info(
         f"""Full training loop complete! Saved Dictionary,

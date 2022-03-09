@@ -9,8 +9,13 @@ from typing import Callable, Union
 from es.manager import ESManager
 from utils.logger import log
 from utils import gen_date_chunks
-from pipelines.crypto_index.lucey_keyword_based import keywords as lucey_keywords
-from pipelines.crypto_index.topic_modelling_based import lda_keywords, top2vec_keywords
+from pipelines.crypto_index.lucey_keyword_based import (
+    keywords as lucey_keywords,
+)
+from pipelines.crypto_index.topic_modelling_based import (
+    lda_keywords,
+    top2vec_keywords,
+)
 
 
 static_es_conn = ESManager()
