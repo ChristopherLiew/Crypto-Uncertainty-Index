@@ -1,0 +1,4 @@
+:actor_name:_objective
+signal only works in main thread
+{'loss': 0.5586, 'learning_rate': 5e-05, 'epoch': 3.12}
+{'train_runtime': 46.6786, 'train_samples_per_second': 107.116, 'train_steps_per_second': 3.428, 'train_loss': 0.43867852091789244, 'epoch': 5.0}

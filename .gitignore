@@ -143,6 +143,10 @@ nlp/topic_models/models/*
 wandb
 ray_results
 
+# PyTorch Model Binaries (Keep JSONs and CSVs for reference)
+*.pt
+*.bin
+
 # Vscode config
 .vscode
 
