@@ -8,6 +8,7 @@ from typing import Optional, Tuple
 from nlp.topic_models.lda.lda_train import train_and_tune_lda
 from nlp.topic_models.top2vec_train import train_top2vec
 from nlp.hedge_classifier.huggingface.pbt_transformer import train_pbt_hf_clf
+from nlp.hedge_classifier import gradio_app
 
 # Config
 NUM_CORES = mp.cpu_count()
@@ -19,6 +20,15 @@ nlp_app = typer.Typer(name="NLP")
 ####################
 # Hedge Classifier #
 ####################
+
+
+@nlp_app.command(
+    name="hedge-clf-demo", help="Launches a Gradio app for hedge classification demo."
+)
+def run_hedge_clf_demo():
+    gradio_app.run_app()
+
+
 @nlp_app.command(
     name="pbt-hedge-clf",
     help="Finetunes Hugging Face classifier using SOTA population based training",
