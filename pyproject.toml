@@ -56,7 +56,7 @@ shap = "^0.40.0"
 gradio = "^2.8.10"
 darts = "^0.17.1"
 TA-Lib = "^0.4.24"
-numpy = "^1.22.0"
+numpy = "<1.22.0"
 
 [tool.poetry.scripts]
 ucry-cli = "cli:app"
