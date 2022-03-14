@@ -56,6 +56,8 @@ emoji = "^1.7.0"
 shap = "^0.40.0"
 gradio = "^2.8.10"
 darts = "^0.17.1"
+skforecast = "^0.4.2"
+TA-Lib = "^0.4.24"
 
 [tool.poetry.scripts]
 ucry-cli = "cli:app"

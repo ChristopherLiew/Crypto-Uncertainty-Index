@@ -1,3 +1,6 @@
 [submodule "gsdmm-rust"]
 	path = gsdmm-rust
 	url = https://github.com/ChristopherLiew/gsdmm-rust.git
+[submodule "Diebold-Mariano-Test"]
+	path = Diebold-Mariano-Test
+	url = https://github.com/johntwk/Diebold-Mariano-Test.git
