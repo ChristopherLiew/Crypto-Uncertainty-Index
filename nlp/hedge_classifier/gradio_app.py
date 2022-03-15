@@ -15,7 +15,7 @@ from transformers import (
 def run_app(
     hf_model_name: str = "vinai/bertweet-base",
     model_ckpt: Optional[str] = None,
-    theme: str = "darkpeach"
+    theme: str = "dark-peach"
 ) -> None:
 
     # Pipeline for Inference
@@ -64,8 +64,8 @@ def run_app(
             gr.outputs.HTML(label="SHAPley Explained")
         ],
         examples=[
-            ["Some others say BTC will reach 100k in by May"],
-            ["Whales say that ETH will definitely reac"]
+            ["Some others say BTC will reach 100k in by May 🚀🚀🚀"],
+            ["🐋 say that ETH will definitely reach 100K very soon 🚀"]
         ],
         theme=theme,
         capture_session=True

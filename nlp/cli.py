@@ -36,7 +36,7 @@ def run_hedge_clf_demo(
         help="Pretrained model checkpoint to load from."
     ),
     theme: str = typer.Option(
-        "darkpeach",
+        "dark-peach",
         help="Gradio theme to use."
     )
 ):
