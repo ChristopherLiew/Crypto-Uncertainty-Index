@@ -7,7 +7,7 @@ HSDBSCAN ref: https://stackoverflow.com/questions/67898039/hdbscan-difference-be
 from multiprocessing import cpu_count
 from typing import Union
 import polars as pl
-from Top2Vec.top2vec import Top2Vec
+from top2vec import Top2Vec
 from pathlib import Path
 from utils import check_and_create_dir
 from utils.logger import log
