@@ -9,7 +9,7 @@ help:
 	@echo " - pg-crypto-build	: Builds postgres with related crypto uncertainty tables"
 	@echo " - es-cluster-health	: Get elasticsearch cluster health"
 	@echo " - clean	: Cleans up project by removing python, pytest and ipynb caches"
-	@echo " - format : Runs Black to format all files"
+	@echo " - format : Runs Black to format all python and jupyter files + SQLFluff for all SQL files"
 
 install:
 	brew install poetry
@@ -55,6 +55,7 @@ clean:
 
 format:
 	black .
+	sqlfluff fix .
 
 # Others
 install-bertopic:
