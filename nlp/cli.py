@@ -23,8 +23,7 @@ nlp_app = typer.Typer(name="NLP")
 
 
 @nlp_app.command(
-    name="hedge-clf-demo",
-    help="Launches a Gradio app for hedge classification demo."
+    name="hedge-clf-demo", help="Launches a Gradio app for hedge classification demo."
 )
 def run_hedge_clf_demo(
     hf_model_name: str = typer.Option(
@@ -33,18 +32,11 @@ def run_hedge_clf_demo(
     ),
     model_ckpt: Optional[str] = typer.Option(
         "nlp/hedge_classifier/models/best_pbt_bertweet/checkpoint",
-        help="Pretrained model checkpoint to load from."
+        help="Pretrained model checkpoint to load from.",
     ),
-    theme: str = typer.Option(
-        "dark-peach",
-        help="Gradio theme to use."
-    )
+    theme: str = typer.Option("dark-peach", help="Gradio theme to use."),
 ):
-    gradio_app.run_app(
-        hf_model_name=hf_model_name,
-        model_ckpt=model_ckpt,
-        theme=theme
-    )
+    gradio_app.run_app(hf_model_name=hf_model_name, model_ckpt=model_ckpt, theme=theme)
 
 
 @nlp_app.command(
