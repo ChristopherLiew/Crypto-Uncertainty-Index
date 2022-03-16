@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "crypto-uncertainty-index"
 version = "0.1.0"
-description = "Cryptocurrency Uncertainty Index with NLP and Reddit Data"
+description = "Cryptocurrency Price & Policy Uncertainty Index with NLP and Reddit Data"
 authors = ["christopher.liew <christopher.liew@bytedance.com>"]
 readme = "README.md"
 
