@@ -55,7 +55,7 @@ clean:
 
 format:
 	black .
-	sqlfluff fix .
+	sqlfluff fix . --dialect postgres
 
 # Others
 install-bertopic:

@@ -35,24 +35,28 @@ def run_app(
 
     # Predict Function
     def predict(text) -> Tuple[Dict[str, float], Any]:
+
         res = pipe(text, **tokenizer_kwargs, return_all_scores=True)[0]
         pred = sorted(res, key=lambda x: x.get("score"), reverse=True)
         explainer = shap.Explainer(pipe)
         shap_values = explainer([text])
-        html = shap.plots.text(shap_values, display=False)
+
         tidied_labels = {}
         for i in pred:
             label, score = i.get("label", None), i.get("score", None)
             label = "Hedged" if label == "LABEL_1" else "Not Hedged"
             tidied_labels[label] = score
-        return tidied_labels, html
+
+        pred_class = pred[0].get("label", None)
+        html_explainer = shap.plots.text(shap_values[:, :, pred_class], display=False)
+        return tidied_labels, html_explainer
 
     # Interface
     iface = gr.Interface(
         fn=predict,
         title="Detect Hedges with BERTweet 🤗",
         inputs=gr.inputs.Textbox(
-            lines=10,
+            lines=30,
             label="Detect Hedges",
             placeholder="Enter a possibly hedged sentence here",
         ),
