@@ -111,6 +111,21 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "arch"
+version = "5.1.0"
+description = "ARCH for Python"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+numpy = ">=1.17"
+pandas = ">=1.0"
+property_cached = ">=1.6.4"
+scipy = ">=1.3"
+statsmodels = ">=0.11"
+
+[[package]]
 name = "argon2-cffi"
 version = "21.3.0"
 description = "The secure Argon2 password hashing algorithm."
@@ -568,13 +583,13 @@ xxhash = "*"
 apache-beam = ["apache-beam (>=2.26.0)"]
 audio = ["librosa"]
 benchmarks = ["numpy (==1.18.5)", "tensorflow (==2.3.0)", "torch (==1.6.0)", "transformers (==3.0.2)"]
-dev = ["absl-py", "pytest", "pytest-datadir", "pytest-xdist", "apache-beam (>=2.26.0)", "elasticsearch (<8.0.0)", "aiobotocore", "boto3", "botocore", "faiss-cpu (>=1.6.4)", "fsspec", "moto[s3,server] (==2.0.4)", "rarfile (>=4.0)", "s3fs (==2021.08.1)", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "torch", "torchaudio", "soundfile", "transformers", "bs4", "conllu", "h5py", "langdetect", "lxml", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "tldextract", "zstandard", "bert-score (>=0.3.6)", "rouge-score", "sacrebleu", "scipy", "seqeval", "scikit-learn", "jiwer", "sentencepiece", "torchmetrics (==0.6.0)", "mauve-text", "toml (>=0.10.1)", "requests-file (>=1.5.1)", "tldextract (>=3.1.0)", "texttable (>=1.6.3)", "Werkzeug (>=1.0.1)", "six (>=1.15.0,<1.16.0)", "Pillow (>=6.2.1)", "librosa", "wget (>=3.2)", "pytorch-nlp (==0.5.0)", "pytorch-lightning", "fastBPE (==0.1.0)", "fairseq", "black (>=22.0,<23.0)", "flake8 (>=3.8.3)", "isort (>=5.0.0)", "pyyaml (>=5.3.1)", "importlib-resources"]
+dev = ["absl-py", "pytest", "pytest-datadir", "pytest-xdist", "apache-beam (>=2.26.0)", "elasticsearch (<8.0.0)", "aiobotocore", "boto3", "botocore", "faiss-cpu (>=1.6.4)", "fsspec", "moto[server,s3] (==2.0.4)", "rarfile (>=4.0)", "s3fs (==2021.08.1)", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "torch", "torchaudio", "soundfile", "transformers", "bs4", "conllu", "h5py", "langdetect", "lxml", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "tldextract", "zstandard", "bert-score (>=0.3.6)", "rouge-score", "sacrebleu", "scipy", "seqeval", "scikit-learn", "jiwer", "sentencepiece", "torchmetrics (==0.6.0)", "mauve-text", "toml (>=0.10.1)", "requests-file (>=1.5.1)", "tldextract (>=3.1.0)", "texttable (>=1.6.3)", "Werkzeug (>=1.0.1)", "six (>=1.15.0,<1.16.0)", "Pillow (>=6.2.1)", "librosa", "wget (>=3.2)", "pytorch-nlp (==0.5.0)", "pytorch-lightning", "fastBPE (==0.1.0)", "fairseq", "black (>=22.0,<23.0)", "flake8 (>=3.8.3)", "isort (>=5.0.0)", "pyyaml (>=5.3.1)", "importlib-resources"]
 docs = ["docutils (==0.16.0)", "recommonmark", "sphinx (==3.1.2)", "sphinx-markdown-tables", "sphinx-rtd-theme (==0.4.3)", "sphinxext-opengraph (==0.4.1)", "sphinx-copybutton", "fsspec (<2021.9.0)", "s3fs", "sphinx-panels", "sphinx-inline-tabs", "myst-parser", "Markdown (!=3.3.5)"]
 quality = ["black (>=22.0,<23.0)", "flake8 (>=3.8.3)", "isort (>=5.0.0)", "pyyaml (>=5.3.1)"]
 s3 = ["fsspec", "boto3", "botocore", "s3fs"]
 tensorflow = ["tensorflow (>=2.2.0,!=2.6.0,!=2.6.1)"]
 tensorflow_gpu = ["tensorflow-gpu (>=2.2.0,!=2.6.0,!=2.6.1)"]
-tests = ["absl-py", "pytest", "pytest-datadir", "pytest-xdist", "apache-beam (>=2.26.0)", "elasticsearch (<8.0.0)", "aiobotocore", "boto3", "botocore", "faiss-cpu (>=1.6.4)", "fsspec", "moto[s3,server] (==2.0.4)", "rarfile (>=4.0)", "s3fs (==2021.08.1)", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "torch", "torchaudio", "soundfile", "transformers", "bs4", "conllu", "h5py", "langdetect", "lxml", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "tldextract", "zstandard", "bert-score (>=0.3.6)", "rouge-score", "sacrebleu", "scipy", "seqeval", "scikit-learn", "jiwer", "sentencepiece", "torchmetrics (==0.6.0)", "mauve-text", "toml (>=0.10.1)", "requests-file (>=1.5.1)", "tldextract (>=3.1.0)", "texttable (>=1.6.3)", "Werkzeug (>=1.0.1)", "six (>=1.15.0,<1.16.0)", "Pillow (>=6.2.1)", "librosa", "wget (>=3.2)", "pytorch-nlp (==0.5.0)", "pytorch-lightning", "fastBPE (==0.1.0)", "fairseq", "importlib-resources"]
+tests = ["absl-py", "pytest", "pytest-datadir", "pytest-xdist", "apache-beam (>=2.26.0)", "elasticsearch (<8.0.0)", "aiobotocore", "boto3", "botocore", "faiss-cpu (>=1.6.4)", "fsspec", "moto[server,s3] (==2.0.4)", "rarfile (>=4.0)", "s3fs (==2021.08.1)", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "torch", "torchaudio", "soundfile", "transformers", "bs4", "conllu", "h5py", "langdetect", "lxml", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "tldextract", "zstandard", "bert-score (>=0.3.6)", "rouge-score", "sacrebleu", "scipy", "seqeval", "scikit-learn", "jiwer", "sentencepiece", "torchmetrics (==0.6.0)", "mauve-text", "toml (>=0.10.1)", "requests-file (>=1.5.1)", "tldextract (>=3.1.0)", "texttable (>=1.6.3)", "Werkzeug (>=1.0.1)", "six (>=1.15.0,<1.16.0)", "Pillow (>=6.2.1)", "librosa", "wget (>=3.2)", "pytorch-nlp (==0.5.0)", "pytorch-lightning", "fastBPE (==0.1.0)", "fairseq", "importlib-resources"]
 torch = ["torch"]
 vision = ["Pillow (>=6.2.1)"]
 
@@ -2330,6 +2345,14 @@ python-versions = ">=3.6.2"
 wcwidth = "*"
 
 [[package]]
+name = "property-cached"
+version = "1.6.4"
+description = "A decorator for caching properties in classes (forked from cached-property)."
+category = "main"
+optional = false
+python-versions = ">= 3.5"
+
+[[package]]
 name = "prophet"
 version = "1.0.1"
 description = "Automatic Forecasting Procedure"
@@ -4032,7 +4055,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.9"
-content-hash = "aad0e96e71ebdb44677fa4e780ba9f62f79e91099a2d2068ecdd058d937e8bae"
+content-hash = "daf18ae4415a15ae5b8fd8cc66b7d0e61093e5b8e83b06f112a1e42c8d6a08b2"
 
 [metadata.files]
 absl-py = [
@@ -4136,6 +4159,34 @@ appdirs = [
 appnope = [
     {file = "appnope-0.1.2-py2.py3-none-any.whl", hash = "sha256:93aa393e9d6c54c5cd570ccadd8edad61ea0c4b9ea7a01409020c9aa019eb442"},
     {file = "appnope-0.1.2.tar.gz", hash = "sha256:dd83cd4b5b460958838f6eb3000c660b1f9caf2a5b1de4264e941512f603258a"},
+]
+arch = [
+    {file = "arch-5.1.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:0df375303ab31024e44a0565f5b34247096831e8947cdde226c4627260b1b9dd"},
+    {file = "arch-5.1.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:5df460cb42dcb682188cda8c5a8c9b7be7f3459b34bad0a8198d1b3e7a2a39ce"},
+    {file = "arch-5.1.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:7e4e403dfe81346408b47504a9e8fffadcd064e58b81ef2dbb2272265305a2b6"},
+    {file = "arch-5.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bf05eae97bcb9a5a7d92ae15c9998278e64b862dc8a205e440f40652af95e3e3"},
+    {file = "arch-5.1.0-cp310-cp310-win_amd64.whl", hash = "sha256:384950c6925910df18b420b98a14827199d8ba8bf8d68be83b47586a0b021e30"},
+    {file = "arch-5.1.0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:5b2f28e222257648f701a57a857a1e9ebaecc29636bc51c804c8d44fb693efbe"},
+    {file = "arch-5.1.0-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:6120fa937a17880509edf0a912468c8e4a6ddbd9bfac89ba0dfca2a50a7da774"},
+    {file = "arch-5.1.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e27f4236bd028513421b1963499587e5e5919ccdb89ddb6450f281d575a00697"},
+    {file = "arch-5.1.0-cp37-cp37m-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:b21caf5536db8f8d49226b1f6a457b50c79034d6b3c5b056e5d8b06626c2c1bc"},
+    {file = "arch-5.1.0-cp37-cp37m-win32.whl", hash = "sha256:97416e617e203e989c8053a8c7f398df89872eb800c3152c8ad1cd28665a0850"},
+    {file = "arch-5.1.0-cp37-cp37m-win_amd64.whl", hash = "sha256:2f9cfeea76c07799e6e1109cc10d42c083e58001b71320a2cc33d86702f89577"},
+    {file = "arch-5.1.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:dc32e6ed6c9531286f40bed3c0888e3483689752f8f4c55f8cf8618f8e5b4fb3"},
+    {file = "arch-5.1.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:8ad6a532831ee01021329ecf72aae6cd13ff8f88c2ceb29e1d40f54126c3d19d"},
+    {file = "arch-5.1.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b91b5993d1fee50c5cc58e7b113c89786219622d9a9217b9e0d3c15982a98480"},
+    {file = "arch-5.1.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9259e8b023d3816e11fe19071bfc7f718f64cad3e98b269bb9fed0c836b115c6"},
+    {file = "arch-5.1.0-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:8a4cc77b817e70eac1d13270c64dcbede18a95fff0f96344f715477891126c04"},
+    {file = "arch-5.1.0-cp38-cp38-win32.whl", hash = "sha256:38ba7fe2eebb8dea2e5a2e4e46e0c75049486813c0959a1b28c35caa3e4dce0f"},
+    {file = "arch-5.1.0-cp38-cp38-win_amd64.whl", hash = "sha256:714fd31a4d22e34d31f861c945b68745e208789a5b77caf60266f0bc1d845b82"},
+    {file = "arch-5.1.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:bd28bad61a29fe483ab3bb99c605255c831d6795ba087aba81e54d5c77c8def6"},
+    {file = "arch-5.1.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:2f05368c191dd2530466409379232d51508efba98afd21a5d02ab777dd1792d3"},
+    {file = "arch-5.1.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:671c710b512dc2a23db9e074d1f7574280dd5d7d28610cbbaf4b623fb9e48ec0"},
+    {file = "arch-5.1.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e963a68c25c3988e91cb2a8cef535d8861db933690790b130754c7ce1e0bf69e"},
+    {file = "arch-5.1.0-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:05cc126dd729abe72da16ab156fa905024a66a761e7c492451e379a5995791cf"},
+    {file = "arch-5.1.0-cp39-cp39-win32.whl", hash = "sha256:75912e86e29b773b775c37e0001ae6cd44cde1956f191f50c330bf0782a22311"},
+    {file = "arch-5.1.0-cp39-cp39-win_amd64.whl", hash = "sha256:38b52aaa6f7c23a49e639c2248cf66b8841071bd563a13b89b58ac292ecb2a6b"},
+    {file = "arch-5.1.0.tar.gz", hash = "sha256:cf6b1f89a4c609307f6ce11546d70199ad1b652098ff4bc0ae071d620f14e4b3"},
 ]
 argon2-cffi = [
     {file = "argon2-cffi-21.3.0.tar.gz", hash = "sha256:d384164d944190a7dd7ef22c6aa3ff197da12962bd04b17f64d4e93d934dba5b"},
@@ -5713,6 +5764,10 @@ promise = [
 prompt-toolkit = [
     {file = "prompt_toolkit-3.0.28-py3-none-any.whl", hash = "sha256:30129d870dcb0b3b6a53efdc9d0a83ea96162ffd28ffe077e94215b233dc670c"},
     {file = "prompt_toolkit-3.0.28.tar.gz", hash = "sha256:9f1cd16b1e86c2968f2519d7fb31dd9d669916f515612c269d14e9ed52b51650"},
+]
+property-cached = [
+    {file = "property-cached-1.6.4.zip", hash = "sha256:3e9c4ef1ed3653909147510481d7df62a3cfb483461a6986a6f1dcd09b2ebb73"},
+    {file = "property_cached-1.6.4-py2.py3-none-any.whl", hash = "sha256:135fc059ec969c1646424a0db15e7fbe1b5f8c36c0006d0b3c91ba568c11e7d8"},
 ]
 prophet = [
     {file = "prophet-1.0.1.tar.gz", hash = "sha256:3e682e8ea6e1ee26a92cf289f207d539f30e44879126c128ff8f4e360eb25a8b"},

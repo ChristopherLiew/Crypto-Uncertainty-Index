@@ -4,6 +4,3 @@
 [submodule "Diebold-Mariano-Test"]
 	path = /forecasting/time_series_tests/Diebold-Mariano-Test
 	url = https://github.com/johntwk/Diebold-Mariano-Test.git
-[submodule "URT"]
-	path = /forecasting/time_series_tests/URT
-	url = https://github.com/olmallet81/URT.git
