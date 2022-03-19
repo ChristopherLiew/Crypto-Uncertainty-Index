@@ -9,29 +9,23 @@ Reference:
 """
 
 # TODO:
-# 1. Train on SageMaker [Done]
-# 2. Refactor function
-#   > WandB integration
-#   > File paths and structure
-#   > Abstract out WandB config and other configs to TOML
+# 1. Train on
+#   A. BERTweet + WikiWeasel
+#   B. BERTweet + (WikiWeasel & Bioscope)
+#   C. RoBERTa + WikiWeasel
+#   D. RoBERTa + (WikiWeasel & Bioscope)
+
 
 import json
 import os
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 from pathlib import Path
 from datetime import datetime
 import torch
-
-# import wandb
+import wandb
 import ray
 from ray import tune
 from ray.tune import CLIReporter
-
-# from ray.tune.logger import DEFAULT_LOGGERS
-# from ray.tune.integration.wandb import (
-#     WandbLoggerCallback,
-#     WandbLogger,
-# )
 from ray.tune.examples.pbt_transformers.utils import build_compute_metrics_fn
 from ray.tune.schedulers import PopulationBasedTraining
 from datasets import load_dataset
@@ -46,6 +40,11 @@ from nlp.hedge_classifier.utils import (
     get_data_files,
 )
 from utils.logger import log
+# from ray.tune.logger import DEFAULT_LOGGERS
+# from ray.tune.integration.wandb import (
+#     WandbLoggerCallback,
+#     WandbLogger,
+# )
 
 
 # Config
@@ -55,8 +54,7 @@ WANDB_RUN_NAME = "PBT-Ray-Hedge-Clf-" + datetime.now().strftime(DATE_FMT)
 WANDB_PROJECT_TAGS = [
     "HuggingFaceTransformer",
     "HedgeClassifier",
-    "TrainingRun",
-    "CryptoUncertaintyIndex",
+    "SzegedUncertaintyCorpus",
 ]
 WANDB_DEFAULT_ARGS = {
     "entity": "chrisliew",
@@ -81,6 +79,7 @@ def train_pbt_hf_clf(
     ray_address: Optional[str] = None,
     ray_num_trials: int = 8,  # Number of times to rand sample a point
     smoke_test: bool = False,
+    additional_wandb_tags: List[str] = ['WikiWeasel']
 ) -> None:
 
     # Ray Tune set up
@@ -92,19 +91,27 @@ def train_pbt_hf_clf(
     # wandb.login()
     # os.environ["WANDB_LOG_MODEL"] = "true"
     # os.environ["WANDB_WATCH"] = "all"
-    # wandb_args["tags"].append(model_name)
+    # wandb_args["tags"].append(model_name.upper())
 
     # Initialize WandB run (Only needed to log artifacts)
     # wandb.init(
     #     job_type="training",
     #     project=wandb_args.get("project", "DummyProjName"),
     #     name=wandb_args.get("run", "DummyRunName"),
-    #     tags=wandb_args.get("tags", ["DummyTrainTag"]),
+    #     tags=(
+    #         wandb_args
+    #         .get("tags", ["DummyTrainTag"])
+    #         .extend(additional_wandb_tags)
+    #     ),
     #     entity=wandb_args["entity"],
     # )
 
     # Check for GPUs
-    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    device = (
+        torch.device("cuda")
+        if torch.cuda.is_available()
+        else torch.device("cpu")
+    )
 
     log.info("Preparing Datasets")
 
@@ -125,10 +132,14 @@ def train_pbt_hf_clf(
     # Final + Sampled Datasets
     if sample_data_size:
         sample_train_ds = (
-            tokenized_datasets["train"].shuffle(seed=42).select(range(sample_data_size))
+            tokenized_datasets["train"]
+            .shuffle(seed=42)
+            .select(range(sample_data_size))
         )
         sample_test_ds = (
-            tokenized_datasets["test"].shuffle(seed=42).select(range(sample_data_size))
+            tokenized_datasets["test"]
+            .shuffle(seed=42)
+            .select(range(sample_data_size))
         )
     train_ds = tokenized_datasets["train"]
     test_ds = tokenized_datasets["test"]
@@ -175,7 +186,7 @@ def train_pbt_hf_clf(
         eval_dataset=sample_test_ds if sample_data_size else test_ds,
         data_collator=data_collator,
         compute_metrics=build_compute_metrics_fn(
-            "rte"
+            "mrpc"  # Computes Accuracy + F1
         ),  # See: Glue Output Modes (rte == classification)
     )
 
@@ -221,7 +232,10 @@ def train_pbt_hf_clf(
         direction="maximize",
         backend="ray",
         n_trials=ray_num_trials,
-        resources_per_trial={"cpu": num_cpus_per_trial, "gpu": num_gpus_per_trial},
+        resources_per_trial={
+            "cpu": num_cpus_per_trial,
+            "gpu": num_gpus_per_trial,
+            },
         scheduler=scheduler,
         keep_checkpoints_num=1,
         checkpoint_score_attr="training_iteration",
@@ -244,4 +258,4 @@ def train_pbt_hf_clf(
         json.dump(best_params, fp, indent=4)
 
     # End WandB Session
-    # wandb.finish()
+    wandb.finish()

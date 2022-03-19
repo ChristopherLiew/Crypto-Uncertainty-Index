@@ -48,7 +48,7 @@ def run_train_and_tune_hf_clf(
         "vinai/bertweet-base", help="Base huggingface hub transformer to finetune on."
     ),
     train_data_dir: str = typer.Option(
-        "nlp/hedge_classifier/data/wiki_weasel_clean",
+        "nlp/hedge_classifier/data/szeged_uncertainty_corpus/cleaned_datasets/train_test/wiki/csv",
         help="Data directory containing csv train and test data for finetuning and eval in specified format.",
     ),
     model_save_dir: str = typer.Option(
