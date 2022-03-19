@@ -138,6 +138,7 @@ cache/*
 *.txt
 nlp/topic_models/models/*
 *.html
+*.tsv
 
 # ML stuff
 wandb

@@ -14,9 +14,14 @@ from transformers import (
 )
 from transformers.pipelines import pipeline
 from torch.utils.data import Dataset
-from nlp.hedge_classifier.huggingface.reddit_dataset import (
+from nlp.hedge_classifier.huggingface.reddit_inference_dataset import (
     RedditInferenceDataset,
 )
+
+# TODO:
+# 1. Make sure that pipeline can work on local data
+# 2. Pick out some samples of data as examples on Reddit Samples
+# 3. Compute classification metrics on Uncertainty Corpus test set
 
 
 # Config (Move to TOML)
@@ -31,6 +36,10 @@ model = AutoModelForSequenceClassification.from_pretrained(MODEL_CHECKPOINT)
 
 pipe = pipeline(task="text-classification", model=model, tokenizer=tokenizer)
 
+tokenizer_kwargs = {
+        "padding": True,
+        "truncation": True,
+    }
 
 # Test Data (Create Batches when processing ES data)
 data = RedditInferenceDataset(data_dir=Path("nlp/topic_models/data/processed_reddit"))
@@ -40,14 +49,11 @@ data = RedditInferenceDataset(data_dir=Path("nlp/topic_models/data/processed_red
 def run_inference(
     pipeline: pipeline,
     inf_dataset: Dataset,
-    truncation: bool = True,
-    padding: bool = True,
+    tokenizer_kwargs: Dict[str, bool]
 ) -> List[Dict[str, Any]]:
-    tokenizer_kwargs = {
-        "padding": padding,
-        "truncation": truncation,
-    }
+
     results = []
+
     for i, out in enumerate(tqdm(pipeline(inf_dataset, **tokenizer_kwargs))):
         print(f"{i}: {inf_dataset.__getitem__(i)}")
         results.append(out)
