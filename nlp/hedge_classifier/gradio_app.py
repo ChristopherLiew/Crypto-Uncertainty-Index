@@ -15,7 +15,7 @@ from utils.logger import log
 
 def run_app(
     hf_model_name: str = "vinai/bertweet-base",
-    model_ckpt: Optional[str] = None,
+    model_save_dir: Optional[str] = None,
     theme: str = "dark-peach",
 ) -> None:
 
@@ -23,7 +23,7 @@ def run_app(
     # Pipeline for Inference
     tokenizer = AutoTokenizer.from_pretrained(hf_model_name, normalization=True)
     model = AutoModelForSequenceClassification.from_pretrained(
-        hf_model_name if model_ckpt is None else model_ckpt
+        hf_model_name if model_save_dir is None else model_save_dir
     )
 
     log.info("Constructing Pipeline")

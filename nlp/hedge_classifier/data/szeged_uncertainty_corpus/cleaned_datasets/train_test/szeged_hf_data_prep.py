@@ -9,10 +9,10 @@ from pathlib import Path
 
 # TSV File Paths
 BIO_DATA = Path(
-    'nlp/hedge_classifier/data/szeged_uncertainty_corpus/cleaned_datasets/train_test/bio/tsv'
+    "nlp/hedge_classifier/data/szeged_uncertainty_corpus/cleaned_datasets/train_test/bio/tsv"
 )
 WIKI_DATA = Path(
-    'nlp/hedge_classifier/data/szeged_uncertainty_corpus/cleaned_datasets/train_test/wiki/tsv'
+    "nlp/hedge_classifier/data/szeged_uncertainty_corpus/cleaned_datasets/train_test/wiki/tsv"
 )
 
 
@@ -29,9 +29,9 @@ for fp in bio_data_fps:
         sep="\t",
         header=None,
     )
-    data.columns = ['text', 'label']
+    data.columns = ["text", "label"]
     print(data.info())
-    print(data.groupby(['label']).count())
+    print(data.groupby(["label"]).count())
     data.to_csv(BIO_DATA / "csv" / f"{name}.csv", index=False)
 
 
@@ -43,7 +43,7 @@ for fp in wiki_data_fps:
         sep="\t",
         header=None,
     )
-    data.columns = ['text', 'label']
+    data.columns = ["text", "label"]
     print(data.info())
-    print(data.groupby(['label']).count())
+    print(data.groupby(["label"]).count())
     data.to_csv(WIKI_DATA / "csv" / f"{name}.csv", index=False)

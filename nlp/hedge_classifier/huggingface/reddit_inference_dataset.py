@@ -7,12 +7,12 @@ import pandas as pd
 from torch.utils.data import Dataset
 from typing import Union, Optional
 from pathlib import Path
+
 # from es.manager import ESManager
 
 
 # Change underlying to Polars for efficiency
 class RedditInferenceDataset(Dataset):
-
     def __init__(
         self,
         data_dir: Union[str, Path],

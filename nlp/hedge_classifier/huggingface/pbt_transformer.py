@@ -8,22 +8,13 @@ Reference:
 4) https://ruanchaves.medium.com/integrating-ray-tune-hugging-face-transformers-and-w-b-172c07ce2854
 """
 
-# TODO:
-# 1. Train on
-#   A. BERTweet + WikiWeasel
-#   B. BERTweet + (WikiWeasel & Bioscope)
-#   C. RoBERTa + WikiWeasel
-#   D. RoBERTa + (WikiWeasel & Bioscope)
-
-
 import json
 import os
-from typing import Dict, Optional, List
+import torch
+import ray
+from typing import Dict, List, Optional
 from pathlib import Path
 from datetime import datetime
-import torch
-import wandb
-import ray
 from ray import tune
 from ray.tune import CLIReporter
 from ray.tune.examples.pbt_transformers.utils import build_compute_metrics_fn
@@ -40,6 +31,8 @@ from nlp.hedge_classifier.utils import (
     get_data_files,
 )
 from utils.logger import log
+
+# import wandb
 # from ray.tune.logger import DEFAULT_LOGGERS
 # from ray.tune.integration.wandb import (
 #     WandbLoggerCallback,
@@ -73,13 +66,11 @@ def train_pbt_hf_clf(
     text_col: str = "text",
     train_data_file_type: str = "csv",
     sample_data_size: Optional[int] = None,
-    wandb_args: Dict[str, str] = WANDB_DEFAULT_ARGS,
     num_cpus_per_trial: Optional[int] = 4,
     num_gpus_per_trial: Optional[int] = 1,  # Set to num GPUs available
     ray_address: Optional[str] = None,
     ray_num_trials: int = 8,  # Number of times to rand sample a point
     smoke_test: bool = False,
-    additional_wandb_tags: List[str] = ['WikiWeasel']
 ) -> None:
 
     # Ray Tune set up
@@ -107,11 +98,7 @@ def train_pbt_hf_clf(
     # )
 
     # Check for GPUs
-    device = (
-        torch.device("cuda")
-        if torch.cuda.is_available()
-        else torch.device("cpu")
-    )
+    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
     log.info("Preparing Datasets")
 
@@ -125,21 +112,17 @@ def train_pbt_hf_clf(
     def tokenizer_function(texts):
         return tokenizer(texts[text_col], padding="max_length", truncation=True)
 
-    log.info("Tokenizing Datasets")
     # Tokenize Datasets
+    log.info("Tokenizing Datasets")
     tokenized_datasets = datasets.map(tokenizer_function, batched=True)
 
     # Final + Sampled Datasets
     if sample_data_size:
         sample_train_ds = (
-            tokenized_datasets["train"]
-            .shuffle(seed=42)
-            .select(range(sample_data_size))
+            tokenized_datasets["train"].shuffle(seed=42).select(range(sample_data_size))
         )
         sample_test_ds = (
-            tokenized_datasets["test"]
-            .shuffle(seed=42)
-            .select(range(sample_data_size))
+            tokenized_datasets["test"].shuffle(seed=42).select(range(sample_data_size))
         )
     train_ds = tokenized_datasets["train"]
     test_ds = tokenized_datasets["test"]
@@ -147,8 +130,8 @@ def train_pbt_hf_clf(
     # Data Collator with Padding (Dynamic Padding)
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
-    log.info(f"Loading {model_name} from cache or Hugging Face hub")
     # Download Pretrained Model
+    log.info(f"Loading {model_name} from cache or Hugging Face hub")
     AutoModelForSequenceClassification.from_pretrained(
         model_name, num_labels=num_labels
     )
@@ -175,7 +158,7 @@ def train_pbt_hf_clf(
         learning_rate=2e-5,
         weight_decay=0.01,
         logging_steps=100,
-        logging_dir="./nlp/hedge_classifier/logs",
+        logging_dir="nlp/hedge_classifier/huggingface/logs",
     )
 
     # Trainer
@@ -193,10 +176,10 @@ def train_pbt_hf_clf(
     # PBT Hyperparam Search with RayTune
     def hp_space_fn(*args, **kwargs):
         config = {
-            "per_device_train_batch_size": 32,
-            "per_device_eval_batch_size": 32,
+            "per_device_train_batch_size": 16,
+            "per_device_eval_batch_size": 16,
             "warmup_steps": tune.choice([50, 100, 500]),
-            "num_train_epochs": tune.choice([2, 3, 4, 5]),
+            "num_train_epochs": tune.choice([2, 3, 5]),
             "weight_decay": tune.uniform(0.0, 0.3),
             "learning_rate": tune.choice([1e-5, 2e-5, 5e-5]),
             "max_steps": 1 if smoke_test else -1,
@@ -235,7 +218,7 @@ def train_pbt_hf_clf(
         resources_per_trial={
             "cpu": num_cpus_per_trial,
             "gpu": num_gpus_per_trial,
-            },
+        },
         scheduler=scheduler,
         keep_checkpoints_num=1,
         checkpoint_score_attr="training_iteration",
@@ -250,12 +233,13 @@ def train_pbt_hf_clf(
     log.info("Population Based Training completed!")
     best_params = json.dumps(best_trial.hyperparameters, indent=4)
     log.info(f"Best Hyperparams: {best_params}")
+
     log.info(f"Serializing Best Params to Current Directory: {os.getcwd()}")
     with open(
-        f"./nlp/hedge_classifier/hyper_tuning/pbt_best_params/best_params_{datetime.now().strftime(DATE_FMT)}.json",
+        f"nlp/hedge_classifier/models/best_params_{datetime.now().strftime(DATE_FMT)}.json",
         "w",
     ) as fp:
         json.dump(best_params, fp, indent=4)
 
     # End WandB Session
-    wandb.finish()
+    # wandb.finish()
