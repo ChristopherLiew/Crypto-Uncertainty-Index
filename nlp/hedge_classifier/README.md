@@ -1,4 +1,4 @@
-## Linguistic Uncertainty Classifier (Hedge Classifier)
+## [TO BE UPDATED] Linguistic Uncertainty Classifier (Hedge Classifier)
 Here we seek to train and validate our hedge classifier using ML / DL / Transformer based models as a novel approach to constructing a cryptocurrency uncertainty index.
 
 ## Overview

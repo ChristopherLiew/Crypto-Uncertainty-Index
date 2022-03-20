@@ -13,14 +13,14 @@ from transformers import (
 from utils.logger import log
 
 
-def run_app(
+def run(
     hf_model_name: str = "vinai/bertweet-base",
     model_save_dir: Optional[str] = None,
     theme: str = "dark-peach",
 ) -> None:
 
-    log.info("Loading Hugging Face Model & Tokenizer ...")
     # Pipeline for Inference
+    log.info("Loading Hugging Face Model & Tokenizer ...")
     tokenizer = AutoTokenizer.from_pretrained(hf_model_name, normalization=True)
     model = AutoModelForSequenceClassification.from_pretrained(
         hf_model_name if model_save_dir is None else model_save_dir
@@ -54,11 +54,11 @@ def run_app(
     # Interface
     iface = gr.Interface(
         fn=predict,
-        title="Detect Hedges with BERTweet 🤗",
+        title="Hedge Detection with BERTweet 🤗",
         inputs=gr.inputs.Textbox(
             lines=30,
-            label="Detect Hedges",
-            placeholder="Enter a possibly hedged sentence here",
+            label="Give me some text",
+            placeholder="I am possibly a hedged sentence ...",
         ),
         outputs=[
             # gr.outputs.Textbox(label="Is it Hedged?"),
@@ -66,11 +66,12 @@ def run_app(
             gr.outputs.HTML(label="SHAPley Explained"),
         ],
         examples=[
-            ["Some others say BTC will reach 100k in by May 🚀🚀🚀"],
-            ["🐋 say that ETH will definitely reach 100K very soon 🚀"],
+            ["BTC will probably hit 100k in by May 🚀🚀🚀"],
+            ["🐋  may be dumping coins before the fork"],
         ],
         theme=theme,
     )
 
     print("Launching Gradio app ...")
-    app, local_url, share_url = iface.launch(inbrowser=True, share=False, debug=False)
+    app, local_url, share_url = iface\
+        .launch(inbrowser=True, share=False, debug=False)

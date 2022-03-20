@@ -36,7 +36,7 @@ def run_hedge_clf_demo(
     ),
     theme: str = typer.Option("dark-peach", help="Gradio theme to use."),
 ):
-    gradio_app.run_app(
+    gradio_app.run(
         hf_model_name=hf_model_name, model_save_dir=model_save_dir, theme=theme
     )
 
