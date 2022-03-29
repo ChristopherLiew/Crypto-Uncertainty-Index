@@ -1,5 +1,6 @@
 """
-Hugging Face Finetuning Script with Weights and Bias Monitoring.
+Hugging Face Population Based Training Script for Hedge Classifier
+with Weights and Bias Monitoring.
 
 Reference:
 1) https://docs.ray.io/en/latest/tune/examples/pbt_transformers.html
@@ -12,11 +13,13 @@ import json
 import os
 import torch
 import ray
-from typing import Dict, List, Optional
+from typing import Optional
 from pathlib import Path
 from datetime import datetime
 from ray import tune
 from ray.tune import CLIReporter
+
+# Will be depracated soon use torchmetrics or datasets
 from ray.tune.examples.pbt_transformers.utils import build_compute_metrics_fn
 from ray.tune.schedulers import PopulationBasedTraining
 from datasets import load_dataset

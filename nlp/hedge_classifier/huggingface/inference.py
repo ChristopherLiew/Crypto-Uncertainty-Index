@@ -1,70 +1,86 @@
 """
-Inference Pipeline for Hugging Face Hedge Classifier.
-
-Ref for Batch Streaming:
-https://huggingface.co/docs/transformers/v4.17.0/en/main_classes/pipelines#transformers.TextClassificationPipeline
+Reddit Inference (Torch) Dataset for Downstream Use.
 """
-# TODO:
-# Port over to Inference Pipeline after Sanity Check
-
-import csv
-from typing import Dict, Union
+from __future__ import annotations
+import polars as pl
 from tqdm import tqdm
-from pathlib import Path
-from transformers import (
-    AutoTokenizer,
-    AutoModelForSequenceClassification,
-)
-from transformers.pipelines import pipeline
+from time import strptime
+from datetime import datetime
 from torch.utils.data import Dataset
-from torch.utils.data.dataloader import DataLoader
-from nlp.hedge_classifier.huggingface.reddit_inference_dataset import (
-    RedditInferenceDataset,
-)
-
-# Config (Move to TOML)
-MODEL_CHECKPOINT = "nlp/hedge_classifier/models/best_model"
-MODEL_NAME = "vinai/bertweet-base"
-RESULT_SAVE_DIR = "nlp/hedge_classifier/data/hedge_inference_results"
+from typing import Union, Optional
+from pathlib import Path
 
 
-# Load Pretrained Models + Tokenizers
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, normalization=True)
-model = AutoModelForSequenceClassification.from_pretrained(MODEL_CHECKPOINT)
-pipe = pipeline(task="text-classification", model=model, tokenizer=tokenizer)
+class RedditInferenceDataset(Dataset):
+    """
+    Dataset for Inference on Reddit Data extracted from PushShift.io
+    """
 
-tokenizer_kwargs = {
-    "padding": True,
-    "truncation": True,
-}
+    def __init__(
+        self,
+        data_source: Union[str, Path, pl.DataFrame],
+        nrows: Optional[float] = None,
+        text_col: Optional[str] = "full_text",
+    ) -> None:
+        """
+        Constructor for the Inference Dataset
 
+        Args:
+            data_source (Union[str, Path, pl.DataFrame]): Either a Polars
+            DataFrame or Path to a Directory of CSVs to load data from.
+            nrows (Optional[float], optional): Number of rows to load, if None
+            loads all. Defaults to None.
+            text_col (Optional[str], optional): Text column name to use for
+            downstream processing.
 
-# Inference (DEBUG Value Errror text input must of type str)
-def run_inference(
-    pipeline: pipeline,
-    inf_dataset: Union[Dataset, DataLoader],
-    tokenizer_kwargs: Dict[str, bool] = tokenizer_kwargs,
-    res_save_dir: Union[str, Path] = RESULT_SAVE_DIR,
-) -> None:
-    null_count = 0
-    if isinstance(inf_dataset, Dataset):
-        inf_dataset = DataLoader(inf_dataset)
-    with open(Path(res_save_dir) / "results.csv", "w", newline="") as csvf:
-        fieldnames = ["text", "label", "score"]
-        writer = csv.DictWriter(csvf, fieldnames=fieldnames)
-        writer.writeheader()
-        for doc in tqdm(inf_dataset):
-            try:
-                out = pipeline(doc, **tokenizer_kwargs)[0]
-                label, score = (out.get("label", "None"), out.get("score", "None"))
-                label = 1 if label == "LABEL_1" else 0
-                writer.writerow({"text": doc[0], "label": label, "score": score})
-            except ValueError:
-                writer.writerow({"text": doc[0], "label": -1, "score": -1.0})
-                null_count += 1
-    print(f"Number of Invalid Docs: {null_count}")
+        Raises:
+            ValueError: If invalid data_source.
+        """
 
+        self.text_col = text_col
 
-# Test
-data = RedditInferenceDataset(data_dir=Path("nlp/topic_models/data/processed_reddit"))
-results = run_inference(pipeline=pipe, inf_dataset=data)
+        if isinstance(data_source, pl.DataFrame):
+            self.data = data_source
+
+        elif isinstance(data_source, str) or isinstance(data_source, Path):
+            data_fps = list(Path(data_source).rglob("*.csv"))
+            self.data = pl.concat(
+                [pl.read_csv(fp, nrows=nrows) for fp in tqdm(data_fps)],
+                how="vertical",
+            ).drop_nulls()
+        else:
+            raise ValueError("Please provide a valid value for data!")
+
+    def date_subset(
+        self,
+        start_date: Union[str, datetime],
+        end_date: Union[str, datetime],
+        date_col: str = "created",
+    ) -> RedditInferenceDataset:
+        """
+        Returns a new dataframe with a subset of the original data based on a
+        given date range.
+
+        Args:
+            start_date (Union[str, datetime]): Start date.
+            end_date (Union[str, datetime]): End date.
+            date_col (str, optional): Name of Data Column. Defaults to
+            'created'.
+
+        Returns:
+            RedditInferenceDataset: Subsetted Polars DataFrame based
+            on Date range.
+        """
+
+        subset_data = self.data.filter(
+            pl.col(date_col)
+            .is_between(start=start_date, end=end_date)
+        )
+        return self.__class__(subset_data, text_col=self.text_col)
+
+    def __len__(self) -> int:
+        return self.data.shape[0]
+
+    def __getitem__(self, index) -> str:
+        data = self.data[index]
+        return data[self.text_col][0]

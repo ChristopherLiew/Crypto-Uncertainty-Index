@@ -16,11 +16,13 @@ from etl.schema.es_mappings import (
     REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
     reddit_crypto_custom_mapping,
 )
+from pipelines.crypto_index.hedge_clf_based.ucry_hedge_index import construct_hedge_index
 from pipelines.data_engineering.yfinance_data import elt_yfinance_data
 from pipelines.data_engineering.crypto_subreddit_data import elt_crypto_subreddit_data
 from pipelines.crypto_index.ucry_indices import construct_ucry_index
 from etl.load.ucry_load import insert_ucry_to_es
 from postgres.utils import pd_to_pg
+from utils.logger import log
 
 # App
 app = typer.Typer()
@@ -194,9 +196,58 @@ def construct_lucey_index(
     )
 
     # Insert to ES index
+    log.info("Inserting index data to Elasticsearch @ Default Index")
     insert_ucry_to_es(index_df)
+
     # Insert to PG table
+    table_name = "ucry_index"
+    log.info(f"Inserting data to Postgres @ table={table_name}")
     pd_to_pg(index_df, table_name="ucry_index")
+
+
+@app.command(
+    name="build-hedge-index",
+    help="Construct hedge based crypto uncertainty index using HF transformer.",
+)
+def construct_hf_hedge_index(
+    data_source: str = typer.Option(
+        "nlp/topic_models/data/processed_reddit",
+        help="Source data to perform hedge classification on."
+    ),
+    start_date: datetime = typer.Option(START_DATE, help="Start date"),
+    end_date: datetime = typer.Option(END_DATE, help="End date"),
+    granularity: str = typer.Option(
+        "week", help="Supports day, week, month, year etc."
+    ),
+    hf_model_name: str = typer.Option(
+        "vinai/bertweet-base",
+        help="Valid Hugging Face Hub model name."),
+    hf_model_ckpt: str = typer.Option(
+        "nlp/hedge_classifier/models/best_model",
+        help="Path to tuned Hugging Face model config and weights",
+    ),
+    name: str = typer.Option("bertweet-hedge", help="Index name."),
+) -> None:
+
+    index_df = construct_hedge_index(
+        data_source=data_source,
+        start_date=start_date,
+        end_date=end_date,
+        hf_model_name=hf_model_name,
+        hf_model_ckpt=hf_model_ckpt,
+        name=name,
+        granularity=granularity
+    )
+
+    # Save to CSV
+    log.info("Saving results as csv to cur dir.")
+    index_df.to_csv("ucry_hedge_index.csv", index=False)
+    # index_df.to_csv("pipelines/crypto_index/data/ucry_hedge_index_2.csv", index=False)
+
+    # Insert to PG table
+    table_name = "ucry_index"
+    log.info(f"Inserting data to Postgres @ table={table_name}")
+    pd_to_pg(index_df, table_name=table_name)
 
 
 if __name__ == "__main__":

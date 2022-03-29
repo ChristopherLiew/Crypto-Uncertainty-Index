@@ -26,7 +26,6 @@ class UcryIndexTable(Base):
 
     __tablename__ = "ucry_index"
 
-    name = Column(VARCHAR, primary_key=True)
     type = Column(DATE, primary_key=True)
     start_date = Column(DATE, primary_key=True)
     end_date = Column(DATE)

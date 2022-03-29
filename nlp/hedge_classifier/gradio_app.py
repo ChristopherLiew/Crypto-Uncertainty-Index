@@ -73,5 +73,4 @@ def run(
     )
 
     print("Launching Gradio app ...")
-    app, local_url, share_url = iface\
-        .launch(inbrowser=True, share=False, debug=False)
+    app, local_url, share_url = iface.launch(inbrowser=True, share=False, debug=False)
