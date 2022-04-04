@@ -6,42 +6,11 @@
 Constructing a cryptocurrency index based on news-media texts using NLP to measure cryptocurrency uncertainty for downstream time series analysis
 and forecasting of cryptocurrency volatility.
 
-## Uncertainty Index Construction Approaches
+## Index Construction Approaches
 1. Baseline Keyword Based Index ```(Lucey et al. 2021)```
-1. Naive Keyword Based Index with Expanded Crypto Lexicon
-2. Measuring Uncertainty using Linguistic Hedges & Language Models
+2. Expanded Keyword Based Index with Latent Dirichlet Allocation recovered Topics
+3. Hedge Based Uncertainty Index with BERTweet & Wiki Weasel 2.0
 
-## Set-Up
-Some simple steps to setting up the repository for ETL, Modelling, etc.
-
-### Dependencies & Venv
-```zsh
-brew install make  # OSX
-make install  # Runs Brew and Poetry Installs
-```
-
-### Services
-* ```Elasticsearch``` & ```Kibana``` - For easy text analysis and lookup of data
-* ```Postgres``` - Storing of all other relational data (E.g. cryptocurrency indicies, macroeconomic indicators, etc.)
-
-**Build Services**
-```zsh
-make build  # Build from docker-compose.yml
-```
-**Start Services**
-```zsh
-make run  # After starting up docker daemon
-```
-**Check Services' Health**
-```zsh
-make ps
-make es-cluster-health # Check cluster health
-# ADD IN POSTGRES HEALTH CHECK
-```
-**Stop Services**
-```zsh
-make stop  # Stops docker containers
-```
 
 ## Pipelines: Data Extraction, NLP Modelling & Indices Construction
 ### Data Extraction
@@ -74,7 +43,7 @@ ucry-cli es-reindex <SOURCE-INDEX> <DEST-INDEX> <DEST-MAPPING>
   ```zsh
   ucry-cli nlp-toolkit train-t2v <DATA> <MIN-COUNT> <SPEED> <NUM-WORKERS> <EMBEDDING-MODEL> <HDB-MIN-CLUSTER-SIZE> <MODEL-SAVE-DIR> ...
   ```
-3. **Population Based Training finetuned BERTweet Classifier**
+3. **Finetune BERTweet Hedge Detector with Pop Based Training**
 * Finetunes a ```Hugging Face``` model (```VinAI's BERTweet``` but can be changed) using SOTA Population Based Training with ```Ray Tune``` and logs models trained and hyperparam sweep with ```Weights & Biases```.
 * Using the CLI interface:
   ```zsh
@@ -89,12 +58,29 @@ ucry-cli es-reindex <SOURCE-INDEX> <DEST-INDEX> <DEST-MAPPING>
   ucry-cli build-ucry-lucey --start-date 2014-01-01 --end-date 2021-12-31 --granularity weekly --type price
   ```
 
-## Appendix:
-### Using In-Project poetry venv over cache
+## Set-Up
+Some simple steps to setting up the repository for ETL, Modelling, etc.
+
+### Dependencies & Venv
 ```zsh
-poetry env remove python3.8  # Remove Cache
-poetry config virtualenvs.in-project true  # Create in-project venv
-poetry env use .venv # Set venv Path
-poetry update
-poetry install  # Install deps
+brew install make  # OSX
+make install  # Runs Brew and Poetry Installs
+```
+
+### Services
+* ```Elasticsearch``` & ```Kibana``` - For easy text analysis and lookup of data
+* ```Postgres``` - Storing of all other relational data (E.g. cryptocurrency indicies, macroeconomic indicators, etc.)
+
+**Make Commands**
+```zsh
+### Start Up Services ###
+make build
+make run
+
+### Health Check ###
+make ps
+make es-cluster-health
+
+### Shutdown ###
+make stop  # Stops docker containers
 ```
