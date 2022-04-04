@@ -49,7 +49,7 @@ All Data extraction, NLP modelling & inferences as well as Index construction pi
                                     will pick up where it left off if
                                     interrupted  [default: no-safe-exit]
   ```
-1. **Yahoo! Finance data extraction**
+2. **Yahoo! Finance data extraction**
 * Extracts all Yahoo! Finance Market Data for a given list of ```tickers``` over a period specified by ```start_date``` and ```end_date```.
 * Data is inserted into a specified ```target-table``` in a postgres database.
   ```zsh
