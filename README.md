@@ -3,8 +3,8 @@
 ![](https://img.shields.io/badge/python-3.8.12-blue) ![](https://img.shields.io/badge/code--style-black-lightgrey) ![](https://img.shields.io/github/commit-activity/m/ChristopherLiew/Crypto-Uncertainty-Index?color=green) ![](https://img.shields.io/github/issues/ChristopherLiew/Crypto-Uncertainty-Index?color=red&style=plastic)
 
 ## Overview
-Constructing a cryptocurrency index based on news-media texts using NLP to measure cryptocurrency uncertainty for downstream time series analysis
-and forecasting of cryptocurrency volatility.
+Constructing a cryptocurrency index based on Reddit texts using NLP to measure uncertainty for downstream time series analysis
+and predictive forecasting.
 
 ## Index Construction Approaches
 1. Baseline Keyword Based Index ```(Lucey et al. 2021)```
