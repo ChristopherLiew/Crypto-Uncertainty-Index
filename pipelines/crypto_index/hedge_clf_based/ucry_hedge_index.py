@@ -33,23 +33,22 @@ def construct_hedge_index(
     end_date: Union[str, datetime],
     hf_model_name: str,
     hf_model_ckpt: Optional[str] = None,
-    name: str = 'hedge',
-    granularity: str = 'week'
+    name: str = "hedge",
+    granularity: str = "week",
 ) -> pd.DataFrame:
     # Load All Data
     log.info(f"Constructing Dataset from: {data_source}")
-    red_df = RedditInferenceDataset(
-        data_source=data_source
-    )
+    red_df = RedditInferenceDataset(data_source=data_source)
     # Set up HF pipeline
-    log.info(f"Setting up Hugging Face Pipeline using: {hf_model_ckpt if hf_model_ckpt else hf_model_name}")
+    log.info(
+        f"Setting up Hugging Face Pipeline using: {hf_model_ckpt if hf_model_ckpt else hf_model_name}"
+    )
     tokenizer = AutoTokenizer.from_pretrained(
-            hf_model_name,
-            normalization=True,
-        )
-    model = (
-        AutoModelForSequenceClassification
-        .from_pretrained(hf_model_ckpt if hf_model_ckpt else hf_model_name)
+        hf_model_name,
+        normalization=True,
+    )
+    model = AutoModelForSequenceClassification.from_pretrained(
+        hf_model_ckpt if hf_model_ckpt else hf_model_name
     )
     pipe = pipeline(
         task="text-classification",
@@ -62,9 +61,7 @@ def construct_hedge_index(
         end_date = datetime.strptime(end_date, DATE_FMT)
 
     date_chunks = gen_date_chunks(
-        start_date=start_date,
-        end_date=end_date,
-        granularity=granularity
+        start_date=start_date, end_date=end_date, granularity=granularity
     )
     # Store All weekly counts
     ucry_hedge_raw = []
@@ -75,27 +72,29 @@ def construct_hedge_index(
     for start, end in tqdm(date_chunks):
         start_, end_ = (
             datetime.strftime(start, DATE_FMT),
-            datetime.strftime(end, DATE_FMT)
+            datetime.strftime(end, DATE_FMT),
         )
         weekly_data = red_df.date_subset(start_, end_)
         # Perform inference using HF pipeline
         hedge_pipe = pipe(weekly_data, **TOKENIZER_KWARGS)
         res = [
-            1 if res.get('label', None) == 'LABEL_1'
-            else 0 for res in tqdm(iter(hedge_pipe), leave=True)
+            1 if res.get("label", None) == "LABEL_1" else 0
+            for res in tqdm(iter(hedge_pipe), leave=True)
         ]
         # Store results for this week
-        ucry_hedge_raw.append({
-            'type': name,
-            'start_date': start_,
-            'end_date': end_,
-            'doc_count': np.sum(res)
-        })
+        ucry_hedge_raw.append(
+            {
+                "type": name,
+                "start_date": start_,
+                "end_date": end_,
+                "doc_count": np.sum(res),
+            }
+        )
     log.info("Computing Index Values ..")
     ucry_hedge_df = pd.DataFrame(ucry_hedge_raw)
-    mu_1 = ucry_hedge_df['doc_count'].mean()
-    sig_1 = ucry_hedge_df['doc_count'].std()
-    ucry_hedge_df['index_value'] = ((ucry_hedge_df["doc_count"] - mu_1) / sig_1) + 100
+    mu_1 = ucry_hedge_df["doc_count"].mean()
+    sig_1 = ucry_hedge_df["doc_count"].std()
+    ucry_hedge_df["index_value"] = ((ucry_hedge_df["doc_count"] - mu_1) / sig_1) + 100
     return ucry_hedge_df
 
 

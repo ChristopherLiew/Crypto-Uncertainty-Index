@@ -16,7 +16,9 @@ from etl.schema.es_mappings import (
     REDDIT_CRYPTO_CUSTOM_INDEX_NAME,
     reddit_crypto_custom_mapping,
 )
-from pipelines.crypto_index.hedge_clf_based.ucry_hedge_index import construct_hedge_index
+from pipelines.crypto_index.hedge_clf_based.ucry_hedge_index import (
+    construct_hedge_index,
+)
 from pipelines.data_engineering.yfinance_data import elt_yfinance_data
 from pipelines.data_engineering.crypto_subreddit_data import elt_crypto_subreddit_data
 from pipelines.crypto_index.ucry_indices import construct_ucry_index
@@ -212,7 +214,7 @@ def construct_lucey_index(
 def construct_hf_hedge_index(
     data_source: str = typer.Option(
         "nlp/topic_models/data/processed_reddit",
-        help="Source data to perform hedge classification on."
+        help="Source data to perform hedge classification on.",
     ),
     start_date: datetime = typer.Option(START_DATE, help="Start date"),
     end_date: datetime = typer.Option(END_DATE, help="End date"),
@@ -220,8 +222,8 @@ def construct_hf_hedge_index(
         "week", help="Supports day, week, month, year etc."
     ),
     hf_model_name: str = typer.Option(
-        "vinai/bertweet-base",
-        help="Valid Hugging Face Hub model name."),
+        "vinai/bertweet-base", help="Valid Hugging Face Hub model name."
+    ),
     hf_model_ckpt: str = typer.Option(
         "nlp/hedge_classifier/models/best_model",
         help="Path to tuned Hugging Face model config and weights",
@@ -236,7 +238,7 @@ def construct_hf_hedge_index(
         hf_model_name=hf_model_name,
         hf_model_ckpt=hf_model_ckpt,
         name=name,
-        granularity=granularity
+        granularity=granularity,
     )
 
     # Save to CSV

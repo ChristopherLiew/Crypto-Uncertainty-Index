@@ -58,10 +58,7 @@ def run_inference(
         model_name,
         normalization=True,
     )
-    model = (
-        AutoModelForSequenceClassification
-        .from_pretrained(model_ckpt_dir)
-    )
+    model = AutoModelForSequenceClassification.from_pretrained(model_ckpt_dir)
     pipe = pipeline(
         task="text-classification",
         model=model,

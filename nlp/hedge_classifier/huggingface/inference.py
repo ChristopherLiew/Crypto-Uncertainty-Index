@@ -73,8 +73,7 @@ class RedditInferenceDataset(Dataset):
         """
 
         subset_data = self.data.filter(
-            pl.col(date_col)
-            .is_between(start=start_date, end=end_date)
+            pl.col(date_col).is_between(start=start_date, end=end_date)
         )
         return self.__class__(subset_data, text_col=self.text_col)
 
