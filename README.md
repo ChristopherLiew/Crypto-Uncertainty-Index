@@ -11,7 +11,7 @@ The diagram details a simplified and abstracted overview of some of the ETL proc
 
 ![](images/CryptoUncertaintySystem.drawio.svg)
 
-## Hedge Classifier on Hugging Face Hub
+### Hedge Classifier on Hugging Face Hub
 Trained Hedge Detection BERTweet model weights can be found on [Hugging Face Hub](https://huggingface.co/ChrisLiewJY/BERTweet-Hedge) with a live Hosted Inference API to play around with :)
 
 ## Index Construction Approaches
