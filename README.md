@@ -6,6 +6,9 @@
 Constructing cryptocurrency indices based on Reddit texts with NLP to measure uncertainty for downstream time series analysis
 and predictive forecasting.
 
+## Hedge Classifier on Hugging Face Hub
+Trained Hedge Detection BERTweet model weights can be found on [Hugging Face Hub](https://huggingface.co/ChrisLiewJY/BERTweet-Hedge) with a live Hosted Inference API to play around with :)
+
 ## Index Construction Approaches
 1. Baseline Keyword Based Index ```(Lucey et al. 2021)```
 2. Expanded Keyword Based Index with Latent Dirichlet Allocation recovered Topics
