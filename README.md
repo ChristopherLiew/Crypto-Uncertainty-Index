@@ -2,9 +2,14 @@
 
 ![](https://img.shields.io/badge/python-3.8.12-blue) ![](https://img.shields.io/badge/code--style-black-lightgrey) ![](https://img.shields.io/github/commit-activity/m/ChristopherLiew/Crypto-Uncertainty-Index?color=green) ![](https://img.shields.io/github/issues/ChristopherLiew/Crypto-Uncertainty-Index?color=red&style=plastic)
 
-## Overview
+## Introduction
 Constructing cryptocurrency indices based on Reddit texts with NLP to measure uncertainty for downstream time series analysis
-and predictive forecasting.
+and predictive forecasting. The goal is to evaluate if the unforecastable component / stochastic process can be measured from textual data as a means of capturing crypto market sentiment and other latent stochastic processes to inform price returns or directional price returns forecasting of cryptocurrencies.
+
+### Architecture
+The diagram details a simplified and abstracted overview of some of the ETL processes and index construction flows.
+
+![](images/CryptoUncertaintySystem.drawio.svg)
 
 ## Hedge Classifier on Hugging Face Hub
 Trained Hedge Detection BERTweet model weights can be found on [Hugging Face Hub](https://huggingface.co/ChrisLiewJY/BERTweet-Hedge) with a live Hosted Inference API to play around with :)
