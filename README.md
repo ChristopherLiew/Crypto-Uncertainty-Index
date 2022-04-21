@@ -27,6 +27,7 @@ Some simple steps to setting up the repository for ETL, Modelling, etc.
 brew install make  # OSX
 make install  # Runs Brew and Poetry Installs
 make build # Builds Elasticsearch, Kibana & Postgres images from compose file
+poetry shell # Activate venv
 ```
 
 ## Data & NLP Pipelines Documentation
