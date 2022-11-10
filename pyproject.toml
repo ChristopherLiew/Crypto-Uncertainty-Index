@@ -64,6 +64,7 @@ torchmetrics = "^0.7.2"
 sqlfluff = "^0.11.0"
 arch = "^5.1.0"
 fastapi = "^0.75.2"
+pyspark = "^3.3.0" # Remove once done with scratchpad stuff
 
 [tool.poetry.scripts]
 ucry-cli = "cli:app"
